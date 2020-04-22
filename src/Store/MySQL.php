@@ -129,12 +129,15 @@ class MySQL implements Interfaces\Store
     /**
      * Reads data from the store
      *
-     * @return $this
+     * @param Interfaces\Analyser $analyser The analyser which was used
+     * @param string|int|array    $id       Filter by ID(s)
+     *
+     * @return Interfaces\Relation[]
      */
-    public function read(): Store
+    public function read(Interfaces\Analyser $analyser, $id): array
     {
         // TODO: Implement read() method.
-        return $this;
+        return [];
     }
 
     // --------------------------------------------------------------------------
@@ -142,11 +145,13 @@ class MySQL implements Interfaces\Store
     /**
      * Writes relations to the store
      *
-     * @param array $relations
+     * @param Interfaces\Analyser $analyser  The analyser which was used
+     * @param string|int          $id        The ID the relations belong to
+     * @param array               $relations Array of the relations
      *
      * @return $this
      */
-    public function write(array $relations): Store
+    public function write(Interfaces\Analyser $analyser, $id, array $relations): Interfaces\Store
     {
         // TODO: Implement write() method.
         //  @todo (Pablo - 2020-04-22) - https://gist.github.com/gskema/7a7c0eec2a7b97b4b03a
@@ -158,13 +163,27 @@ class MySQL implements Interfaces\Store
     /**
      * Deletes relations from the store
      *
-     * @param array $relations
+     * @param Interfaces\Analyser $analyser The analyser which was used
+     * @param string|int|null     $id       An ID to restrict the deletion to
      *
      * @return $this
      */
-    public function delete(array $relations): Store
+    public function delete(Interfaces\Analyser $analyser, $id): Interfaces\Store
     {
         // TODO: Implement delete() method.
         return $this;
+    }
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Queries the store to find related items
+     *
+     * @return array
+     */
+    public function query(): array
+    {
+        // TODO: Implement query() method.
+        return [];
     }
 }
