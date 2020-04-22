@@ -28,5 +28,8 @@
             "name": "Pablo de la Peña",
             "email": "pablo@hellopablo.co.uk"
         }
-    ]
+    ],
+    "scripts": {
+        "test": "./vendor/bin/phpunit"
+    }
 }
