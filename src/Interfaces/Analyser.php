@@ -2,6 +2,11 @@
 
 namespace HelloPablo\RelatedContentEngine\Interfaces;
 
+/**
+ * Interface Analyser
+ *
+ * @package HelloPablo\RelatedContentEngine\Interfaces
+ */
 interface Analyser
 {
     /**

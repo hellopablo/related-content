@@ -2,14 +2,19 @@
 
 namespace HelloPablo\RelatedContentEngine;
 
-use HelloPablo\RelatedContentEngine\Interfaces\Store;
+use HelloPablo\RelatedContentEngine\Interfaces;
 
+/**
+ * Class Engine
+ *
+ * @package HelloPablo\RelatedContentEngine
+ */
 class Engine
 {
     /**
      * The data store in use
      *
-     * @var Store
+     * @var Interfaces\Store
      */
     protected $store;
 
@@ -18,9 +23,9 @@ class Engine
     /**
      * Engine constructor.
      *
-     * @param Store $store The data store to use
+     * @param Interfaces\Store $store The data store to use
      */
-    public function __construct(Store $store)
+    public function __construct(Interfaces\Store $store)
     {
         $this->store = $store;
         $this->store->connect();

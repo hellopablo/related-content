@@ -2,6 +2,11 @@
 
 namespace HelloPablo\RelatedContentEngine\Interfaces;
 
+/**
+ * Interface Store
+ *
+ * @package HelloPablo\RelatedContentEngine\Interfaces
+ */
 interface Store
 {
     /**
@@ -10,6 +15,8 @@ interface Store
      * @param array $config Config array as required by the driver
      */
     public function __construct(array $config);
+
+    // --------------------------------------------------------------------------
 
     /**
      * Opens a connection to the store

@@ -2,19 +2,24 @@
 
 namespace HelloPablo\RelatedContentEngine;
 
-use HelloPablo\RelatedContentEngine\Interfaces\Store;
+use HelloPablo\RelatedContentEngine\Interfaces;
 
+/**
+ * Class Factory
+ *
+ * @package HelloPablo\RelatedContentEngine
+ */
 class Factory
 {
     /**
-     * Creates a new instance of the RelatedContentEngine
+     * Creates a new instance of the Engine
      *
-     * @param Store $store The data store to use
+     * @param Interfaces\Store $store The data store to use
      *
      * @return Engine
      */
     public static function build(
-        Store $store
+        Interfaces\Store $store
     ) {
         return new Engine($store);
     }

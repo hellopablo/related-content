@@ -2,10 +2,15 @@
 
 namespace HelloPablo\RelatedContentEngine\Store;
 
-use HelloPablo\RelatedContentEngine\Interfaces\Store;
+use HelloPablo\RelatedContentEngine\Interfaces;
 use PDO;
 
-class MySQL implements Store
+/**
+ * Class MySQL
+ *
+ * @package HelloPablo\RelatedContentEngine\Store
+ */
+class MySQL implements Interfaces\Store
 {
     /** @var string */
     protected $host;
@@ -62,7 +67,7 @@ class MySQL implements Store
      *
      * @return $this
      */
-    public function connect(): Store
+    public function connect(): Interfaces\Store
     {
         $dsn = sprintf(
             'mysql:host=%s;dbname=%s;charset=%s',
@@ -101,7 +106,7 @@ class MySQL implements Store
      *
      * @return $this
      */
-    public function disconnect(): Store
+    public function disconnect(): Interfaces\Store
     {
         $this->pdo = null;
         return $this;
