@@ -144,21 +144,71 @@ class Store implements Interfaces\Store
     /**
      * Queries the store to find related items
      *
-     * @param string                $sourceType The source's entity type
-     * @param string|int            $sourceId   The source's ID
-     * @param Interfaces\Analyser[] $restrict   An array of analysers to restrict the result set to
-     * @param int|null              $limit      The maximum number of results to return
+     * @param Interfaces\Relation[] $sourceRelations The source's relations
+     * @param string                $sourceType      The source's type
+     * @param string|int            $sourceId        The source's ID
+     * @param string[]              $restrict        An array of entity types to restrict to
+     * @param int|null              $limit           The maximum number of results to return
      *
      * @return Query\Hit[]
      */
     public function query(
+        array $sourceRelations,
         string $sourceType,
         $sourceId,
         array $restrict = [],
         int $limit = null
     ): array {
 
-        //  @todo (Pablo - 2020-04-22) - Implement this
-        return [];
+        if (empty($sourceRelations)) {
+            return [];
+        }
+
+        $hits = [];
+
+        foreach ($this->data as $datum) {
+
+            foreach ($sourceRelations as $sourceRelation) {
+
+                if (empty($restrict) || in_array($datum->entity, $restrict)) {
+
+                    if ($datum->type === $sourceRelation->getType() && $datum->value === $sourceRelation->getValue()) {
+
+                        if ($datum->entity === $sourceType && $datum->id === $sourceId) {
+                            continue;
+                        }
+
+                        $hits[] = $datum;
+                    }
+                }
+            }
+        }
+
+        $resultMap = [];
+        foreach ($hits as $hit) {
+            $key = $hit->entity . '::' . $hit->id;
+            if (!array_key_exists($key, $resultMap)) {
+                $resultMap[$key] = 0;
+            }
+            $resultMap[$key]++;
+        }
+
+        $results = [];
+        foreach ($hits as $hit) {
+
+            $key = $hit->entity . '::' . $hit->id;
+
+            if (array_key_exists($key, $results)) {
+                continue;
+            }
+
+            $results[$key] = new Query\Hit(
+                $hit->entity,
+                $hit->id,
+                $resultMap[$key]
+            );
+        }
+
+        return array_slice(array_values($results), 0, $limit);
     }
 }

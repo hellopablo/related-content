@@ -28,7 +28,7 @@ class DeleteTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::delete
      */
-    public function test_first_arg_is_required_field()
+    public function test_first_arg_is_required()
     {
         $this->expectException(\ArgumentCountError::class);
         static::$oEngine->index();
@@ -39,7 +39,7 @@ class DeleteTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::delete
      */
-    public function test_second_arg_is_required_field()
+    public function test_second_arg_is_required()
     {
         $this->expectException(\ArgumentCountError::class);
         static::$oEngine->index(new Mocks\Objects\DataTypeOne1());

@@ -180,14 +180,16 @@ class MySQL implements Interfaces\Store
     /**
      * Queries the store to find related items
      *
-     * @param string                $sourceType The source's entity type
-     * @param string|int            $sourceId   The source's ID
-     * @param Interfaces\Analyser[] $restrict   An array of analysers to restrict the result set to
-     * @param int|null              $limit      The maximum number of results to return
+     * @param Interfaces\Relation[] $sourceRelations The source's relations
+     * @param string                $sourceType      The source's type
+     * @param string|int            $sourceId        The source's ID
+     * @param string[]              $restrict        An array of entity types to restrict to
+     * @param int|null              $limit           The maximum number of results to return
      *
      * @return Query\Hit[]
      */
     public function query(
+        array $sourceRelations,
         string $sourceType,
         $sourceId,
         array $restrict = [],

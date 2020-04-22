@@ -111,20 +111,31 @@ class Engine
     /**
      * Returns matching items from the data store sorted by score
      *
-     * @param object              $source   The source object
-     * @param Interfaces\Analyser $analyser The source's analyser
-     * @param array               $restrict An array of analysers to limit the result set to
-     * @param int                 $limit    The maximum number of results to return
+     * @param object                $source   The source object
+     * @param Interfaces\Analyser   $analyser The source's analyser
+     * @param Interfaces\Analyser[] $restrict An array of analysers to limit the result set to
+     * @param int                   $limit    The maximum number of results to return
      *
      * @return Query\Hit[];
      */
-    public function query(object $source, Interfaces\Analyser $analyser, array $restrict = [], int $limit = null): array
-    {
+    public function query(
+        object $source,
+        Interfaces\Analyser $analyser,
+        array $restrict = [],
+        int $limit = null
+    ): array {
+
         return $this->store
             ->query(
+                $analyser->analyse($source),
                 get_class($analyser),
                 $analyser->getId($source),
-                $restrict,
+                array_map(
+                    function (Interfaces\Analyser $analyser) {
+                        return get_class($analyser);
+                    },
+                    $restrict
+                ),
                 $limit
             );
     }

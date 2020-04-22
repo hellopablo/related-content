@@ -10,5 +10,5 @@ namespace Tests\Mocks\Objects;
 class DataTypeThree1
 {
     public $id         = 1;
-    public $categories = [];
+    public $categories = [4];
 }
