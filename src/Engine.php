@@ -30,4 +30,16 @@ class Engine
         $this->store = $store;
         $this->store->connect();
     }
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Returns the instance of the store being used
+     *
+     * @return Interfaces\Store
+     */
+    public function getStore(): Interfaces\Store
+    {
+        return $this->store;
+    }
 }
