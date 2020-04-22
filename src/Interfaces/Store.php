@@ -57,29 +57,35 @@ interface Store
     /**
      * Reads data from the store
      *
-     * @return $this
+     * @param Analyser         $analyser The analyser which was used
+     * @param string|int|array $id       Filter by ID(s)
+     *
+     * @return Relation[]
      */
-    public function read(): self;
+    public function read(Analyser $analyser, $id): array;
 
     // --------------------------------------------------------------------------
 
     /**
      * Writes relations to the store
      *
-     * @param array $relations
+     * @param Analyser   $analyser  The analyser which was used
+     * @param string|int $id        The ID the relations belong to
+     * @param Relation[] $relations Array of the relations
      *
      * @return $this
      */
-    public function write(array $relations): self;
+    public function write(Analyser $analyser, $id, array $relations): self;
 
     // --------------------------------------------------------------------------
 
     /**
      * Deletes relations from the store
      *
-     * @param array $relations
+     * @param Analyser        $analyser The analyser which was used
+     * @param string|int|null $id       An ID to restrict the deletion to
      *
      * @return $this
      */
-    public function delete(array $relations): self;
+    public function delete(Analyser $analyser, $id): self;
 }
