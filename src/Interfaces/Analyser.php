@@ -17,4 +17,15 @@ interface Analyser
      * @return Relation[]
      */
     public function analyse(object $item): array;
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Returns the item's unique identifier
+     *
+     * @param object $item
+     *
+     * @return mixed
+     */
+    public function getId(object $item);
 }
