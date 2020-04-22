@@ -3,6 +3,7 @@
 namespace HelloPablo\RelatedContentEngine;
 
 use HelloPablo\RelatedContentEngine\Interfaces;
+use HelloPablo\RelatedContentEngine\Query;
 
 /**
  * Class Engine
@@ -89,7 +90,7 @@ class Engine
     // --------------------------------------------------------------------------
 
     /**
-     * Returns  all relationships for an item
+     * Returns all relationships for an item
      *
      * @param object              $item     The item being read
      * @param Interfaces\Analyser $analyser The analyser to use
@@ -102,6 +103,29 @@ class Engine
             ->read(
                 $analyser,
                 $analyser->getId($item)
+            );
+    }
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Returns matching items from the data store sorted by score
+     *
+     * @param object              $source   The source object
+     * @param Interfaces\Analyser $analyser The source's analyser
+     * @param array               $restrict An array of analysers to limit the result set to
+     * @param int                 $limit    The maximum number of results to return
+     *
+     * @return Query\Hit[];
+     */
+    public function query(object $source, Interfaces\Analyser $analyser, array $restrict = [], int $limit = null): array
+    {
+        return $this->store
+            ->query(
+                get_class($analyser),
+                $analyser->getId($source),
+                $restrict,
+                $limit
             );
     }
 }

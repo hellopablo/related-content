@@ -3,6 +3,7 @@
 namespace HelloPablo\RelatedContentEngine\Store;
 
 use HelloPablo\RelatedContentEngine\Interfaces;
+use HelloPablo\RelatedContentEngine\Query;
 use PDO;
 
 /**
@@ -179,11 +180,20 @@ class MySQL implements Interfaces\Store
     /**
      * Queries the store to find related items
      *
-     * @return array
+     * @param string                $sourceType The source's entity type
+     * @param string|int            $sourceId   The source's ID
+     * @param Interfaces\Analyser[] $restrict   An array of analysers to restrict the result set to
+     * @param int|null              $limit      The maximum number of results to return
+     *
+     * @return Query\Hit[]
      */
-    public function query(): array
-    {
-        // TODO: Implement query() method.
+    public function query(
+        string $sourceType,
+        $sourceId,
+        array $restrict = [],
+        int $limit = null
+    ): array {
+        //  @todo (Pablo - 2020-04-22) - Implement this
         return [];
     }
 }
