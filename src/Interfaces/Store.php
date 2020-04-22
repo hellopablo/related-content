@@ -88,4 +88,13 @@ interface Store
      * @return $this
      */
     public function delete(Analyser $analyser, $id): self;
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Queries the store to find related items
+     *
+     * @return array
+     */
+    public function query(): array;
 }
