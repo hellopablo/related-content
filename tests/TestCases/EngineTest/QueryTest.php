@@ -117,4 +117,26 @@ class QueryTest extends TestCase
                 'string'
             );
     }
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * @covers \HelloPablo\RelatedContentEngine\Engine::query
+     */
+    public function test_returns_related_items()
+    {
+        //  @todo (Pablo - 2020-04-22) - Complete this
+        $this->markTestIncomplete();
+    }
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * @covers \HelloPablo\RelatedContentEngine\Engine::query
+     */
+    public function test_returns_related_items_of_type()
+    {
+        //  @todo (Pablo - 2020-04-22) - Complete this
+        $this->markTestIncomplete();
+    }
 }
