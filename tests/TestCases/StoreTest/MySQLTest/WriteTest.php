@@ -2,7 +2,6 @@
 
 namespace Tests\TestCases\StoreTest\MySQLTest;
 
-use PHPUnit\Framework\TestCase;
 use Tests\Traits;
 
 /**
@@ -10,27 +9,7 @@ use Tests\Traits;
  *
  * @package Tests\TestCases\StoreTest\MySQLTest
  */
-class WriteTest extends TestCase
+class WriteTest extends \Tests\TestCases\StoreTest\EphemeralTest\WriteTest
 {
     use Traits\Stores\MySQL;
-
-    // --------------------------------------------------------------------------
-
-    /**
-     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::write
-     */
-    public function test_can_write_data()
-    {
-        $this->markTestIncomplete();
-    }
-
-    // --------------------------------------------------------------------------
-
-    /**
-     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::write
-     */
-    public function test_method_returns_instance_of_store()
-    {
-        $this->markTestIncomplete();
-    }
 }

@@ -2,7 +2,6 @@
 
 namespace Tests\TestCases\StoreTest\MySQLTest;
 
-use PHPUnit\Framework\TestCase;
 use Tests\Traits;
 
 /**
@@ -10,27 +9,7 @@ use Tests\Traits;
  *
  * @package Tests\TestCases\StoreTest\MySQLTest
  */
-class ReadTest extends TestCase
+class ReadTest extends \Tests\TestCases\StoreTest\EphemeralTest\ReadTest
 {
     use Traits\Stores\MySQL;
-
-    // --------------------------------------------------------------------------
-
-    /**
-     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::read
-     */
-    public function test_can_read_data()
-    {
-        $this->markTestIncomplete();
-    }
-
-    // --------------------------------------------------------------------------
-
-    /**
-     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::read
-     */
-    public function test_read_returns_data_for_requested_item_only()
-    {
-        $this->markTestIncomplete();
-    }
 }
