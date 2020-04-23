@@ -92,13 +92,8 @@ class MySQL implements Interfaces\Store
             $this->charset
         );
 
-        $options = [
-            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES   => false,
-        ];
+        $this->pdo = new PDO($dsn, $this->user, $this->pass, $this->pdo_options);
 
-        $this->pdo = new PDO($dsn, $this->user, $this->pass, $options);
 
         return $this;
     }
