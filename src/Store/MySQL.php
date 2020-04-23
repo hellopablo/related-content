@@ -107,7 +107,7 @@ class MySQL implements Interfaces\Store
      */
     public function isConnected(): bool
     {
-        return null === $this->getConnection();
+        return null !== $this->getConnection();
     }
 
     // --------------------------------------------------------------------------
