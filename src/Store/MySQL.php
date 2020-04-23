@@ -2,6 +2,7 @@
 
 namespace HelloPablo\RelatedContentEngine\Store;
 
+use Exception;
 use HelloPablo\RelatedContentEngine\Interfaces;
 use HelloPablo\RelatedContentEngine\Query;
 use HelloPablo\RelatedContentEngine\Relation;
@@ -62,6 +63,8 @@ class MySQL implements Interfaces\Store
      * MySQL constructor.
      *
      * @param array $config Config array as required by the driver
+     *
+     * @throws Exception
      */
     public function __construct(array $config = [])
     {
@@ -74,7 +77,9 @@ class MySQL implements Interfaces\Store
         $this->charset     = $config['charset'] ?? static::DEFAULT_CHARSET;
         $this->pdo_options = $config['pdo_options'] ?? static::DEFAULT_PDO_OPTIONS;
 
-        //  @todo (Pablo - 2020-04-22) - Validate PDO is enabled
+        if (!extension_loaded('pdo')) {
+            throw new Exception('PDO extension not installed');
+        }
     }
 
     // --------------------------------------------------------------------------
