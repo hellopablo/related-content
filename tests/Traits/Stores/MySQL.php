@@ -32,6 +32,25 @@ trait MySQL
         ]);
         $store->connect();
 
+        //  Seed one record if required
+        if (array_key_exists('seed', $config)) {
+
+            $statement = static::getDb()
+                ->prepare(
+                    sprintf(
+                        'INSERT INTO %s (hash, entity, type, value) VALUES (:hash, :entity, :type, :value)',
+                        Store\MySQL::DEFAULT_TABLE
+                    )
+                );
+            $statement
+                ->execute([
+                    'hash'   => 'test',
+                    'entity' => 'test',
+                    'type'   => 'test',
+                    'value'  => 'test',
+                ]);
+        }
+
         return $store;
     }
 
