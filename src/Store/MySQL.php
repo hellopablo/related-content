@@ -13,6 +13,21 @@ use PDO;
  */
 class MySQL implements Interfaces\Store
 {
+    const DEFAULT_HOST        = '127.0.0.1';
+    const DEFAULT_USER        = '';
+    const DEFAULT_PASS        = '';
+    const DEFAULT_DATABASE    = '';
+    const DEFAULT_TABLE       = 'related_content_data';
+    const DEFAULT_PORT        = '3306';
+    const DEFAULT_CHARSET     = 'utf8mb4';
+    const DEFAULT_PDO_OPTIONS = [
+        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES   => false,
+    ];
+
+    // --------------------------------------------------------------------------
+
     /** @var string */
     protected $host;
 
@@ -49,14 +64,14 @@ class MySQL implements Interfaces\Store
      */
     public function __construct(array $config = [])
     {
-        $this->host        = $config['host'] ?? '127.0.0.1';
-        $this->user        = $config['user'] ?? '';
-        $this->pass        = $config['pass'] ?? '';
-        $this->database    = $config['database'] ?? '';
-        $this->table       = $config['table'] ?? '';
-        $this->port        = $config['port'] ?? '3306';
-        $this->charset     = $config['charset'] ?? 'utf8mb4';
-        $this->pdo_options = $config['pdo_options'] ?? [];
+        $this->host        = $config['host'] ?? static::DEFAULT_HOST;
+        $this->user        = $config['user'] ?? static::DEFAULT_USER;
+        $this->pass        = $config['pass'] ?? static::DEFAULT_PASS;
+        $this->database    = $config['database'] ?? static::DEFAULT_DATABASE;
+        $this->table       = $config['table'] ?? static::DEFAULT_TABLE;
+        $this->port        = $config['port'] ?? static::DEFAULT_PORT;
+        $this->charset     = $config['charset'] ?? static::DEFAULT_CHARSET;
+        $this->pdo_options = $config['pdo_options'] ?? static::DEFAULT_PDO_OPTIONS;
 
         //  @todo (Pablo - 2020-04-22) - Validate PDO is enabled
     }
