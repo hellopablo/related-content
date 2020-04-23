@@ -3,7 +3,6 @@
 namespace Tests\TestCases\StoreTest\EphemeralTest;
 
 use Exception;
-use HelloPablo\RelatedContentEngine\Store;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -14,12 +13,11 @@ use PHPUnit\Framework\TestCase;
 class DeleteTest extends TestCase
 {
     /**
+     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::delete
      * @throws Exception
      */
     public function test_can_delete_data()
     {
         $this->markTestIncomplete();
-        $store = new Store\Ephemeral();
-        $store->connect();
     }
 }
