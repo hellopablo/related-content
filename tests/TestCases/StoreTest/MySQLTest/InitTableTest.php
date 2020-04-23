@@ -25,7 +25,7 @@ class InitTableTest extends TestCase
      */
     public function test_creates_table_on_connect()
     {
-        $pdo = $this->getDb();
+        $pdo = static::getDb();
 
         $pdo->query('DROP TABLE IF EXISTS `' . Store\MySQL::DEFAULT_TABLE . '`;');
 
