@@ -11,6 +11,11 @@ use Tests\Mocks;
  */
 trait Utilities
 {
+    /**
+     * Returns details about the test object: DataTypeOne1
+     *
+     * @return mixed[]
+     */
     function getDataTypeOne1(): array
     {
         $analyser  = new Mocks\Analysers\DataTypeOne();
@@ -23,6 +28,11 @@ trait Utilities
 
     // --------------------------------------------------------------------------
 
+    /**
+     * Returns details about the test object: DataTypeOne2
+     *
+     * @return mixed[]
+     */
     function getDataTypeOne2(): array
     {
         $analyser  = new Mocks\Analysers\DataTypeOne();
@@ -35,6 +45,11 @@ trait Utilities
 
     // --------------------------------------------------------------------------
 
+    /**
+     * Returns details about the test object: DataTypeTwo1
+     *
+     * @return mixed[]
+     */
     function getDataTypeTwo1(): array
     {
         $analyser  = new Mocks\Analysers\DataTypeTwo();
@@ -47,6 +62,11 @@ trait Utilities
 
     // --------------------------------------------------------------------------
 
+    /**
+     * Returns details about the test object: DataTypeTwo2
+     *
+     * @return mixed[]
+     */
     function getDataTypeTwo2(): array
     {
         $analyser  = new Mocks\Analysers\DataTypeTwo();
@@ -59,6 +79,11 @@ trait Utilities
 
     // --------------------------------------------------------------------------
 
+    /**
+     * Returns details about the test object: DataTypeThree1
+     *
+     * @return mixed[]
+     */
     function getDataTypeThree1(): array
     {
         $analyser  = new Mocks\Analysers\DataTypeThree();
