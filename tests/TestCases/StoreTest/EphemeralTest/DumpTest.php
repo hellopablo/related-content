@@ -19,6 +19,7 @@ class DumpTest extends TestCase
 
     /**
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::delete
+     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::delete
      * @throws Exception
      */
     public function test_can_dump_data()

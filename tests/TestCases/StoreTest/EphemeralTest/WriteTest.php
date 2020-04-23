@@ -22,6 +22,7 @@ class WriteTest extends TestCase
 
     /**
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::write
+     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::write
      * @throws Exception
      */
     public function test_can_write_data()
@@ -42,6 +43,7 @@ class WriteTest extends TestCase
 
     /**
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::write
+     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::write
      * @throws Exception
      */
     public function test_method_returns_instance_of_store()

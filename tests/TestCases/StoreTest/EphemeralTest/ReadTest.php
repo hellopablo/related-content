@@ -21,6 +21,7 @@ class ReadTest extends TestCase
 
     /**
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::read
+     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::read
      * @throws Exception
      */
     public function test_can_read_data()
@@ -42,6 +43,7 @@ class ReadTest extends TestCase
 
     /**
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::read
+     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::read
      * @throws Exception
      */
     public function test_read_returns_data_for_requested_item_only()

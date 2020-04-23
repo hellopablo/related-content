@@ -21,6 +21,7 @@ class QueryTest extends TestCase
 
     /**
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::query
+     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::query
      * @throws Exception
      */
     public function test_can_query_data()
@@ -95,6 +96,7 @@ class QueryTest extends TestCase
 
     /**
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::query
+     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::query
      * @throws Exception
      */
     public function test_returns_related_items_of_type()
@@ -135,6 +137,7 @@ class QueryTest extends TestCase
 
     /**
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::query
+     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::query
      * @throws Exception
      */
     public function test_returns_limited_number_of_related_items()
