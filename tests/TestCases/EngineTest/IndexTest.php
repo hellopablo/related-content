@@ -9,7 +9,7 @@ use Tests\Mocks;
 /**
  * Class IndexTest
  *
- * @package Tests\TestCases
+ * @package Tests\TestCases\EngineTest
  */
 class IndexTest extends TestCase
 {

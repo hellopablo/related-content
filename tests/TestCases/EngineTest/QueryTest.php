@@ -9,7 +9,7 @@ use Tests\Mocks;
 /**
  * Class QueryTest
  *
- * @package Tests\TestCases
+ * @package Tests\TestCases\EngineTest
  *
  * The known data set looks like this:
  *

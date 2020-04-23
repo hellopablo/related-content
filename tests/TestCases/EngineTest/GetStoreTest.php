@@ -10,7 +10,7 @@ use Tests\Mocks;
 /**
  * Class GetStoreTest
  *
- * @package Tests\TestCases
+ * @package Tests\TestCases\EngineTest
  */
 class GetStoreTest extends TestCase
 {

@@ -9,7 +9,7 @@ use Tests\Mocks;
 /**
  * Class DeleteTest
  *
- * @package Tests\TestCases
+ * @package Tests\TestCases\EngineTest
  */
 class DeleteTest extends TestCase
 {
