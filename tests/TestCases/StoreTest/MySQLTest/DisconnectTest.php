@@ -26,7 +26,7 @@ class DisconnectTest extends TestCase
      */
     public function test_can_disconnect_from_mysql()
     {
-        $store = $this->getStore();
+        $store = static::getStore();
 
         $this->assertTrue($store->isConnected());
         $this->assertInstanceOf(\PDO::class, $store->getConnection());

@@ -26,7 +26,7 @@ class ReadTest extends TestCase
      */
     public function test_can_read_data()
     {
-        $store = $this->getStore();
+        $store = static::getStore();
 
         [$analyser, $object, $id, $relations] = $this->getDataTypeOne1();
 
@@ -48,7 +48,7 @@ class ReadTest extends TestCase
      */
     public function test_read_returns_data_for_requested_item_only()
     {
-        $store = $this->getStore();
+        $store = static::getStore();
 
         [$analyser, $object1, $id1, $relations1] = $this->getDataTypeOne1();
         [$analyser, $object2, $id2, $relations2] = $this->getDataTypeOne2();

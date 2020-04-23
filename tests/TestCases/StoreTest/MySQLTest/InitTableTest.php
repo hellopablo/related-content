@@ -32,7 +32,7 @@ class InitTableTest extends TestCase
         $query = $pdo->query('SHOW TABLES LIKE \'' . Store\MySQL::DEFAULT_TABLE . '\';');
         $this->assertEquals(0, $query->rowCount());
 
-        $this->getStore();
+        static::getStore();
 
         $query = $pdo->query('SHOW TABLES LIKE \'' . Store\MySQL::DEFAULT_TABLE . '\';');
         $this->assertEquals(1, $query->rowCount());

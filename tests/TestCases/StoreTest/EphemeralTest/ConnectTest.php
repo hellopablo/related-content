@@ -24,7 +24,7 @@ class ConnectTest extends TestCase
     public function test_fails_to_connect_when_will_connect_is_false()
     {
         $this->expectException(Exception::class);
-        $this->getStore(['will_connect' => false]);
+        static::getStore(['will_connect' => false]);
     }
 
     // --------------------------------------------------------------------------
@@ -37,7 +37,7 @@ class ConnectTest extends TestCase
      */
     public function test_can_connect()
     {
-        $store = $this->getStore();
+        $store = static::getStore();
 
         $this->assertTrue($store->isConnected());
         $this->assertIsArray($store->getConnection());

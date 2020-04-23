@@ -27,7 +27,7 @@ class WriteTest extends TestCase
      */
     public function test_can_write_data()
     {
-        $store = $this->getStore();
+        $store = static::getStore();
 
         [$analyser, $object, $id, $relations] = $this->getDataTypeOne1();
 
@@ -48,7 +48,7 @@ class WriteTest extends TestCase
      */
     public function test_method_returns_instance_of_store()
     {
-        $store = $this->getStore();
+        $store = static::getStore();
 
         [$analyser, $object, $id, $relations] = $this->getDataTypeOne1();
 

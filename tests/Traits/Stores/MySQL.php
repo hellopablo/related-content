@@ -22,7 +22,7 @@ trait MySQL
      * @return Interfaces\Store
      * @throws Exception
      */
-    protected function getStore(array $config = []): Interfaces\Store
+    protected static function getStore(array $config = []): Interfaces\Store
     {
         static::dropTable();
         $store = new Store\MySQL([

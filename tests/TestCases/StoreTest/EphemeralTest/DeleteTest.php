@@ -26,7 +26,7 @@ class DeleteTest extends TestCase
      */
     public function test_can_delete_data()
     {
-        $store = $this->getStore();
+        $store = static::getStore();
 
         [$entity, $object, $id, $relations] = $this->getDataTypeOne1();
 
@@ -50,7 +50,7 @@ class DeleteTest extends TestCase
      */
     public function test_deletes_data_for_item()
     {
-        $store = $this->getStore();
+        $store = static::getStore();
 
         [$entity, $object1, $id1, $relations1] = $this->getDataTypeOne1();
         [$entity, $object2, $id2, $relations2] = $this->getDataTypeOne2();

@@ -39,7 +39,7 @@ class ConnectTest extends TestCase
      */
     public function test_can_connect_to_mysql()
     {
-        $store = $this->getStore();
+        $store = static::getStore();
 
         $this->assertTrue($store->isConnected());
         $this->assertInstanceOf(\PDO::class, $store->getConnection());

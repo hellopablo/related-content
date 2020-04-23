@@ -24,10 +24,10 @@ class DumpTest extends TestCase
      */
     public function test_can_dump_data()
     {
-        $store = $this->getStore();
+        $store = static::getStore();
         $this->assertCount(0, $store->dump());
 
-        $store = $this->getStore(['data' => [1, 2, 3]]);
         $this->assertCount(3, $store->dump());
+        $store = static::getStore(['data' => [1, 2, 3]]);
     }
 }

@@ -26,7 +26,7 @@ class DisconnectTest extends TestCase
      */
     public function test_can_disconnect()
     {
-        $store = $this->getStore();
+        $store = static::getStore();
 
         $this->assertTrue($store->isConnected());
         $this->assertIsArray($store->getConnection());

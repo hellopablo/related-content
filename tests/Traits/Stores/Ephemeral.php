@@ -21,7 +21,7 @@ trait Ephemeral
      * @return Interfaces\Store
      * @throws Exception
      */
-    protected function getStore(array $config = []): Interfaces\Store
+    protected static function getStore(array $config = []): Interfaces\Store
     {
         $store = new Store\Ephemeral($config);
         $store->connect();

@@ -23,7 +23,7 @@ class SeedDataTest extends TestCase
      */
     public function test_data_is_empty_if_not_seeded()
     {
-        $store = $this->getStore();
+        $store = static::getStore();
         $data  = $store->dump();
 
         $this->assertIsArray($data);
@@ -38,7 +38,7 @@ class SeedDataTest extends TestCase
      */
     public function test_can_seed_data()
     {
-        $store = $this->getStore(['data' => ['test']]);
+        $store = static::getStore(['data' => ['test']]);
 
         $data  = $store->dump();
         $datum = reset($data);

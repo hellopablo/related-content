@@ -26,7 +26,7 @@ class QueryTest extends TestCase
      */
     public function test_can_query_data()
     {
-        $store = $this->getStore();
+        $store = static::getStore();
 
         [$dt1entity, $dt1object1, $dt1id1, $dt1relations1] = $this->getDataTypeOne1();
         [$dt1entity, $dt1object2, $dt1id2, $dt1relations2] = $this->getDataTypeOne2();
@@ -101,7 +101,7 @@ class QueryTest extends TestCase
      */
     public function test_returns_related_items_of_type()
     {
-        $store = $this->getStore();
+        $store = static::getStore();
 
         [$dt1entity, $dt1object1, $dt1id1, $dt1relations1] = $this->getDataTypeOne1();
         [$dt1entity, $dt1object2, $dt1id2, $dt1relations2] = $this->getDataTypeOne2();
@@ -142,7 +142,7 @@ class QueryTest extends TestCase
      */
     public function test_returns_limited_number_of_related_items()
     {
-        $store = $this->getStore();
+        $store = static::getStore();
 
         [$dt1entity, $dt1object1, $dt1id1, $dt1relations1] = $this->getDataTypeOne1();
         [$dt1entity, $dt1object2, $dt1id2, $dt1relations2] = $this->getDataTypeOne2();
