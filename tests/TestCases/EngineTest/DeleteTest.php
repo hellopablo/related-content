@@ -45,6 +45,7 @@ class DeleteTest extends TestCase
     public function test_first_arg_is_required()
     {
         $this->expectException(\ArgumentCountError::class);
+        /** @phpstan-ignore-next-line */
         static::$oEngine->index();
     }
 
@@ -56,6 +57,7 @@ class DeleteTest extends TestCase
     public function test_second_arg_is_required()
     {
         $this->expectException(\ArgumentCountError::class);
+        /** @phpstan-ignore-next-line */
         static::$oEngine->index(new Mocks\Objects\DataTypeOne1());
     }
 
@@ -67,6 +69,7 @@ class DeleteTest extends TestCase
     public function test_first_arg_must_be_instance_of_object()
     {
         $this->expectException(\TypeError::class);
+        /** @phpstan-ignore-next-line */
         static::$oEngine->index(null);
     }
 
