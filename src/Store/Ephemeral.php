@@ -194,7 +194,7 @@ class Ephemeral implements Interfaces\Store
      * Queries the store to find related items
      *
      * @param Interfaces\Relation[] $sourceRelations The source's relations
-     * @param string                $sourceType      The source's type
+     * @param string                $sourceEntity    The source's entity
      * @param string|int            $sourceId        The source's ID
      * @param string[]              $restrict        An array of entity types to restrict to
      * @param int|null              $limit           The maximum number of results to return
@@ -203,7 +203,7 @@ class Ephemeral implements Interfaces\Store
      */
     public function query(
         array $sourceRelations,
-        string $sourceType,
+        string $sourceEntity,
         $sourceId,
         array $restrict = [],
         int $limit = null
@@ -223,7 +223,7 @@ class Ephemeral implements Interfaces\Store
 
                     if ($datum->type === $sourceRelation->getType() && $datum->value === $sourceRelation->getValue()) {
 
-                        if ($datum->entity === $sourceType && $datum->id === $sourceId) {
+                        if ($datum->entity === $sourceEntity && $datum->id === $sourceId) {
                             continue;
                         }
 

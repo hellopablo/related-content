@@ -285,7 +285,7 @@ class MySQL implements Interfaces\Store
      * Queries the store to find related items
      *
      * @param Interfaces\Relation[] $sourceRelations The source's relations
-     * @param string                $sourceType      The source's type
+     * @param string                $sourceEntity    The source's entity
      * @param string|int            $sourceId        The source's ID
      * @param string[]              $restrict        An array of entity types to restrict to
      * @param int|null              $limit           The maximum number of results to return
@@ -294,7 +294,7 @@ class MySQL implements Interfaces\Store
      */
     public function query(
         array $sourceRelations,
-        string $sourceType,
+        string $sourceEntity,
         $sourceId,
         array $restrict = [],
         int $limit = null
@@ -309,7 +309,7 @@ class MySQL implements Interfaces\Store
         //  Exclude the source item
         $where[] = sprintf(
             'CONCAT(entity, "::", id) != "%s::%s"',
-            str_replace('\\', '\\\\', $sourceType),
+            str_replace('\\', '\\\\', $sourceEntity),
             $sourceId
         );
 
