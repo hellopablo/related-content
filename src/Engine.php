@@ -56,12 +56,13 @@ class Engine
      */
     public function index(object $item, Interfaces\Analyser $analyser): self
     {
+        $entity    = get_class($analyser);
         $relations = $analyser->analyse($item);
         $id        = $analyser->getId($item);
 
         $this->store
-            ->delete($analyser, $id)
-            ->write($analyser, $id, $relations);
+            ->delete($entity, $id)
+            ->write($entity, $id, $relations);
 
         return $this;
     }
@@ -80,7 +81,7 @@ class Engine
     {
         $this->store
             ->delete(
-                $analyser,
+                get_class($analyser),
                 $analyser->getId($item)
             );
 
@@ -101,7 +102,7 @@ class Engine
     {
         return $this->store
             ->read(
-                $analyser,
+                get_class($analyser),
                 $analyser->getId($item)
             );
     }
