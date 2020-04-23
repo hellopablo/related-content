@@ -11,7 +11,7 @@ use Tests\Mocks;
  */
 trait Utilities
 {
-    function getDataTypeOne1()
+    function getDataTypeOne1(): array
     {
         $analyser  = new Mocks\Analysers\DataTypeOne();
         $object    = new Mocks\Objects\DataTypeOne1();
@@ -23,7 +23,7 @@ trait Utilities
 
     // --------------------------------------------------------------------------
 
-    function getDataTypeOne2()
+    function getDataTypeOne2(): array
     {
         $analyser  = new Mocks\Analysers\DataTypeOne();
         $object    = new Mocks\Objects\DataTypeOne2();
@@ -35,7 +35,7 @@ trait Utilities
 
     // --------------------------------------------------------------------------
 
-    function getDataTypeTwo1()
+    function getDataTypeTwo1(): array
     {
         $analyser  = new Mocks\Analysers\DataTypeTwo();
         $object    = new Mocks\Objects\DataTypeTwo1();
@@ -47,7 +47,7 @@ trait Utilities
 
     // --------------------------------------------------------------------------
 
-    function getDataTypeTwo2()
+    function getDataTypeTwo2(): array
     {
         $analyser  = new Mocks\Analysers\DataTypeTwo();
         $object    = new Mocks\Objects\DataTypeTwo2();
@@ -59,7 +59,7 @@ trait Utilities
 
     // --------------------------------------------------------------------------
 
-    function getDataTypeThree1()
+    function getDataTypeThree1(): array
     {
         $analyser  = new Mocks\Analysers\DataTypeThree();
         $object    = new Mocks\Objects\DataTypeThree1();
