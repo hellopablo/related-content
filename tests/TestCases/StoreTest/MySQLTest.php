@@ -57,4 +57,11 @@ class MySQLTest extends TestCase
         $this->assertNotEmpty(getenv('MYSQL_PASS'));
         $this->assertNotEmpty(getenv('MYSQL_DATABASE'));
     }
+
+    // --------------------------------------------------------------------------
+
+    public function test_store_exists()
+    {
+        $this->assertTrue(class_exists(Store\MySQL::class));
+    }
 }
