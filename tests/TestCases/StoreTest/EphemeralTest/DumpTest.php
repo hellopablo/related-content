@@ -27,7 +27,7 @@ class DumpTest extends TestCase
         $store = static::getStore();
         $this->assertCount(0, $store->dump());
 
-        $this->assertCount(3, $store->dump());
         $store = static::getStore(['seed' => true]);
+        $this->assertCount(1, $store->dump());
     }
 }
