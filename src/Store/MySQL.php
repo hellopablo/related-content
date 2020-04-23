@@ -163,8 +163,15 @@ class MySQL implements Interfaces\Store
      */
     public function dump(): array
     {
-        // TODO: Implement dump() method.
-        return [];
+        $statement = $this->pdo
+            ->query(
+                sprintf(
+                    'SELECT * FROM %s',
+                    $this->table
+                )
+            );
+
+        return $statement->fetchAll(PDO::FETCH_OBJ);
     }
 
     // --------------------------------------------------------------------------
