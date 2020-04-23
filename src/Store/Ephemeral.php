@@ -106,6 +106,18 @@ class Ephemeral implements Interfaces\Store
     // --------------------------------------------------------------------------
 
     /**
+     * Dumps the entire contents of the data store
+     *
+     * @return array
+     */
+    public function dump(): array
+    {
+        return $this->data;
+    }
+
+    // --------------------------------------------------------------------------
+
+    /**
      * Reads data from the store
      *
      * @param Interfaces\Analyser $analyser The analyser which was used

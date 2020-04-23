@@ -57,6 +57,15 @@ interface Store
     // --------------------------------------------------------------------------
 
     /**
+     * Dumps the entire contents of the data store
+     *
+     * @return array
+     */
+    public function dump(): array;
+
+    // --------------------------------------------------------------------------
+
+    /**
      * Reads data from the store
      *
      * @param Analyser         $analyser The analyser which was used
