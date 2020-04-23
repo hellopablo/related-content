@@ -3,8 +3,8 @@
 namespace Tests\TestCases\StoreTest\EphemeralTest;
 
 use Exception;
-use PHPUnit\Framework\TestCase;
 use HelloPablo\RelatedContentEngine\Store;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class SeedDataTest
