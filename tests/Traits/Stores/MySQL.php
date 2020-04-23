@@ -36,7 +36,7 @@ trait MySQL
 
     // --------------------------------------------------------------------------
 
-    protected function getDb()
+    protected static function getDb()
     {
         $dsn = sprintf(
             'mysql:host=%s;dbname=%s;charset=%s',
@@ -46,5 +46,13 @@ trait MySQL
         );
 
         return new PDO($dsn, getenv('MYSQL_USER'), getenv('MYSQL_PASS'), Store\MySQL::DEFAULT_PDO_OPTIONS);
+    }
+
+    // --------------------------------------------------------------------------
+
+    protected static function dropTable()
+    {
+        $pdo = static::getDb();
+        $pdo->query('DROP TABLE IF EXISTS ' . Store\MySQL::DEFAULT_TABLE);
     }
 }
