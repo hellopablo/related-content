@@ -118,6 +118,19 @@ class Ephemeral implements Interfaces\Store
     // --------------------------------------------------------------------------
 
     /**
+     * Deletes all data in the store
+     *
+     * @return $this
+     */
+    public function empty(): Interfaces\Store
+    {
+        $this->data = [];
+        return $this;
+    }
+
+    // --------------------------------------------------------------------------
+
+    /**
      * Reads data from the store
      *
      * @param string           $entity The entity type the ID belongs to
