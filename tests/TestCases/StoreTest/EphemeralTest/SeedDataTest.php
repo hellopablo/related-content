@@ -3,8 +3,8 @@
 namespace Tests\TestCases\StoreTest\EphemeralTest;
 
 use Exception;
-use HelloPablo\RelatedContentEngine\Store;
 use PHPUnit\Framework\TestCase;
+use Tests\Traits;
 
 /**
  * Class SeedDataTest
@@ -13,16 +13,18 @@ use PHPUnit\Framework\TestCase;
  */
 class SeedDataTest extends TestCase
 {
+    use Traits\Stores\Ephemeral;
+
+    // --------------------------------------------------------------------------
+
     /**
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::__construct
      * @throws Exception
      */
     public function test_data_is_empty_if_not_seeded()
     {
-        $store = new Store\Ephemeral();
-        $store->connect();
-
-        $data = $store->getConnection();
+        $store = $this->getStore();
+        $data  = $store->getConnection();
 
         $this->assertIsArray($data);
         $this->assertCount(0, $data);
@@ -36,8 +38,7 @@ class SeedDataTest extends TestCase
      */
     public function test_can_seed_data()
     {
-        $store = new Store\Ephemeral(['data' => ['test']]);
-        $store->connect();
+        $store = $this->getStore(['data' => ['test']]);
 
         $data  = $store->getConnection();
         $datum = reset($data);

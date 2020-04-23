@@ -3,9 +3,9 @@
 namespace Tests\TestCases\StoreTest\EphemeralTest;
 
 use Exception;
-use HelloPablo\RelatedContentEngine\Store;
 use PHPUnit\Framework\TestCase;
 use Tests\Mocks;
+use Tests\Traits;
 
 /**
  * Class WriteTest
@@ -14,13 +14,17 @@ use Tests\Mocks;
  */
 class WriteTest extends TestCase
 {
+    use Traits\Stores\Ephemeral;
+
+    // --------------------------------------------------------------------------
+
     /**
+     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::write
      * @throws Exception
      */
     public function test_can_write_data()
     {
-        $store = new Store\Ephemeral();
-        $store->connect();
+        $store = $this->getStore();
 
         $analyser  = new Mocks\Analysers\DataTypeOne();
         $object    = new Mocks\Objects\DataTypeOne1();
