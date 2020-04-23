@@ -140,4 +140,16 @@ class Engine
                 $limit
             );
     }
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Dumps the entire contents of the data store
+     *
+     * @return array
+     */
+    public function dump(): array
+    {
+        return $this->store->dump();
+    }
 }
