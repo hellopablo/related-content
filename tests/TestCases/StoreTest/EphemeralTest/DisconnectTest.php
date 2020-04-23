@@ -24,7 +24,7 @@ class DisconnectTest extends TestCase
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::getConnection
      * @throws Exception
      */
-    public function test_can_disconnect()
+    public function test_can_disconnect(): void
     {
         $store = static::getStore();
 

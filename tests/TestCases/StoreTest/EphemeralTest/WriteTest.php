@@ -25,7 +25,7 @@ class WriteTest extends TestCase
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::write
      * @throws Exception
      */
-    public function test_can_write_data()
+    public function test_can_write_data(): void
     {
         $store = static::getStore();
 
@@ -46,7 +46,7 @@ class WriteTest extends TestCase
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::write
      * @throws Exception
      */
-    public function test_method_returns_instance_of_store()
+    public function test_method_returns_instance_of_store(): void
     {
         $store = static::getStore();
 

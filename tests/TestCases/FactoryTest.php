@@ -17,7 +17,7 @@ class FactoryTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Factory::build
      */
-    public function test_build_returns_instance_of_engine()
+    public function test_build_returns_instance_of_engine(): void
     {
         $engine = Factory::build(new Store\Ephemeral());
         $this->assertInstanceOf(Engine::class, $engine);
@@ -28,7 +28,7 @@ class FactoryTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Factory::build
      */
-    public function test_store_is_a_required_argument()
+    public function test_store_is_a_required_argument(): void
     {
         $this->expectException(\ArgumentCountError::class);
         /** @phpstan-ignore-next-line */
@@ -40,9 +40,10 @@ class FactoryTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Factory::build
      */
-    public function test_store_must_be_instance_of_store()
+    public function test_store_must_be_instance_of_store(): void
     {
         $this->expectException(\TypeError::class);
+        /** @phpstan-ignore-next-line */
         Factory::build(null);
     }
 }

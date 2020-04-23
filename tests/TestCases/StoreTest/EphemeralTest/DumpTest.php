@@ -22,7 +22,7 @@ class DumpTest extends TestCase
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::delete
      * @throws Exception
      */
-    public function test_can_dump_data()
+    public function test_can_dump_data(): void
     {
         $store = static::getStore();
         $this->assertCount(0, $store->dump());

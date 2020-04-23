@@ -21,7 +21,7 @@ class SeedDataTest extends TestCase
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::__construct
      * @throws Exception
      */
-    public function test_data_is_empty_if_not_seeded()
+    public function test_data_is_empty_if_not_seeded(): void
     {
         $store = static::getStore();
         $data  = $store->dump();
@@ -36,7 +36,7 @@ class SeedDataTest extends TestCase
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::__construct
      * @throws Exception
      */
-    public function test_can_seed_data()
+    public function test_can_seed_data(): void
     {
         $store = static::getStore(['seed' => true]);
 

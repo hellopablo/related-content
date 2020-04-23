@@ -17,7 +17,7 @@ trait MySQL
     /**
      * Gets a store instance
      *
-     * @param array $config
+     * @param mixed[] $config
      *
      * @return Interfaces\Store
      * @throws Exception
@@ -61,7 +61,7 @@ trait MySQL
      *
      * @return PDO
      */
-    protected static function getDb()
+    protected static function getDb(): PDO
     {
         $dsn = sprintf(
             'mysql:host=%s;dbname=%s;charset=%s',
@@ -78,7 +78,7 @@ trait MySQL
     /**
      * Drops the relations table
      */
-    protected static function dropTable()
+    protected static function dropTable(): void
     {
         $pdo = static::getDb();
         $pdo->query('DROP TABLE IF EXISTS ' . Store\MySQL::DEFAULT_TABLE);

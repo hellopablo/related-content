@@ -42,7 +42,7 @@ class ReadTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::read
      */
-    public function test_first_arg_is_required()
+    public function test_first_arg_is_required(): void
     {
         $this->expectException(\ArgumentCountError::class);
         /** @phpstan-ignore-next-line */
@@ -54,7 +54,7 @@ class ReadTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::read
      */
-    public function test_second_arg_is_required()
+    public function test_second_arg_is_required(): void
     {
         $this->expectException(\ArgumentCountError::class);
         /** @phpstan-ignore-next-line */
@@ -66,7 +66,7 @@ class ReadTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::read
      */
-    public function test_first_arg_must_be_instance_of_object()
+    public function test_first_arg_must_be_instance_of_object(): void
     {
         $this->expectException(\TypeError::class);
         /** @phpstan-ignore-next-line */
@@ -78,9 +78,10 @@ class ReadTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::read
      */
-    public function test_second_arg_must_be_instance_of_analyser()
+    public function test_second_arg_must_be_instance_of_analyser(): void
     {
         $this->expectException(\TypeError::class);
+        /** @phpstan-ignore-next-line */
         static::$oEngine->index(new Mocks\Objects\DataTypeOne1(), null);
     }
 
@@ -89,7 +90,7 @@ class ReadTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::read
      */
-    public function test_read_returns_all_relations_for_item()
+    public function test_read_returns_all_relations_for_item(): void
     {
         $object1  = new Mocks\Objects\DataTypeOne1();
         $analyser = new Mocks\Analysers\DataTypeOne();
@@ -107,7 +108,7 @@ class ReadTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::read
      */
-    public function test_read_returns_for_specific_item()
+    public function test_read_returns_for_specific_item(): void
     {
         $object1  = new Mocks\Objects\DataTypeOne1();
         $object2  = new Mocks\Objects\DataTypeOne2();

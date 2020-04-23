@@ -21,7 +21,7 @@ class ConnectTest extends TestCase
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::connect
      * @throws Exception
      */
-    public function test_fails_to_connect_when_will_connect_is_false()
+    public function test_fails_to_connect_when_will_connect_is_false(): void
     {
         $this->expectException(Exception::class);
         static::getStore(['will_connect' => false]);
@@ -35,7 +35,7 @@ class ConnectTest extends TestCase
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::getConnection
      * @throws Exception
      */
-    public function test_can_connect()
+    public function test_can_connect(): void
     {
         $store = static::getStore();
 

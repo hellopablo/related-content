@@ -14,7 +14,7 @@ interface Store
     /**
      * Store constructor.
      *
-     * @param array $config Config array as required by the driver
+     * @param mixed[] $config Config array as required by the driver
      */
     public function __construct(array $config = []);
 
@@ -59,7 +59,7 @@ interface Store
     /**
      * Dumps the entire contents of the data store
      *
-     * @return array
+     * @return mixed[]
      */
     public function dump(): array;
 
@@ -77,8 +77,8 @@ interface Store
     /**
      * Reads data from the store
      *
-     * @param string           $entity The entity type the ID belongs to
-     * @param string|int|array $id     Filter by ID(s)
+     * @param string     $entity The entity type the ID belongs to
+     * @param string|int $id     The item's ID
      *
      * @return Relation[]
      */

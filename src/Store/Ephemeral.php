@@ -6,6 +6,7 @@ use Exception;
 use HelloPablo\RelatedContentEngine\Interfaces;
 use HelloPablo\RelatedContentEngine\Query;
 use HelloPablo\RelatedContentEngine\Relation;
+use stdClass;
 
 /**
  * Class Ephemeral
@@ -17,7 +18,7 @@ class Ephemeral implements Interfaces\Store
     /**
      * The data store
      *
-     * @var array
+     * @var stdClass[]
      */
     public $data;
 
@@ -40,7 +41,7 @@ class Ephemeral implements Interfaces\Store
     /**
      * Ephemeral constructor.
      *
-     * @param array $config Config array as required by the driver
+     * @param mixed[] $config Config array as required by the driver
      */
     public function __construct(array $config = [])
     {
@@ -108,10 +109,15 @@ class Ephemeral implements Interfaces\Store
     /**
      * Dumps the entire contents of the data store
      *
-     * @return array
+     * @return mixed[]
+     * @throws Exception
      */
     public function dump(): array
     {
+        if (!$this->isConnected()) {
+            throw new Exception('Store not connected');
+        }
+
         return $this->data;
     }
 
@@ -121,9 +127,14 @@ class Ephemeral implements Interfaces\Store
      * Deletes all data in the store
      *
      * @return $this
+     * @throws Exception
      */
     public function empty(): Interfaces\Store
     {
+        if (!$this->isConnected()) {
+            throw new Exception('Store not connected');
+        }
+
         $this->data = [];
         return $this;
     }
@@ -133,13 +144,18 @@ class Ephemeral implements Interfaces\Store
     /**
      * Reads data from the store
      *
-     * @param string           $entity The entity type the ID belongs to
-     * @param string|int|array $id     Filter by ID(s)
+     * @param string     $entity The entity type the ID belongs to
+     * @param string|int $id     The item's ID
      *
      * @return Interfaces\Relation[]
+     * @throws Exception
      */
     public function read(string $entity, $id): array
     {
+        if (!$this->isConnected()) {
+            throw new Exception('Store not connected');
+        }
+
         $results = [];
         foreach ($this->data as $datum) {
             if ($datum->entity === $entity && $datum->id === $id) {
@@ -163,9 +179,14 @@ class Ephemeral implements Interfaces\Store
      * @param Interfaces\Relation[] $relations Array of the relations
      *
      * @return $this
+     * @throws Exception
      */
     public function write(string $entity, $id, array $relations): Interfaces\Store
     {
+        if (!$this->isConnected()) {
+            throw new Exception('Store not connected');
+        }
+
         foreach ($relations as $relation) {
             $this->data[] = (object) [
                 'entity' => $entity,
@@ -187,9 +208,14 @@ class Ephemeral implements Interfaces\Store
      * @param string|int $id     The ID of the item to delete relations for
      *
      * @return $this
+     * @throws Exception
      */
     public function delete(string $entity, $id): Interfaces\Store
     {
+        if (!$this->isConnected()) {
+            throw new Exception('Store not connected');
+        }
+
         foreach ($this->data as &$datum) {
             if ($datum->entity === $entity && $datum->id === $id) {
                 $datum = null;
@@ -213,6 +239,7 @@ class Ephemeral implements Interfaces\Store
      * @param int|null              $limit           The maximum number of results to return
      *
      * @return Query\Hit[]
+     * @throws Exception
      */
     public function query(
         array $sourceRelations,
@@ -222,7 +249,9 @@ class Ephemeral implements Interfaces\Store
         int $limit = null
     ): array {
 
-        if (empty($sourceRelations)) {
+        if (!$this->isConnected()) {
+            throw new Exception('Store not connected');
+        } elseif (empty($sourceRelations)) {
             return [];
         }
 

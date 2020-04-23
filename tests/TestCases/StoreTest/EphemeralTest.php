@@ -13,7 +13,7 @@ use Tests\Mocks;
  */
 class EphemeralTest extends TestCase
 {
-    public function test_store_exists()
+    public function test_store_exists(): void
     {
         $this->assertTrue(class_exists(Store\Ephemeral::class));
     }

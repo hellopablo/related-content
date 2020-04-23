@@ -9,6 +9,10 @@ namespace Tests\Mocks\Objects;
  */
 class DataTypeThree1
 {
-    public $id         = 1;
+    /** @var int */
+    public $id = 1;
+
+    /** @var int[] */
     public $categories = [4];
+
 }

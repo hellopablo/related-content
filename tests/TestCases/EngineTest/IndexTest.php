@@ -42,9 +42,10 @@ class IndexTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::index
      */
-    public function test_first_arg_is_required()
+    public function test_first_arg_is_required(): void
     {
         $this->expectException(\ArgumentCountError::class);
+        /** @phpstan-ignore-next-line */
         static::$oEngine->index();
     }
 
@@ -53,9 +54,10 @@ class IndexTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::index
      */
-    public function test_second_arg_is_required()
+    public function test_second_arg_is_required(): void
     {
         $this->expectException(\ArgumentCountError::class);
+        /** @phpstan-ignore-next-line */
         static::$oEngine->index(new Mocks\Objects\DataTypeOne1());
     }
 
@@ -64,9 +66,10 @@ class IndexTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::index
      */
-    public function test_first_arg_must_be_instance_of_object()
+    public function test_first_arg_must_be_instance_of_object(): void
     {
         $this->expectException(\TypeError::class);
+        /** @phpstan-ignore-next-line */
         static::$oEngine->index(null);
     }
 
@@ -75,9 +78,10 @@ class IndexTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::index
      */
-    public function test_second_arg_must_be_instance_of_analyser()
+    public function test_second_arg_must_be_instance_of_analyser(): void
     {
         $this->expectException(\TypeError::class);
+        /** @phpstan-ignore-next-line */
         static::$oEngine->index(new Mocks\Objects\DataTypeOne1(), null);
     }
 
@@ -86,7 +90,7 @@ class IndexTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::index
      */
-    public function test_object_is_indexed()
+    public function test_object_is_indexed(): void
     {
         $object = new Mocks\Objects\DataTypeOne1();
 
@@ -105,7 +109,7 @@ class IndexTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::index
      */
-    public function test_duplicate_indexing_does_not_Result_in_duplicate_indexes()
+    public function test_duplicate_indexing_does_not_Result_in_duplicate_indexes(): void
     {
         $object1 = new Mocks\Objects\DataTypeOne1();
 
@@ -131,7 +135,7 @@ class IndexTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::index
      */
-    public function test_index_returns_instance_of_engine()
+    public function test_index_returns_instance_of_engine(): void
     {
         $this->assertInstanceOf(
             Engine::class,

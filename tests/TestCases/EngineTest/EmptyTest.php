@@ -41,7 +41,7 @@ class EmptyTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::empty
      */
-    public function test_can_empty_store()
+    public function test_can_empty_store(): void
     {
         $data = static::$oEngine->dump();
 

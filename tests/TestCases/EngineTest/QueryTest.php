@@ -89,9 +89,10 @@ class QueryTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::query
      */
-    public function test_first_arg_is_required()
+    public function test_first_arg_is_required(): void
     {
         $this->expectException(\ArgumentCountError::class);
+        /** @phpstan-ignore-next-line */
         static::$oEngine->query();
     }
 
@@ -100,9 +101,10 @@ class QueryTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::query
      */
-    public function test_second_arg_is_required()
+    public function test_second_arg_is_required(): void
     {
         $this->expectException(\ArgumentCountError::class);
+        /** @phpstan-ignore-next-line */
         static::$oEngine->query(new Mocks\Objects\DataTypeOne1());
     }
 
@@ -111,9 +113,10 @@ class QueryTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::query
      */
-    public function test_first_arg_must_be_instance_of_object()
+    public function test_first_arg_must_be_instance_of_object(): void
     {
         $this->expectException(\TypeError::class);
+        /** @phpstan-ignore-next-line */
         static::$oEngine->query(null);
     }
 
@@ -122,9 +125,10 @@ class QueryTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::query
      */
-    public function test_second_arg_must_be_instance_of_analyser()
+    public function test_second_arg_must_be_instance_of_analyser(): void
     {
         $this->expectException(\TypeError::class);
+        /** @phpstan-ignore-next-line */
         static::$oEngine->query(new Mocks\Objects\DataTypeOne1(), null);
     }
 
@@ -133,9 +137,10 @@ class QueryTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::query
      */
-    public function test_third_arg_must_be_array()
+    public function test_third_arg_must_be_array(): void
     {
         $this->expectException(\TypeError::class);
+        /** @phpstan-ignore-next-line */
         static::$oEngine
             ->query(
                 new Mocks\Objects\DataTypeOne1(),
@@ -149,9 +154,10 @@ class QueryTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::query
      */
-    public function test_third_arg_must_be_array_of_analysers()
+    public function test_third_arg_must_be_array_of_analysers(): void
     {
         $this->expectException(\TypeError::class);
+        /** @phpstan-ignore-next-line */
         static::$oEngine
             ->query(
                 new Mocks\Objects\DataTypeOne1(),
@@ -165,9 +171,10 @@ class QueryTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::query
      */
-    public function test_fourth_arg_must_be_an_int()
+    public function test_fourth_arg_must_be_an_int(): void
     {
         $this->expectException(\TypeError::class);
+        /** @phpstan-ignore-next-line */
         static::$oEngine
             ->query(
                 new Mocks\Objects\DataTypeOne1(),
@@ -182,7 +189,7 @@ class QueryTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::query
      */
-    public function test_returns_related_items()
+    public function test_returns_related_items(): void
     {
         // Testing (1); expecting 1 hit
         $hits = static::$oEngine
@@ -235,7 +242,7 @@ class QueryTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::query
      */
-    public function test_returns_related_items_of_type()
+    public function test_returns_related_items_of_type(): void
     {
         $hits = static::$oEngine
             ->query(
@@ -257,7 +264,7 @@ class QueryTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::query
      */
-    public function test_returns_limited_number_of_related_items()
+    public function test_returns_limited_number_of_related_items(): void
     {
         $hits = static::$oEngine
             ->query(

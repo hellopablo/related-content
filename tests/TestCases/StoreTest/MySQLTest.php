@@ -14,14 +14,14 @@ use PHPUnit\Framework\TestCase;
  */
 class MySQLTest extends TestCase
 {
-    public function test_store_exists()
+    public function test_store_exists(): void
     {
         $this->assertTrue(class_exists(Store\MySQL::class));
     }
 
     // --------------------------------------------------------------------------
 
-    public function test_mysql_credentials_are_set()
+    public function test_mysql_credentials_are_set(): void
     {
         $this->assertNotEmpty(getenv('MYSQL_USER'));
         $this->assertNotEmpty(getenv('MYSQL_PASS'));

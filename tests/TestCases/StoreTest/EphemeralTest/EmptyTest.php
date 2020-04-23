@@ -22,7 +22,7 @@ class EmptyTest extends TestCase
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::empty
      * @throws Exception
      */
-    public function test_can_empty_store()
+    public function test_can_empty_store(): void
     {
         $store = static::getStore(['seed' => true]);
 

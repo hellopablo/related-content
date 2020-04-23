@@ -42,7 +42,7 @@ class DumpTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::index
      */
-    public function test_can_dump_store_contents()
+    public function test_can_dump_store_contents(): void
     {
         $data = static::$oEngine->dump();
         $this->assertCount(0, $data);

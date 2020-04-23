@@ -24,7 +24,7 @@ class ReadTest extends TestCase
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::read
      * @throws Exception
      */
-    public function test_can_read_data()
+    public function test_can_read_data(): void
     {
         $store = static::getStore();
 
@@ -46,7 +46,7 @@ class ReadTest extends TestCase
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::read
      * @throws Exception
      */
-    public function test_read_returns_data_for_requested_item_only()
+    public function test_read_returns_data_for_requested_item_only(): void
     {
         $store = static::getStore();
 
