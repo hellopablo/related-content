@@ -26,14 +26,14 @@ class Ephemeral implements Interfaces\Store
      *
      * @var bool
      */
-    public $will_connect = true;
+    protected $will_connect = true;
 
     /**
      * Whether the store is connected (mainly used for testing)
      *
      * @var bool
      */
-    public $is_connected = false;
+    protected $is_connected = false;
 
     // --------------------------------------------------------------------------
 
