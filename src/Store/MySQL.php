@@ -184,12 +184,12 @@ class MySQL implements Interfaces\Store
     /**
      * Reads data from the store
      *
-     * @param Interfaces\Analyser $analyser The analyser which was used
-     * @param string|int|array    $id       Filter by ID(s)
+     * @param string           $entity The entity type the ID belongs to
+     * @param string|int|array $id     Filter by ID(s)
      *
      * @return Interfaces\Relation[]
      */
-    public function read(Interfaces\Analyser $analyser, $id): array
+    public function read(string $entity, $id): array
     {
         $statement = $this->pdo
             ->prepare(
@@ -201,7 +201,7 @@ class MySQL implements Interfaces\Store
 
         $statement
             ->execute([
-                'entity' => get_class($analyser),
+                'entity' => $entity,
                 'id'     => $id,
             ]);
 
@@ -221,13 +221,13 @@ class MySQL implements Interfaces\Store
     /**
      * Writes relations to the store
      *
-     * @param Interfaces\Analyser $analyser  The analyser which was used
-     * @param string|int          $id        The ID the relations belong to
-     * @param array               $relations Array of the relations
+     * @param string     $entity    The entity type the ID belongs to
+     * @param string|int $id        The ID the relations belong to
+     * @param array      $relations Array of the relations
      *
      * @return $this
      */
-    public function write(Interfaces\Analyser $analyser, $id, array $relations): Interfaces\Store
+    public function write(string $entity, $id, array $relations): Interfaces\Store
     {
         $statement = $this->pdo
             ->prepare(
@@ -240,7 +240,7 @@ class MySQL implements Interfaces\Store
         foreach ($relations as $relation) {
             $statement
                 ->execute([
-                    'entity' => get_class($analyser),
+                    'entity' => $entity,
                     'id'     => $id,
                     'type'   => $relation->getType(),
                     'value'  => $relation->getValue(),
@@ -255,12 +255,12 @@ class MySQL implements Interfaces\Store
     /**
      * Deletes relations from the store
      *
-     * @param Interfaces\Analyser $analyser The analyser which was used
-     * @param string|int          $id       The ID of the item to delete relations for
+     * @param string     $entity The entity type the ID belongs to
+     * @param string|int $id     The ID of the item to delete relations for
      *
      * @return $this
      */
-    public function delete(Interfaces\Analyser $analyser, $id): Interfaces\Store
+    public function delete(string $entity, $id): Interfaces\Store
     {
         $statement = $this->pdo
             ->prepare(
@@ -272,7 +272,7 @@ class MySQL implements Interfaces\Store
 
         $statement
             ->execute([
-                'entity' => get_class($analyser),
+                'entity' => $entity,
                 'id'     => $id,
             ]);
 
