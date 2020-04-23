@@ -100,7 +100,7 @@ class Ephemeral implements Interfaces\Store
      */
     public function getConnection()
     {
-        return $this->data;
+        return $this->is_connected ? $this->data : null;
     }
 
     // --------------------------------------------------------------------------
