@@ -36,6 +36,11 @@ trait MySQL
 
     // --------------------------------------------------------------------------
 
+    /**
+     * Returns a connected PDO instance
+     *
+     * @return PDO
+     */
     protected static function getDb()
     {
         $dsn = sprintf(
@@ -50,6 +55,9 @@ trait MySQL
 
     // --------------------------------------------------------------------------
 
+    /**
+     * Drops the relations table
+     */
     protected static function dropTable()
     {
         $pdo = static::getDb();
