@@ -4,6 +4,7 @@ namespace Tests\Mocks;
 
 use HelloPablo\RelatedContentEngine\Interfaces;
 use HelloPablo\RelatedContentEngine\Query;
+use HelloPablo\RelatedContentEngine\Relation;
 
 class Store implements Interfaces\Store
 {
@@ -82,9 +83,12 @@ class Store implements Interfaces\Store
     public function read(Interfaces\Analyser $analyser, $id): array
     {
         $results = [];
-        foreach ($this->data as &$datum) {
+        foreach ($this->data as $datum) {
             if ($datum->entity === get_class($analyser) && $datum->id === $id) {
-                $results[] = $datum;
+                $results[] = new Relation\Node(
+                    $datum->type,
+                    $datum->value
+                );
             }
         }
 
