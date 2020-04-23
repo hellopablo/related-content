@@ -24,6 +24,7 @@ trait MySQL
      */
     protected function getStore(array $config = []): Interfaces\Store
     {
+        static::dropTable();
         $store = new Store\MySQL([
             'user'     => getenv('MYSQL_USER'),
             'pass'     => getenv('MYSQL_PASS'),

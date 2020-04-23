@@ -12,11 +12,4 @@ use Tests\Traits;
 class WriteTest extends \Tests\TestCases\StoreTest\EphemeralTest\WriteTest
 {
     use Traits\Stores\MySQL;
-
-    // --------------------------------------------------------------------------
-
-    public static function setUpBeforeClass(): void
-    {
-        static::dropTable();
-    }
 }
