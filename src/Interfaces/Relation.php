@@ -12,10 +12,10 @@ interface Relation
     /**
      * Relation constructor.
      *
-     * @param string|null $type  The type of item analysed
-     * @param mixed|null  $value The relationship's value
+     * @param string $type  The type of item analysed
+     * @param mixed  $value The relationship's value
      */
-    public function __construct(string $type = null, $value = null);
+    public function __construct(string $type, $value);
 
     // --------------------------------------------------------------------------
 

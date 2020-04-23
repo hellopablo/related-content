@@ -22,10 +22,10 @@ class Node implements Interfaces\Relation
     /**
      * Node constructor.
      *
-     * @param string|null $type  The type of node
-     * @param null        $value The node's value
+     * @param string $type  The type of node
+     * @param mixed  $value The node's value
      */
-    public function __construct(string $type = null, $value = null)
+    public function __construct(string $type, $value)
     {
         $this->type  = $type;
         $this->value = $value;

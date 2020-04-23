@@ -24,7 +24,7 @@ class QueryTest extends TestCase
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::query
      * @throws Exception
      */
-    public function test_can_query_data()
+    public function test_can_query_data(): void
     {
         $store = static::getStore();
 
@@ -99,7 +99,7 @@ class QueryTest extends TestCase
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::query
      * @throws Exception
      */
-    public function test_returns_related_items_of_type()
+    public function test_returns_related_items_of_type(): void
     {
         $store = static::getStore();
 
@@ -140,7 +140,7 @@ class QueryTest extends TestCase
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::query
      * @throws Exception
      */
-    public function test_returns_limited_number_of_related_items()
+    public function test_returns_limited_number_of_related_items(): void
     {
         $store = static::getStore();
 

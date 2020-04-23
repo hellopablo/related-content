@@ -11,7 +11,12 @@ use Tests\Mocks;
  */
 trait Utilities
 {
-    function getDataTypeOne1()
+    /**
+     * Returns details about the test object: DataTypeOne1
+     *
+     * @return mixed[]
+     */
+    function getDataTypeOne1(): array
     {
         $analyser  = new Mocks\Analysers\DataTypeOne();
         $object    = new Mocks\Objects\DataTypeOne1();
@@ -23,7 +28,12 @@ trait Utilities
 
     // --------------------------------------------------------------------------
 
-    function getDataTypeOne2()
+    /**
+     * Returns details about the test object: DataTypeOne2
+     *
+     * @return mixed[]
+     */
+    function getDataTypeOne2(): array
     {
         $analyser  = new Mocks\Analysers\DataTypeOne();
         $object    = new Mocks\Objects\DataTypeOne2();
@@ -35,7 +45,12 @@ trait Utilities
 
     // --------------------------------------------------------------------------
 
-    function getDataTypeTwo1()
+    /**
+     * Returns details about the test object: DataTypeTwo1
+     *
+     * @return mixed[]
+     */
+    function getDataTypeTwo1(): array
     {
         $analyser  = new Mocks\Analysers\DataTypeTwo();
         $object    = new Mocks\Objects\DataTypeTwo1();
@@ -47,7 +62,12 @@ trait Utilities
 
     // --------------------------------------------------------------------------
 
-    function getDataTypeTwo2()
+    /**
+     * Returns details about the test object: DataTypeTwo2
+     *
+     * @return mixed[]
+     */
+    function getDataTypeTwo2(): array
     {
         $analyser  = new Mocks\Analysers\DataTypeTwo();
         $object    = new Mocks\Objects\DataTypeTwo2();
@@ -59,7 +79,12 @@ trait Utilities
 
     // --------------------------------------------------------------------------
 
-    function getDataTypeThree1()
+    /**
+     * Returns details about the test object: DataTypeThree1
+     *
+     * @return mixed[]
+     */
+    function getDataTypeThree1(): array
     {
         $analyser  = new Mocks\Analysers\DataTypeThree();
         $object    = new Mocks\Objects\DataTypeThree1();

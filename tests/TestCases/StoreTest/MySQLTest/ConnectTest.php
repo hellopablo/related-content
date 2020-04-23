@@ -21,7 +21,7 @@ class ConnectTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::connect
      */
-    public function test_fails_to_connect_with_bad_credentials()
+    public function test_fails_to_connect_with_bad_credentials(): void
     {
         $this->expectException(\PDOException::class);
 
@@ -37,7 +37,7 @@ class ConnectTest extends TestCase
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::getConnection
      * @throws Exception
      */
-    public function test_can_connect_to_mysql()
+    public function test_can_connect_to_mysql(): void
     {
         $store = static::getStore();
 

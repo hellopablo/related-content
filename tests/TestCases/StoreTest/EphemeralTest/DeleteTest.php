@@ -24,7 +24,7 @@ class DeleteTest extends TestCase
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::delete
      * @throws Exception
      */
-    public function test_can_delete_data()
+    public function test_can_delete_data(): void
     {
         $store = static::getStore();
 
@@ -48,7 +48,7 @@ class DeleteTest extends TestCase
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::delete
      * @throws Exception
      */
-    public function test_deletes_data_for_item()
+    public function test_deletes_data_for_item(): void
     {
         $store = static::getStore();
 

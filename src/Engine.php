@@ -146,7 +146,7 @@ class Engine
     /**
      * Dumps the entire contents of the data store
      *
-     * @return array
+     * @return mixed[]
      */
     public function dump(): array
     {

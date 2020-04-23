@@ -23,7 +23,7 @@ class InitTableTest extends TestCase
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::initTable
      * @throws Exception
      */
-    public function test_creates_table_on_connect()
+    public function test_creates_table_on_connect(): void
     {
         $pdo = static::getDb();
 

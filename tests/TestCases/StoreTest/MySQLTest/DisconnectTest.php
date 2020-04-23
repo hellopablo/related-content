@@ -24,7 +24,7 @@ class DisconnectTest extends TestCase
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::getConnection
      * @throws Exception
      */
-    public function test_can_disconnect_from_mysql()
+    public function test_can_disconnect_from_mysql(): void
     {
         $store = static::getStore();
 

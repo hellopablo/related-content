@@ -16,7 +16,7 @@ trait Ephemeral
     /**
      * Gets a store instance
      *
-     * @param array $config
+     * @param mixed[] $config
      *
      * @return Interfaces\Store
      * @throws Exception

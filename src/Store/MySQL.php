@@ -51,10 +51,10 @@ class MySQL implements Interfaces\Store
     /** @var string */
     protected $charset;
 
-    /** @var PDO */
+    /** @var PDO|null */
     protected $pdo;
 
-    /** @var array */
+    /** @var mixed[] */
     protected $pdo_options;
 
     // --------------------------------------------------------------------------
@@ -62,7 +62,7 @@ class MySQL implements Interfaces\Store
     /**
      * MySQL constructor.
      *
-     * @param array $config Config array as required by the driver
+     * @param mixed[] $config Config array as required by the driver
      *
      * @throws Exception
      */
@@ -109,19 +109,26 @@ class MySQL implements Interfaces\Store
 
     /**
      * Creates the data table if it does not exist
+     *
+     * @throws Exception
      */
-    protected function initTable()
+    protected function initTable(): void
     {
-        $this->pdo->query('
-            CREATE TABLE IF NOT EXISTS `' . $this->table . '` (
-                `hash` varchar(300) CHARACTER SET utf8mb4 DEFAULT NULL,
-                `entity` varchar(150) CHARACTER SET utf8mb4 DEFAULT NULL,
-                `id` varchar(150) CHARACTER SET utf8mb4 DEFAULT NULL,
-                `type` varchar(150) CHARACTER SET utf8mb4 DEFAULT NULL,
-                `value` varchar(150) CHARACTER SET utf8mb4 DEFAULT NULL,
-                KEY `entity` (`entity`,`id`)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-        ');
+        if (!$this->isConnected()) {
+            throw new Exception('Store not connected');
+        }
+
+        $this->pdo
+            ->query('
+                CREATE TABLE IF NOT EXISTS `' . $this->table . '` (
+                    `hash` varchar(300) CHARACTER SET utf8mb4 DEFAULT NULL,
+                    `entity` varchar(150) CHARACTER SET utf8mb4 DEFAULT NULL,
+                    `id` varchar(150) CHARACTER SET utf8mb4 DEFAULT NULL,
+                    `type` varchar(150) CHARACTER SET utf8mb4 DEFAULT NULL,
+                    `value` varchar(150) CHARACTER SET utf8mb4 DEFAULT NULL,
+                    KEY `entity` (`entity`,`id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+            ');
     }
 
     // --------------------------------------------------------------------------
@@ -166,10 +173,15 @@ class MySQL implements Interfaces\Store
     /**
      * Dumps the entire contents of the data store
      *
-     * @return array
+     * @return mixed[]
+     * @throws Exception
      */
     public function dump(): array
     {
+        if (!$this->isConnected()) {
+            throw new Exception('Store not connected');
+        }
+
         $statement = $this->pdo
             ->query(
                 sprintf(
@@ -187,10 +199,15 @@ class MySQL implements Interfaces\Store
      * Deletes all data in the store
      *
      * @return $this
+     * @throws Exception
      */
     public function empty(): Interfaces\Store
     {
-        $statement = $this->pdo
+        if (!$this->isConnected()) {
+            throw new Exception('Store not connected');
+        }
+
+        $this->pdo
             ->query(
                 sprintf(
                     'TRUNCATE %s',
@@ -206,13 +223,18 @@ class MySQL implements Interfaces\Store
     /**
      * Reads data from the store
      *
-     * @param string           $entity The entity type the ID belongs to
-     * @param string|int|array $id     Filter by ID(s)
+     * @param string     $entity The entity type the ID belongs to
+     * @param string|int $id     The item's ID
      *
      * @return Interfaces\Relation[]
+     * @throws Exception
      */
     public function read(string $entity, $id): array
     {
+        if (!$this->isConnected()) {
+            throw new Exception('Store not connected');
+        }
+
         $statement = $this->pdo
             ->prepare(
                 sprintf(
@@ -243,14 +265,19 @@ class MySQL implements Interfaces\Store
     /**
      * Writes relations to the store
      *
-     * @param string     $entity    The entity type the ID belongs to
-     * @param string|int $id        The ID the relations belong to
-     * @param array      $relations Array of the relations
+     * @param string                $entity    The entity type the ID belongs to
+     * @param string|int            $id        The ID the relations belong to
+     * @param Interfaces\Relation[] $relations Array of the relations
      *
      * @return $this
+     * @throws Exception
      */
     public function write(string $entity, $id, array $relations): Interfaces\Store
     {
+        if (!$this->isConnected()) {
+            throw new Exception('Store not connected');
+        }
+
         $statement = $this->pdo
             ->prepare(
                 sprintf(
@@ -282,9 +309,14 @@ class MySQL implements Interfaces\Store
      * @param string|int $id     The ID of the item to delete relations for
      *
      * @return $this
+     * @throws Exception
      */
     public function delete(string $entity, $id): Interfaces\Store
     {
+        if (!$this->isConnected()) {
+            throw new Exception('Store not connected');
+        }
+
         $statement = $this->pdo
             ->prepare(
                 sprintf(
@@ -314,6 +346,7 @@ class MySQL implements Interfaces\Store
      * @param int|null              $limit           The maximum number of results to return
      *
      * @return Query\Hit[]
+     * @throws Exception
      */
     public function query(
         array $sourceRelations,
@@ -323,7 +356,9 @@ class MySQL implements Interfaces\Store
         int $limit = null
     ): array {
 
-        if (empty($sourceRelations)) {
+        if (!$this->isConnected()) {
+            throw new Exception('Store not connected');
+        } elseif (empty($sourceRelations)) {
             return [];
         }
 

@@ -22,7 +22,7 @@ class GenerateHashTest extends TestCase
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::generateHash
      * @throws Exception
      */
-    public function test_generates_Correct_hash()
+    public function test_generates_Correct_hash(): void
     {
         /** @var MySQL $store */
         $store = static::getStore();

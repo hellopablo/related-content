@@ -41,7 +41,7 @@ class GetStoreTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Engine::getStore
      */
-    public function test_returns_instance_of_store()
+    public function test_returns_instance_of_store(): void
     {
         $this->assertSame(
             static::$oStore,
