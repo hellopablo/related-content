@@ -2,8 +2,9 @@
 
 namespace Tests\TestCases\StoreTest\EphemeralTest;
 
+use Exception;
+use HelloPablo\RelatedContentEngine\Store;
 use PHPUnit\Framework\TestCase;
-use Tests\TestCases\StoreTest\EphemeralTest;
 
 /**
  * Class ConnectTest
@@ -15,9 +16,12 @@ class ConnectTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::connect
      */
-    public function test_fails_to_connect_with_bad_credentials()
+    public function test_fails_to_connect_when_will_connect_is_false()
     {
-        $this->markTestIncomplete();
+        $store = new Store\Ephemeral(['will_connect' => false]);
+
+        $this->expectException(Exception::class);
+        $store->connect();
     }
 
     // --------------------------------------------------------------------------
@@ -26,9 +30,14 @@ class ConnectTest extends TestCase
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::connect
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::isConnected
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::getConnection
+     * @throws Exception
      */
-    public function test_can_connect_to_mysql()
+    public function test_can_connect()
     {
-        $this->markTestIncomplete();
+        $store = new Store\Ephemeral();
+        $store->connect();
+
+        $this->assertTrue($store->isConnected());
+        $this->assertIsArray($store->getConnection());
     }
 }
