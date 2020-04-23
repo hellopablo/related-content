@@ -12,4 +12,11 @@ use Tests\Traits;
 class QueryTest extends \Tests\TestCases\StoreTest\EphemeralTest\QueryTest
 {
     use Traits\Stores\MySQL;
+
+    // --------------------------------------------------------------------------
+
+    public static function setUpBeforeClass(): void
+    {
+        static::dropTable();
+    }
 }

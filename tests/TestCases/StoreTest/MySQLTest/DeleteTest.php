@@ -12,4 +12,11 @@ use Tests\Traits;
 class DeleteTest extends \Tests\TestCases\StoreTest\EphemeralTest\DeleteTest
 {
     use Traits\Stores\MySQL;
+
+    // --------------------------------------------------------------------------
+
+    public static function setUpBeforeClass(): void
+    {
+        static::dropTable();
+    }
 }

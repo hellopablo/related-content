@@ -12,4 +12,11 @@ use Tests\Traits;
 class ReadTest extends \Tests\TestCases\StoreTest\EphemeralTest\ReadTest
 {
     use Traits\Stores\MySQL;
+
+    // --------------------------------------------------------------------------
+
+    public static function setUpBeforeClass(): void
+    {
+        static::dropTable();
+    }
 }
