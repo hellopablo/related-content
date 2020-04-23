@@ -68,7 +68,7 @@ class ReadTest extends TestCase
 
         $data = $store->read($analyser, $id1);
 
-        $this->assertCount(count($relations1) + count($relations2), $store->getConnection());
+        $this->assertCount(count($relations1) + count($relations2), $store->dump());
         $this->assertCount(count($relations1), $data);
     }
 }

@@ -36,7 +36,7 @@ class WriteTest extends TestCase
 
         $store->write($analyser, $id, $relations);
 
-        $data = $store->getConnection();
+        $data = $store->dump();
         $this->assertCount(count($relations), $data);
     }
 
