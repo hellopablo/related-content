@@ -229,8 +229,6 @@ class MySQL implements Interfaces\Store
      */
     public function write(Interfaces\Analyser $analyser, $id, array $relations): Interfaces\Store
     {
-        //  @todo (Pablo - 2020-04-22) - Is a batch insert better? https://gist.github.com/gskema/7a7c0eec2a7b97b4b03a
-
         $statement = $this->pdo
             ->prepare(
                 sprintf(
