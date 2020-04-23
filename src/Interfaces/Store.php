@@ -16,7 +16,7 @@ interface Store
      *
      * @param array $config Config array as required by the driver
      */
-    public function __construct(array $config);
+    public function __construct(array $config = []);
 
     // --------------------------------------------------------------------------
 

@@ -47,7 +47,7 @@ class MySQL implements Interfaces\Store
      *
      * @param array $config Config array as required by the driver
      */
-    public function __construct(array $config)
+    public function __construct(array $config = [])
     {
         $this->host        = $config['host'] ?? '127.0.0.1';
         $this->user        = $config['user'] ?? '';

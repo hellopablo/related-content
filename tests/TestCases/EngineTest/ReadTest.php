@@ -3,6 +3,7 @@
 namespace Tests\TestCases\EngineTest;
 
 use HelloPablo\RelatedContentEngine\Engine;
+use HelloPablo\RelatedContentEngine\Store;
 use PHPUnit\Framework\TestCase;
 use Tests\Mocks;
 
@@ -20,7 +21,7 @@ class ReadTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        static::$oEngine = new Engine(new Mocks\Store([]));
+        static::$oEngine = new Engine(new Store\Ephemeral([]));
     }
 
     // --------------------------------------------------------------------------

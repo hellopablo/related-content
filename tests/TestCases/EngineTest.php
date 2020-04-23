@@ -3,6 +3,7 @@
 namespace Tests\TestCases;
 
 use HelloPablo\RelatedContentEngine\Engine;
+use HelloPablo\RelatedContentEngine\Store;
 use PHPUnit\Framework\TestCase;
 use Tests\Mocks;
 
@@ -40,7 +41,11 @@ class EngineTest extends TestCase
      */
     public function test_store_automatically_connects()
     {
+        $store = new Store\Ephemeral([
+            'will_connect' => false,
+        ]);
+
         $this->expectException(\Exception::class);
-        new Engine(new Mocks\Store\FailedConnection([]));
+        new Engine($store);
     }
 }

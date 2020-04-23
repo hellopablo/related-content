@@ -4,8 +4,8 @@ namespace Tests\TestCases\EngineTest;
 
 use HelloPablo\RelatedContentEngine\Engine;
 use HelloPablo\RelatedContentEngine\Interfaces;
+use HelloPablo\RelatedContentEngine\Store;
 use PHPUnit\Framework\TestCase;
-use Tests\Mocks;
 
 /**
  * Class GetStoreTest
@@ -24,7 +24,7 @@ class GetStoreTest extends TestCase
 
     public static function setUpBeforeClass(): void
     {
-        static::$oStore  = new Mocks\Store([]);
+        static::$oStore  = new Store\Ephemeral();
         static::$oEngine = new Engine(static::$oStore);
     }
 

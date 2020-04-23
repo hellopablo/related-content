@@ -4,8 +4,8 @@ namespace Tests\TestCases;
 
 use HelloPablo\RelatedContentEngine\Engine;
 use HelloPablo\RelatedContentEngine\Factory;
+use HelloPablo\RelatedContentEngine\Store;
 use PHPUnit\Framework\TestCase;
-use Tests\Mocks;
 
 /**
  * Class FactoryTest
@@ -19,7 +19,7 @@ class FactoryTest extends TestCase
      */
     public function test_build_returns_instance_of_engine()
     {
-        $engine = Factory::build(new Mocks\Store([]));
+        $engine = Factory::build(new Store\Ephemeral());
         $this->assertInstanceOf(Engine::class, $engine);
     }
 

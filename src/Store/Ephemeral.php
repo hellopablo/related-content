@@ -1,25 +1,51 @@
 <?php
 
-namespace Tests\Mocks;
+namespace HelloPablo\RelatedContentEngine\Store;
 
+use Exception;
 use HelloPablo\RelatedContentEngine\Interfaces;
 use HelloPablo\RelatedContentEngine\Query;
 use HelloPablo\RelatedContentEngine\Relation;
 
-class Store implements Interfaces\Store
+/**
+ * Class Ephemeral
+ *
+ * @package HelloPablo\RelatedContentEngine\Store
+ */
+class Ephemeral implements Interfaces\Store
 {
-    public $data = [];
+    /**
+     * The data store
+     *
+     * @var array
+     */
+    public $data;
+
+    /**
+     * Whether the store will succeed in connecting
+     *
+     * @var bool
+     */
+    public $will_connect = true;
+
+    /**
+     * Whether the store is connected (mainly used for testing)
+     *
+     * @var bool
+     */
+    public $is_connected = false;
 
     // --------------------------------------------------------------------------
 
     /**
-     * Mock constructor.
+     * Ephemeral constructor.
      *
      * @param array $config Config array as required by the driver
      */
-    public function __construct(array $config)
+    public function __construct(array $config = [])
     {
-        //  Nothing to do
+        $this->data         = $config['data'] ?? [];
+        $this->will_connect = $config['will_connect'] ?? true;
     }
 
     // --------------------------------------------------------------------------
@@ -28,9 +54,15 @@ class Store implements Interfaces\Store
      * Opens a connection to the store
      *
      * @return $this
+     * @throws Exception
      */
     public function connect(): Interfaces\Store
     {
+        if (!$this->will_connect) {
+            throw new Exception('Failed to connect to the store');
+        }
+
+        $this->is_connected = true;
         return $this;
     }
 
@@ -43,7 +75,7 @@ class Store implements Interfaces\Store
      */
     public function isConnected(): bool
     {
-        return true;
+        return $this->is_connected;
     }
 
     // --------------------------------------------------------------------------
@@ -55,6 +87,7 @@ class Store implements Interfaces\Store
      */
     public function disconnect(): Interfaces\Store
     {
+        $this->is_connected = false;
         return $this;
     }
 
@@ -67,7 +100,7 @@ class Store implements Interfaces\Store
      */
     public function getConnection()
     {
-        return null;
+        return $this->data;
     }
 
     // --------------------------------------------------------------------------
