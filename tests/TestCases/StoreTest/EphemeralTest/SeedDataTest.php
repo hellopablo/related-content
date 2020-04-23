@@ -2,21 +2,48 @@
 
 namespace Tests\TestCases\StoreTest\EphemeralTest;
 
+use Exception;
 use PHPUnit\Framework\TestCase;
-use Tests\TestCases\StoreTest\MySQLTest;
+use HelloPablo\RelatedContentEngine\Store;
 
 /**
  * Class SeedDataTest
  *
- * @package Tests\TestCases\StoreTest\MySQLTest
+ * @package Tests\TestCases\StoreTest\EphemeralTest
  */
 class SeedDataTest extends TestCase
 {
     /**
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::__construct
+     * @throws Exception
      */
-    public function test_fails_to_connect_with_bad_credentials()
+    public function test_data_is_empty_if_not_seeded()
     {
-        $this->markTestIncomplete();
+        $store = new Store\Ephemeral();
+        $store->connect();
+
+        $data = $store->getConnection();
+
+        $this->assertIsArray($data);
+        $this->assertCount(0, $data);
+    }
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::__construct
+     * @throws Exception
+     */
+    public function test_can_seed_data()
+    {
+        $store = new Store\Ephemeral(['data' => ['test']]);
+        $store->connect();
+
+        $data  = $store->getConnection();
+        $datum = reset($data);
+
+        $this->assertIsArray($data);
+        $this->assertCount(1, $data);
+        $this->assertEquals('test', $datum);
     }
 }
