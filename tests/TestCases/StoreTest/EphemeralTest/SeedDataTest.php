@@ -38,7 +38,7 @@ class SeedDataTest extends TestCase
      */
     public function test_can_seed_data()
     {
-        $store = static::getStore(['data' => ['test']]);
+        $store = static::getStore(['seed' => true]);
 
         $data  = $store->dump();
         $datum = reset($data);

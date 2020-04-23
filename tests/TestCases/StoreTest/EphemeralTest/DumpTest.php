@@ -28,6 +28,6 @@ class DumpTest extends TestCase
         $this->assertCount(0, $store->dump());
 
         $this->assertCount(3, $store->dump());
-        $store = static::getStore(['data' => [1, 2, 3]]);
+        $store = static::getStore(['seed' => true]);
     }
 }
