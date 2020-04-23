@@ -15,6 +15,7 @@ use Tests\Traits;
  */
 class WriteTest extends TestCase
 {
+    use Traits\Utilities;
     use Traits\Stores\Ephemeral;
 
     // --------------------------------------------------------------------------
@@ -27,10 +28,7 @@ class WriteTest extends TestCase
     {
         $store = $this->getStore();
 
-        $analyser  = new Mocks\Analysers\DataTypeOne();
-        $object    = new Mocks\Objects\DataTypeOne1();
-        $id        = $analyser->getId($object);
-        $relations = $analyser->analyse($object);
+        [$analyser, $object, $id, $relations] = $this->getDataTypeOne1();
 
         $this->assertGreaterThan(0, count($relations));
 
@@ -50,10 +48,7 @@ class WriteTest extends TestCase
     {
         $store = $this->getStore();
 
-        $analyser  = new Mocks\Analysers\DataTypeOne();
-        $object    = new Mocks\Objects\DataTypeOne1();
-        $id        = $analyser->getId($object);
-        $relations = $analyser->analyse($object);
+        [$analyser, $object, $id, $relations] = $this->getDataTypeOne1();
 
         $this->assertGreaterThan(0, count($relations));
 

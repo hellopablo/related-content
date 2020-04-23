@@ -14,6 +14,7 @@ use Tests\Traits;
  */
 class DeleteTest extends TestCase
 {
+    use Traits\Utilities;
     use Traits\Stores\Ephemeral;
 
     // --------------------------------------------------------------------------
@@ -26,11 +27,7 @@ class DeleteTest extends TestCase
     {
         $store = $this->getStore();
 
-        $analyser = new Mocks\Analysers\DataTypeOne();
-
-        $object    = new Mocks\Objects\DataTypeOne1();
-        $id        = $analyser->getId($object);
-        $relations = $analyser->analyse($object);
+        [$analyser, $object, $id, $relations] = $this->getDataTypeOne1();
 
         $this->assertGreaterThan(0, count($relations));
 
@@ -53,15 +50,8 @@ class DeleteTest extends TestCase
     {
         $store = $this->getStore();
 
-        $analyser = new Mocks\Analysers\DataTypeOne();
-
-        $object1    = new Mocks\Objects\DataTypeOne1();
-        $id1        = $analyser->getId($object1);
-        $relations1 = $analyser->analyse($object1);
-
-        $object2    = new Mocks\Objects\DataTypeOne2();
-        $id2        = $analyser->getId($object2);
-        $relations2 = $analyser->analyse($object2);
+        [$analyser, $object1, $id1, $relations1] = $this->getDataTypeOne1();
+        [$analyser, $object2, $id2, $relations2] = $this->getDataTypeOne2();
 
         $this->assertGreaterThan(0, count($relations1));
         $this->assertGreaterThan(0, count($relations2));
