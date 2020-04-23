@@ -18,7 +18,7 @@ trait Utilities
         $id        = $analyser->getId($object);
         $relations = $analyser->analyse($object);
 
-        return [$analyser, $object, $id, $relations];
+        return [get_class($analyser), $object, $id, $relations];
     }
 
     // --------------------------------------------------------------------------
@@ -30,7 +30,7 @@ trait Utilities
         $id        = $analyser->getId($object);
         $relations = $analyser->analyse($object);
 
-        return [$analyser, $object, $id, $relations];
+        return [get_class($analyser), $object, $id, $relations];
     }
 
     // --------------------------------------------------------------------------
@@ -42,7 +42,7 @@ trait Utilities
         $id        = $analyser->getId($object);
         $relations = $analyser->analyse($object);
 
-        return [$analyser, $object, $id, $relations];
+        return [get_class($analyser), $object, $id, $relations];
     }
 
     // --------------------------------------------------------------------------
@@ -54,7 +54,7 @@ trait Utilities
         $id        = $analyser->getId($object);
         $relations = $analyser->analyse($object);
 
-        return [$analyser, $object, $id, $relations];
+        return [get_class($analyser), $object, $id, $relations];
     }
 
     // --------------------------------------------------------------------------
@@ -66,6 +66,6 @@ trait Utilities
         $id        = $analyser->getId($object);
         $relations = $analyser->analyse($object);
 
-        return [$analyser, $object, $id, $relations];
+        return [get_class($analyser), $object, $id, $relations];
     }
 }

@@ -27,24 +27,24 @@ class QueryTest extends TestCase
     {
         $store = $this->getStore();
 
-        [$dt1analyser, $dt1object1, $dt1id1, $dt1relations1] = $this->getDataTypeOne1();
-        [$dt1analyser, $dt1object2, $dt1id2, $dt1relations2] = $this->getDataTypeOne2();
-        [$dt2analyser, $dt2object1, $dt2id1, $dt2relations1] = $this->getDataTypeTwo1();
-        [$dt2analyser, $dt2object2, $dt2id2, $dt2relations2] = $this->getDataTypeTwo2();
-        [$dt3analyser, $dt3object1, $dt3id1, $dt3relations1] = $this->getDataTypeThree1();
+        [$dt1entity, $dt1object1, $dt1id1, $dt1relations1] = $this->getDataTypeOne1();
+        [$dt1entity, $dt1object2, $dt1id2, $dt1relations2] = $this->getDataTypeOne2();
+        [$dt2entity, $dt2object1, $dt2id1, $dt2relations1] = $this->getDataTypeTwo1();
+        [$dt2entity, $dt2object2, $dt2id2, $dt2relations2] = $this->getDataTypeTwo2();
+        [$dt3entity, $dt3object1, $dt3id1, $dt3relations1] = $this->getDataTypeThree1();
 
         $store
-            ->write($dt1analyser, $dt1id1, $dt1relations1)
-            ->write($dt1analyser, $dt1id2, $dt1relations2)
-            ->write($dt2analyser, $dt2id1, $dt2relations1)
-            ->write($dt2analyser, $dt2id2, $dt2relations2)
-            ->write($dt3analyser, $dt3id1, $dt3relations1);
+            ->write($dt1entity, $dt1id1, $dt1relations1)
+            ->write($dt1entity, $dt1id2, $dt1relations2)
+            ->write($dt2entity, $dt2id1, $dt2relations1)
+            ->write($dt2entity, $dt2id2, $dt2relations2)
+            ->write($dt3entity, $dt3id1, $dt3relations1);
 
         // Testing (1); expecting 1 hit
         $hits = $store
             ->query(
                 $dt1relations1,
-                get_class($dt1analyser),
+                $dt1entity,
                 $dt1id1
             );
 
@@ -53,8 +53,8 @@ class QueryTest extends TestCase
         // Testing (2); expecting 3 hits
         $hits = $store
             ->query(
-                $dt1analyser->analyse($dt1object2),
-                get_class($dt1analyser),
+                $dt1relations2,
+                $dt1entity,
                 $dt1id2
             );
 
@@ -63,9 +63,9 @@ class QueryTest extends TestCase
         // Testing (3); expecting 3 hits
         $hits = $store
             ->query(
-                $dt2analyser->analyse($dt2object1),
-                get_class($dt2analyser),
-                $dt2analyser->getId($dt2object1)
+                $dt2relations1,
+                $dt2entity,
+                $dt2id1
             );
 
         $this->assertCount(3, $hits);
@@ -73,9 +73,9 @@ class QueryTest extends TestCase
         // Testing (4); expecting 2 hits
         $hits = $store
             ->query(
-                $dt2analyser->analyse($dt2object2),
-                get_class($dt2analyser),
-                $dt2analyser->getId($dt2object2)
+                $dt2relations2,
+                $dt2entity,
+                $dt2id2
             );
 
         $this->assertCount(2, $hits);
@@ -83,9 +83,9 @@ class QueryTest extends TestCase
         // Testing (4); expecting 1 hit1
         $hits = $store
             ->query(
-                $dt3analyser->analyse($dt3object1),
-                get_class($dt3analyser),
-                $dt3analyser->getId($dt3object1)
+                $dt3relations1,
+                $dt3entity,
+                $dt3id1
             );
 
         $this->assertCount(1, $hits);
@@ -101,26 +101,26 @@ class QueryTest extends TestCase
     {
         $store = $this->getStore();
 
-        [$dt1analyser, $dt1object1, $dt1id1, $dt1relations1] = $this->getDataTypeOne1();
-        [$dt1analyser, $dt1object2, $dt1id2, $dt1relations2] = $this->getDataTypeOne2();
-        [$dt2analyser, $dt2object1, $dt2id1, $dt2relations1] = $this->getDataTypeTwo1();
-        [$dt2analyser, $dt2object2, $dt2id2, $dt2relations2] = $this->getDataTypeTwo2();
-        [$dt3analyser, $dt3object1, $dt3id1, $dt3relations1] = $this->getDataTypeThree1();
+        [$dt1entity, $dt1object1, $dt1id1, $dt1relations1] = $this->getDataTypeOne1();
+        [$dt1entity, $dt1object2, $dt1id2, $dt1relations2] = $this->getDataTypeOne2();
+        [$dt2entity, $dt2object1, $dt2id1, $dt2relations1] = $this->getDataTypeTwo1();
+        [$dt2entity, $dt2object2, $dt2id2, $dt2relations2] = $this->getDataTypeTwo2();
+        [$dt3entity, $dt3object1, $dt3id1, $dt3relations1] = $this->getDataTypeThree1();
 
         $store
-            ->write($dt1analyser, $dt1id1, $dt1relations1)
-            ->write($dt1analyser, $dt1id2, $dt1relations2)
-            ->write($dt2analyser, $dt2id1, $dt2relations1)
-            ->write($dt2analyser, $dt2id2, $dt2relations2)
-            ->write($dt3analyser, $dt3id1, $dt3relations1);
+            ->write($dt1entity, $dt1id1, $dt1relations1)
+            ->write($dt1entity, $dt1id2, $dt1relations2)
+            ->write($dt2entity, $dt2id1, $dt2relations1)
+            ->write($dt2entity, $dt2id2, $dt2relations2)
+            ->write($dt3entity, $dt3id1, $dt3relations1);
 
         $hits = $store
             ->query(
                 $dt2relations1,
-                get_class($dt2analyser),
+                $dt2entity,
                 $dt2id1,
                 [
-                    get_class($dt2analyser),
+                    $dt2entity,
                 ]
             );
 
@@ -141,23 +141,23 @@ class QueryTest extends TestCase
     {
         $store = $this->getStore();
 
-        [$dt1analyser, $dt1object1, $dt1id1, $dt1relations1] = $this->getDataTypeOne1();
-        [$dt1analyser, $dt1object2, $dt1id2, $dt1relations2] = $this->getDataTypeOne2();
-        [$dt2analyser, $dt2object1, $dt2id1, $dt2relations1] = $this->getDataTypeTwo1();
-        [$dt2analyser, $dt2object2, $dt2id2, $dt2relations2] = $this->getDataTypeTwo2();
-        [$dt3analyser, $dt3object1, $dt3id1, $dt3relations1] = $this->getDataTypeThree1();
+        [$dt1entity, $dt1object1, $dt1id1, $dt1relations1] = $this->getDataTypeOne1();
+        [$dt1entity, $dt1object2, $dt1id2, $dt1relations2] = $this->getDataTypeOne2();
+        [$dt2entity, $dt2object1, $dt2id1, $dt2relations1] = $this->getDataTypeTwo1();
+        [$dt2entity, $dt2object2, $dt2id2, $dt2relations2] = $this->getDataTypeTwo2();
+        [$dt3entity, $dt3object1, $dt3id1, $dt3relations1] = $this->getDataTypeThree1();
 
         $store
-            ->write($dt1analyser, $dt1id1, $dt1relations1)
-            ->write($dt1analyser, $dt1id2, $dt1relations2)
-            ->write($dt2analyser, $dt2id1, $dt2relations1)
-            ->write($dt2analyser, $dt2id2, $dt2relations2)
-            ->write($dt3analyser, $dt3id1, $dt3relations1);
+            ->write($dt1entity, $dt1id1, $dt1relations1)
+            ->write($dt1entity, $dt1id2, $dt1relations2)
+            ->write($dt2entity, $dt2id1, $dt2relations1)
+            ->write($dt2entity, $dt2id2, $dt2relations2)
+            ->write($dt3entity, $dt3id1, $dt3relations1);
 
         $hits = $store
             ->query(
                 $dt2relations1,
-                get_class($dt2analyser),
+                $dt2entity,
                 $dt2id1
             );
 
@@ -166,7 +166,7 @@ class QueryTest extends TestCase
         $hits = $store
             ->query(
                 $dt2relations1,
-                get_class($dt2analyser),
+                $dt2entity,
                 $dt2id1,
                 [],
                 2
