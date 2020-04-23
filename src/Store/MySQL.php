@@ -118,7 +118,8 @@ class MySQL implements Interfaces\Store
                 `entity` varchar(150) CHARACTER SET utf8mb4 DEFAULT NULL,
                 `id` varchar(150) CHARACTER SET utf8mb4 DEFAULT NULL,
                 `type` varchar(150) CHARACTER SET utf8mb4 DEFAULT NULL,
-                `value` varchar(150) CHARACTER SET utf8mb4 DEFAULT NULL
+                `value` varchar(150) CHARACTER SET utf8mb4 DEFAULT NULL,
+                KEY `entity` (`entity`,`id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
         ');
     }
