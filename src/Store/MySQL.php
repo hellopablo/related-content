@@ -238,13 +238,22 @@ class MySQL implements Interfaces\Store
      * Deletes relations from the store
      *
      * @param Interfaces\Analyser $analyser The analyser which was used
-     * @param string|int|null     $id       An ID to restrict the deletion to
+     * @param string|int          $id       The ID of the item to delete relations for
      *
      * @return $this
      */
     public function delete(Interfaces\Analyser $analyser, $id): Interfaces\Store
     {
-        // TODO: Implement delete() method.
+        $statement = $this->pdo
+            ->prepare('DELETE FROM :table WHERE entity = :entity AND id = :id');
+
+        $statement
+            ->execute([
+                'table'  => $this->table,
+                'entity' => get_class($analyser),
+                'id'     => $id,
+            ]);
+
         return $this;
     }
 
