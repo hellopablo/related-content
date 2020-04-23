@@ -126,7 +126,7 @@ class Store implements Interfaces\Store
      * Deletes relations from the store for an item
      *
      * @param Interfaces\Analyser $analyser The analyser which was used
-     * @param string|int|null     $id       An ID to restrict the deletion to
+     * @param string|int          $id       The ID of the item to delete relations for
      *
      * @return $this
      */

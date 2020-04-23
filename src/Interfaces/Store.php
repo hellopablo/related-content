@@ -84,8 +84,8 @@ interface Store
     /**
      * Deletes relations from the store
      *
-     * @param Analyser        $analyser The analyser which was used
-     * @param string|int|null $id       An ID to restrict the deletion to
+     * @param Analyser   $analyser The analyser which was used
+     * @param string|int $id       The ID of the item to delete relations for
      *
      * @return $this
      */
@@ -99,7 +99,7 @@ interface Store
      * @param Relation[] $sourceRelations The source's relations
      * @param string     $sourceType      The source's type
      * @param string|int $sourceId        The source's ID
-     * @param string[]              $restrict        An array of entity types to restrict to
+     * @param string[]   $restrict        An array of entity types to restrict to
      * @param int|null   $limit           The maximum number of results to return
      *
      * @return Query\Hit[]
