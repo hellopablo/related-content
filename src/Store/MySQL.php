@@ -2,8 +2,10 @@
 
 namespace HelloPablo\RelatedContentEngine\Store;
 
+use Exception;
 use HelloPablo\RelatedContentEngine\Interfaces;
 use HelloPablo\RelatedContentEngine\Query;
+use HelloPablo\RelatedContentEngine\Relation;
 use PDO;
 
 /**
@@ -13,6 +15,21 @@ use PDO;
  */
 class MySQL implements Interfaces\Store
 {
+    const DEFAULT_HOST        = '127.0.0.1';
+    const DEFAULT_USER        = '';
+    const DEFAULT_PASS        = '';
+    const DEFAULT_DATABASE    = '';
+    const DEFAULT_TABLE       = 'related_content_data';
+    const DEFAULT_PORT        = '3306';
+    const DEFAULT_CHARSET     = 'utf8mb4';
+    const DEFAULT_PDO_OPTIONS = [
+        PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES   => false,
+    ];
+
+    // --------------------------------------------------------------------------
+
     /** @var string */
     protected $host;
 
@@ -46,19 +63,23 @@ class MySQL implements Interfaces\Store
      * MySQL constructor.
      *
      * @param array $config Config array as required by the driver
+     *
+     * @throws Exception
      */
     public function __construct(array $config = [])
     {
-        $this->host        = $config['host'] ?? '127.0.0.1';
-        $this->user        = $config['user'] ?? '';
-        $this->pass        = $config['pass'] ?? '';
-        $this->database    = $config['database'] ?? '';
-        $this->table       = $config['table'] ?? '';
-        $this->port        = $config['port'] ?? '3306';
-        $this->charset     = $config['charset'] ?? 'utf8mb4';
-        $this->pdo_options = $config['pdo_options'] ?? [];
+        $this->host        = $config['host'] ?? static::DEFAULT_HOST;
+        $this->user        = $config['user'] ?? static::DEFAULT_USER;
+        $this->pass        = $config['pass'] ?? static::DEFAULT_PASS;
+        $this->database    = $config['database'] ?? static::DEFAULT_DATABASE;
+        $this->table       = $config['table'] ?? static::DEFAULT_TABLE;
+        $this->port        = $config['port'] ?? static::DEFAULT_PORT;
+        $this->charset     = $config['charset'] ?? static::DEFAULT_CHARSET;
+        $this->pdo_options = $config['pdo_options'] ?? static::DEFAULT_PDO_OPTIONS;
 
-        //  @todo (Pablo - 2020-04-22) - Validate PDO is enabled
+        if (!extension_loaded('pdo')) {
+            throw new Exception('PDO extension not installed');
+        }
     }
 
     // --------------------------------------------------------------------------
@@ -77,15 +98,28 @@ class MySQL implements Interfaces\Store
             $this->charset
         );
 
-        $options = [
-            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            PDO::ATTR_EMULATE_PREPARES   => false,
-        ];
+        $this->pdo = new PDO($dsn, $this->user, $this->pass, $this->pdo_options);
 
-        $this->pdo = new PDO($dsn, $this->user, $this->pass, $options);
+        $this->initTable();
 
         return $this;
+    }
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Creates the data table if it does not exist
+     */
+    protected function initTable()
+    {
+        $this->pdo->query('
+            CREATE TABLE IF NOT EXISTS `' . $this->table . '` (
+                `entity` varchar(150) CHARACTER SET utf8mb4 DEFAULT NULL,
+                `id` varchar(150) CHARACTER SET utf8mb4 DEFAULT NULL,
+                `type` varchar(150) CHARACTER SET utf8mb4 DEFAULT NULL,
+                `value` varchar(150) CHARACTER SET utf8mb4 DEFAULT NULL
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+        ');
     }
 
     // --------------------------------------------------------------------------
@@ -97,7 +131,7 @@ class MySQL implements Interfaces\Store
      */
     public function isConnected(): bool
     {
-        return null === $this->getConnection();
+        return null !== $this->getConnection();
     }
 
     // --------------------------------------------------------------------------
@@ -134,8 +168,15 @@ class MySQL implements Interfaces\Store
      */
     public function dump(): array
     {
-        // TODO: Implement dump() method.
-        return [];
+        $statement = $this->pdo
+            ->query(
+                sprintf(
+                    'SELECT * FROM %s',
+                    $this->table
+                )
+            );
+
+        return $statement->fetchAll(PDO::FETCH_OBJ);
     }
 
     // --------------------------------------------------------------------------
@@ -150,8 +191,29 @@ class MySQL implements Interfaces\Store
      */
     public function read(Interfaces\Analyser $analyser, $id): array
     {
-        // TODO: Implement read() method.
-        return [];
+        $statement = $this->pdo
+            ->prepare(
+                sprintf(
+                    'SELECT * FROM %s WHERE entity = :entity AND id = :id',
+                    $this->table
+                )
+            );
+
+        $statement
+            ->execute([
+                'entity' => get_class($analyser),
+                'id'     => $id,
+            ]);
+
+        $results = [];
+        foreach ($statement->fetchAll(PDO::FETCH_OBJ) as $row) {
+            $results[] = new Relation\Node(
+                $row->type,
+                $row->value
+            );
+        }
+
+        return $results;
     }
 
     // --------------------------------------------------------------------------
@@ -167,8 +229,24 @@ class MySQL implements Interfaces\Store
      */
     public function write(Interfaces\Analyser $analyser, $id, array $relations): Interfaces\Store
     {
-        // TODO: Implement write() method.
-        //  @todo (Pablo - 2020-04-22) - https://gist.github.com/gskema/7a7c0eec2a7b97b4b03a
+        $statement = $this->pdo
+            ->prepare(
+                sprintf(
+                    'INSERT INTO %s (entity, id, type, value) VALUES (:entity, :id, :type, :value)',
+                    $this->table
+                )
+            );
+
+        foreach ($relations as $relation) {
+            $statement
+                ->execute([
+                    'entity' => get_class($analyser),
+                    'id'     => $id,
+                    'type'   => $relation->getType(),
+                    'value'  => $relation->getValue(),
+                ]);
+        }
+
         return $this;
     }
 
@@ -178,13 +256,26 @@ class MySQL implements Interfaces\Store
      * Deletes relations from the store
      *
      * @param Interfaces\Analyser $analyser The analyser which was used
-     * @param string|int|null     $id       An ID to restrict the deletion to
+     * @param string|int          $id       The ID of the item to delete relations for
      *
      * @return $this
      */
     public function delete(Interfaces\Analyser $analyser, $id): Interfaces\Store
     {
-        // TODO: Implement delete() method.
+        $statement = $this->pdo
+            ->prepare(
+                sprintf(
+                    'DELETE FROM %s WHERE entity = :entity AND id = :id',
+                    $this->table
+                )
+            );
+
+        $statement
+            ->execute([
+                'entity' => get_class($analyser),
+                'id'     => $id,
+            ]);
+
         return $this;
     }
 
@@ -208,7 +299,70 @@ class MySQL implements Interfaces\Store
         array $restrict = [],
         int $limit = null
     ): array {
-        //  @todo (Pablo - 2020-04-22) - Implement this
-        return [];
+
+        if (empty($sourceRelations)) {
+            return [];
+        }
+
+        $where = [];
+
+        //  Exclude the source item
+        $where[] = sprintf(
+            'CONCAT(entity, "::", id) != "%s::%s"',
+            str_replace('\\', '\\\\', $sourceType),
+            $sourceId
+        );
+
+        //  Include matching items
+        $overlaps = array_map(
+            function ($relation) {
+                return sprintf(
+                    '(type = "%s" AND value = "%s")',
+                    $relation->getType(),
+                    $relation->getValue()
+                );
+            },
+            $sourceRelations
+        );
+
+        $where[] = '(' . implode(' OR ', $overlaps) . ')';
+
+        //  Restrict to entities if specified
+        if (!empty($restrict)) {
+            $where[] = sprintf(
+                'entity IN ("%s")',
+                implode(
+                    '", "',
+                    array_map(
+                        function ($restrict) {
+                            return str_replace('\\', '\\\\', $restrict);
+                        },
+                        $restrict
+                    )
+                )
+            );
+        }
+
+        //  Compile the query
+        $sql = sprintf(
+            'SELECT entity, id, COUNT(*) score FROM %s WHERE %s GROUP BY entity,id ORDER BY score DESC %s',
+            $this->table,
+            implode(' AND ', $where),
+            !empty($limit) ? 'LIMIT ' . $limit : ''
+        );
+
+        $statement = $this->pdo
+            ->query($sql);
+
+        return array_map(
+            function (\stdClass $hit) {
+                return new Query\Hit(
+                    $hit->entity,
+                    $hit->id,
+                    $hit->score
+                );
+            },
+            $statement->fetchAll(PDO::FETCH_OBJ)
+        );
     }
 }

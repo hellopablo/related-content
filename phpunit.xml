@@ -13,4 +13,9 @@
             <directory suffix="Test.php">./tests/TestCases</directory>
         </testsuite>
     </testsuites>
+    <php>
+        <env name="MYSQL_USER" value="docker"/>
+        <env name="MYSQL_PASS" value="docker"/>
+        <env name="MYSQL_DATABASE" value="dev"/>
+    </php>
 </phpunit>
