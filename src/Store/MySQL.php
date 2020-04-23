@@ -398,7 +398,7 @@ class MySQL implements Interfaces\Store
      *
      * @return string
      */
-    protected function generateHash(string $entity, $id): string
+    public function generateHash(string $entity, $id): string
     {
         return md5(
             sprintf(
