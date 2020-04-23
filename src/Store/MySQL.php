@@ -114,6 +114,7 @@ class MySQL implements Interfaces\Store
     {
         $this->pdo->query('
             CREATE TABLE IF NOT EXISTS `' . $this->table . '` (
+                `hash` varchar(300) CHARACTER SET utf8mb4 DEFAULT NULL,
                 `entity` varchar(150) CHARACTER SET utf8mb4 DEFAULT NULL,
                 `id` varchar(150) CHARACTER SET utf8mb4 DEFAULT NULL,
                 `type` varchar(150) CHARACTER SET utf8mb4 DEFAULT NULL,
@@ -232,7 +233,7 @@ class MySQL implements Interfaces\Store
         $statement = $this->pdo
             ->prepare(
                 sprintf(
-                    'INSERT INTO %s (entity, id, type, value) VALUES (:entity, :id, :type, :value)',
+                    'INSERT INTO %s (hash, entity, id, type, value) VALUES (:hash, :entity, :id, :type, :value)',
                     $this->table
                 )
             );
@@ -240,6 +241,7 @@ class MySQL implements Interfaces\Store
         foreach ($relations as $relation) {
             $statement
                 ->execute([
+                    'hash'   => $this->generateHash($entity, $id),
                     'entity' => $entity,
                     'id'     => $id,
                     'type'   => $relation->getType(),
@@ -308,9 +310,8 @@ class MySQL implements Interfaces\Store
 
         //  Exclude the source item
         $where[] = sprintf(
-            'CONCAT(entity, "::", id) != "%s::%s"',
-            str_replace('\\', '\\\\', $sourceEntity),
-            $sourceId
+            'hash != "%s"',
+            $this->generateHash($sourceEntity, $sourceId)
         );
 
         //  Include matching items
@@ -363,6 +364,27 @@ class MySQL implements Interfaces\Store
                 );
             },
             $statement->fetchAll(PDO::FETCH_OBJ)
+        );
+    }
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Generates the item's hash
+     *
+     * @param string $entity The item'sentity string
+     * @param mixed  $id     The item's ID
+     *
+     * @return string
+     */
+    protected function generateHash(string $entity, $id): string
+    {
+        return md5(
+            sprintf(
+                '%s::%s',
+                $entity,
+                $id
+            )
         );
     }
 }
