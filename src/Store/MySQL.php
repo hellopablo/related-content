@@ -213,8 +213,22 @@ class MySQL implements Interfaces\Store
      */
     public function write(Interfaces\Analyser $analyser, $id, array $relations): Interfaces\Store
     {
-        // TODO: Implement write() method.
-        //  @todo (Pablo - 2020-04-22) - https://gist.github.com/gskema/7a7c0eec2a7b97b4b03a
+        //  @todo (Pablo - 2020-04-22) - Is a batch insert better? https://gist.github.com/gskema/7a7c0eec2a7b97b4b03a
+
+        $statement = $this->pdo
+            ->prepare('INSERT INTO :table (`entity`, `id`, `type`, `value`) VALUES (:entity, :id:, :type, :value)');
+
+        foreach ($relations as $relation) {
+            $statement
+                ->execute([
+                    'table'  => $this->table,
+                    'entity' => get_class($analyser),
+                    'id'     => $id,
+                    'type'   => $relation->getType(),
+                    'value'  => $relation->getValue(),
+                ]);
+        }
+
         return $this;
     }
 
