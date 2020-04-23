@@ -94,8 +94,26 @@ class MySQL implements Interfaces\Store
 
         $this->pdo = new PDO($dsn, $this->user, $this->pass, $this->pdo_options);
 
+        $this->initTable();
 
         return $this;
+    }
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Creates the data table if it does not exist
+     */
+    protected function initTable()
+    {
+        $this->pdo->query('
+            CREATE TABLE IF NOT EXISTS `' . $this->table . '` (
+                `entity` varchar(150) CHARACTER SET utf8mb4 DEFAULT NULL,
+                `id` varchar(150) CHARACTER SET utf8mb4 DEFAULT NULL,
+                `type` varchar(150) CHARACTER SET utf8mb4 DEFAULT NULL,
+                `value` varchar(150) CHARACTER SET utf8mb4 DEFAULT NULL
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+        ');
     }
 
     // --------------------------------------------------------------------------
