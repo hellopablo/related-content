@@ -20,6 +20,7 @@ class EngineTest extends TestCase
     public function test_store_is_a_required_argument()
     {
         $this->expectException(\ArgumentCountError::class);
+        /** @phpstan-ignore-next-line */
         new Engine();
     }
 
