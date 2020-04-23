@@ -152,4 +152,17 @@ class Engine
     {
         return $this->store->dump();
     }
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Deletes all data in the store
+     *
+     * @return $this
+     */
+    public function empty(): self
+    {
+        $this->store->empty();
+        return $this;
+    }
 }
