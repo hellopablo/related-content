@@ -4,6 +4,7 @@ namespace HelloPablo\RelatedContentEngine\Store;
 
 use HelloPablo\RelatedContentEngine\Interfaces;
 use HelloPablo\RelatedContentEngine\Query;
+use HelloPablo\RelatedContentEngine\Relation;
 use PDO;
 
 /**
@@ -178,8 +179,25 @@ class MySQL implements Interfaces\Store
      */
     public function read(Interfaces\Analyser $analyser, $id): array
     {
-        // TODO: Implement read() method.
-        return [];
+        $statement = $this->pdo
+            ->prepare('SELECT * FROM :table WHERE entity = :entity AND id = :id ');
+
+        $statement
+            ->execute([
+                'table'  => $this->table,
+                'entity' => get_class($analyser),
+                'id'     => $id,
+            ]);
+
+        $results = [];
+        foreach ($statement->fetchAll(PDO::FETCH_OBJ) as $row) {
+            $results[] = new Relation\Node(
+                $row->type,
+                $row->value
+            );
+        }
+
+        return $results;
     }
 
     // --------------------------------------------------------------------------
