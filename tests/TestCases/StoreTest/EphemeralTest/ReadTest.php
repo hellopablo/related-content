@@ -51,6 +51,7 @@ class ReadTest extends TestCase
         $store = $this->getStore();
 
         $analyser   = new Mocks\Analysers\DataTypeOne();
+
         $object1    = new Mocks\Objects\DataTypeOne1();
         $id1        = $analyser->getId($object1);
         $relations1 = $analyser->analyse($object1);
