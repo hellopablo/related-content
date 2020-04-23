@@ -26,14 +26,14 @@ class Ephemeral implements Interfaces\Store
      *
      * @var bool
      */
-    public $will_connect = true;
+    protected $will_connect = true;
 
     /**
      * Whether the store is connected (mainly used for testing)
      *
      * @var bool
      */
-    public $is_connected = false;
+    protected $is_connected = false;
 
     // --------------------------------------------------------------------------
 
@@ -99,6 +99,18 @@ class Ephemeral implements Interfaces\Store
      * @return mixed
      */
     public function getConnection()
+    {
+        return $this->is_connected ? $this->data : null;
+    }
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Dumps the entire contents of the data store
+     *
+     * @return array
+     */
+    public function dump(): array
     {
         return $this->data;
     }
