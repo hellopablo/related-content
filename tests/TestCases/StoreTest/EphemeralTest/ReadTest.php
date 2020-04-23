@@ -8,7 +8,7 @@ use Tests\TestCases\StoreTest\MySQLTest;
 /**
  * Class ReadTest
  *
- * @package Tests\TestCases\StoreTest\MySQLTest
+ * @package Tests\TestCases\StoreTest\EphemeralTest
  */
 class ReadTest extends TestCase
 {
