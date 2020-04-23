@@ -180,11 +180,15 @@ class MySQL implements Interfaces\Store
     public function read(Interfaces\Analyser $analyser, $id): array
     {
         $statement = $this->pdo
-            ->prepare('SELECT * FROM :table WHERE entity = :entity AND id = :id ');
+            ->prepare(
+                sprintf(
+                    'SELECT * FROM %s WHERE entity = :entity AND id = :id',
+                    $this->table
+                )
+            );
 
         $statement
             ->execute([
-                'table'  => $this->table,
                 'entity' => get_class($analyser),
                 'id'     => $id,
             ]);
@@ -216,12 +220,16 @@ class MySQL implements Interfaces\Store
         //  @todo (Pablo - 2020-04-22) - Is a batch insert better? https://gist.github.com/gskema/7a7c0eec2a7b97b4b03a
 
         $statement = $this->pdo
-            ->prepare('INSERT INTO :table (`entity`, `id`, `type`, `value`) VALUES (:entity, :id:, :type, :value)');
+            ->prepare(
+                sprintf(
+                    'INSERT INTO %s (entity, id, type, value) VALUES (:entity, :id, :type, :value)',
+                    $this->table
+                )
+            );
 
         foreach ($relations as $relation) {
             $statement
                 ->execute([
-                    'table'  => $this->table,
                     'entity' => get_class($analyser),
                     'id'     => $id,
                     'type'   => $relation->getType(),
@@ -245,11 +253,15 @@ class MySQL implements Interfaces\Store
     public function delete(Interfaces\Analyser $analyser, $id): Interfaces\Store
     {
         $statement = $this->pdo
-            ->prepare('DELETE FROM :table WHERE entity = :entity AND id = :id');
+            ->prepare(
+                sprintf(
+                    'DELETE FROM %s WHERE entity = :entity AND id = :id',
+                    $this->table
+                )
+            );
 
         $statement
             ->execute([
-                'table'  => $this->table,
                 'entity' => get_class($analyser),
                 'id'     => $id,
             ]);
