@@ -2,10 +2,12 @@
 
 namespace Tests\TestCases\EngineTest;
 
+use Exception;
 use HelloPablo\RelatedContentEngine\Engine;
-use HelloPablo\RelatedContentEngine\Store;
+use HelloPablo\RelatedContentEngine\Interfaces;
 use PHPUnit\Framework\TestCase;
 use Tests\Mocks;
+use Tests\Traits;
 
 /**
  * Class IndexTest
@@ -14,14 +16,25 @@ use Tests\Mocks;
  */
 class IndexTest extends TestCase
 {
+    use Traits\Stores\Ephemeral;
+
+    // --------------------------------------------------------------------------
+
+    /** @var Interfaces\Store */
+    static $oStore;
+
     /** @var Engine */
     static $oEngine;
 
     // --------------------------------------------------------------------------
 
+    /**
+     * @throws Exception
+     */
     public static function setUpBeforeClass(): void
     {
-        static::$oEngine = new Engine(new Store\Ephemeral());
+        static::$oStore  = static::getStore();
+        static::$oEngine = new Engine(static::$oStore);
     }
 
     // --------------------------------------------------------------------------
@@ -76,26 +89,27 @@ class IndexTest extends TestCase
     public function test_object_is_indexed()
     {
         $object = new Mocks\Objects\DataTypeOne1();
-        $store  = static::$oEngine->getStore();
 
         static::$oEngine->index(
             $object,
             new Mocks\Analysers\DataTypeOne()
         );
 
-        $this->assertNotEmpty($store->data);
-        $this->assertCount(3, $store->data);
+        $data = static::$oEngine->dump();
+        $this->assertNotEmpty($data);
+        $this->assertCount(3, $data);
     }
 
     // --------------------------------------------------------------------------
 
+    /**
+     * @covers \HelloPablo\RelatedContentEngine\Engine::index
+     */
     public function test_duplicate_indexing_does_not_Result_in_duplicate_indexes()
     {
         $object1 = new Mocks\Objects\DataTypeOne1();
-        $store   = static::$oEngine->getStore();
 
-        //  Clear data store
-        $store->data = [];
+        static::$oEngine->empty();
 
         static::$oEngine
             ->index(
@@ -107,8 +121,9 @@ class IndexTest extends TestCase
                 new Mocks\Analysers\DataTypeOne()
             );
 
-        $this->assertNotEmpty($store->data);
-        $this->assertCount(3, $store->data);
+        $data = static::$oEngine->dump();
+        $this->assertNotEmpty($data);
+        $this->assertCount(3, $data);
     }
 
     // --------------------------------------------------------------------------

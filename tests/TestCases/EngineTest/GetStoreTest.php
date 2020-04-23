@@ -2,10 +2,11 @@
 
 namespace Tests\TestCases\EngineTest;
 
+use Exception;
 use HelloPablo\RelatedContentEngine\Engine;
 use HelloPablo\RelatedContentEngine\Interfaces;
-use HelloPablo\RelatedContentEngine\Store;
 use PHPUnit\Framework\TestCase;
+use Tests\Traits;
 
 /**
  * Class GetStoreTest
@@ -14,6 +15,10 @@ use PHPUnit\Framework\TestCase;
  */
 class GetStoreTest extends TestCase
 {
+    use Traits\Stores\Ephemeral;
+
+    // --------------------------------------------------------------------------
+
     /** @var Interfaces\Store */
     static $oStore;
 
@@ -22,9 +27,12 @@ class GetStoreTest extends TestCase
 
     // --------------------------------------------------------------------------
 
+    /**
+     * @throws Exception
+     */
     public static function setUpBeforeClass(): void
     {
-        static::$oStore  = new Store\Ephemeral();
+        static::$oStore  = static::getStore();
         static::$oEngine = new Engine(static::$oStore);
     }
 

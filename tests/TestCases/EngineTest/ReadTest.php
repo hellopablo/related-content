@@ -2,10 +2,12 @@
 
 namespace Tests\TestCases\EngineTest;
 
+use Exception;
 use HelloPablo\RelatedContentEngine\Engine;
-use HelloPablo\RelatedContentEngine\Store;
+use HelloPablo\RelatedContentEngine\Interfaces;
 use PHPUnit\Framework\TestCase;
 use Tests\Mocks;
+use Tests\Traits;
 
 /**
  * Class ReadTest
@@ -14,14 +16,25 @@ use Tests\Mocks;
  */
 class ReadTest extends TestCase
 {
+    use Traits\Stores\Ephemeral;
+
+    // --------------------------------------------------------------------------
+
+    /** @var Interfaces\Store */
+    static $oStore;
+
     /** @var Engine */
     static $oEngine;
 
     // --------------------------------------------------------------------------
 
+    /**
+     * @throws Exception
+     */
     public static function setUpBeforeClass(): void
     {
-        static::$oEngine = new Engine(new Store\Ephemeral([]));
+        static::$oStore  = static::getStore();
+        static::$oEngine = new Engine(static::$oStore);
     }
 
     // --------------------------------------------------------------------------
@@ -96,18 +109,18 @@ class ReadTest extends TestCase
         $object1  = new Mocks\Objects\DataTypeOne1();
         $object2  = new Mocks\Objects\DataTypeOne2();
         $analyser = new Mocks\Analysers\DataTypeOne();
-        $store    = static::$oEngine->getStore();
 
         //  Clear data store
-        $store->data = [];
+        static::$oEngine->empty();
 
         $relations = static::$oEngine
             ->index($object1, $analyser)
             ->index($object2, $analyser)
             ->read($object1, $analyser);
 
+        $data = static::$oEngine->dump();
         $this->assertNotEmpty($relations);
-        $this->assertCount(6, $store->data);
+        $this->assertCount(6, $data);
         $this->assertCount(3, $relations);
     }
 }

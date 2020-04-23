@@ -2,10 +2,12 @@
 
 namespace Tests\TestCases\EngineTest;
 
+use Exception;
 use HelloPablo\RelatedContentEngine\Engine;
-use HelloPablo\RelatedContentEngine\Store\Ephemeral;
+use HelloPablo\RelatedContentEngine\Interfaces;
 use PHPUnit\Framework\TestCase;
 use Tests\Mocks;
+use Tests\Traits;
 
 /**
  * Class DeleteTest
@@ -14,14 +16,25 @@ use Tests\Mocks;
  */
 class DeleteTest extends TestCase
 {
+    use Traits\Stores\Ephemeral;
+
+    // --------------------------------------------------------------------------
+
+    /** @var Interfaces\Store */
+    static $oStore;
+
     /** @var Engine */
     static $oEngine;
 
     // --------------------------------------------------------------------------
 
+    /**
+     * @throws Exception
+     */
     public static function setUpBeforeClass(): void
     {
-        static::$oEngine = new Engine(new Ephemeral());
+        static::$oStore  = static::getStore();
+        static::$oEngine = new Engine(static::$oStore);
     }
 
     // --------------------------------------------------------------------------
@@ -76,22 +89,25 @@ class DeleteTest extends TestCase
     public function test_object_is_deleted()
     {
         $object = new Mocks\Objects\DataTypeOne1();
-        $store  = static::$oEngine->getStore();
 
-        static::$oEngine->index(
-            $object,
-            new Mocks\Analysers\DataTypeOne()
-        );
+        static::$oEngine
+            ->index(
+                $object,
+                new Mocks\Analysers\DataTypeOne()
+            );
 
-        $this->assertNotEmpty($store->data);
-        $this->assertCount(3, $store->data);
+        $data = static::$oEngine->dump();
+
+        $this->assertNotEmpty($data);
+        $this->assertCount(3, $data);
 
         static::$oEngine->delete(
             $object,
             new Mocks\Analysers\DataTypeOne()
         );
 
-        $this->assertEmpty($store->data);
+        $data = static::$oEngine->dump();
+        $this->assertEmpty($data);
     }
 
     // --------------------------------------------------------------------------
@@ -115,15 +131,17 @@ class DeleteTest extends TestCase
                 new Mocks\Analysers\DataTypeOne()
             );
 
-        $this->assertNotEmpty($store->data);
-        $this->assertCount(6, $store->data);
+        $data = static::$oEngine->dump();
+        $this->assertNotEmpty($data);
+        $this->assertCount(6, $data);
 
         static::$oEngine->delete(
             $object1,
             new Mocks\Analysers\DataTypeOne()
         );
 
-        $this->assertCount(3, $store->data);
+        $data = static::$oEngine->dump();
+        $this->assertCount(3, $data);
     }
 
     // --------------------------------------------------------------------------

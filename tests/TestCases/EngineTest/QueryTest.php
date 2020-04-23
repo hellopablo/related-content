@@ -2,10 +2,12 @@
 
 namespace Tests\TestCases\EngineTest;
 
+use Exception;
 use HelloPablo\RelatedContentEngine\Engine;
-use HelloPablo\RelatedContentEngine\Store;
+use HelloPablo\RelatedContentEngine\Interfaces;
 use PHPUnit\Framework\TestCase;
 use Tests\Mocks;
+use Tests\Traits;
 
 /**
  * Class QueryTest
@@ -43,14 +45,25 @@ use Tests\Mocks;
  */
 class QueryTest extends TestCase
 {
+    use Traits\Stores\Ephemeral;
+
+    // --------------------------------------------------------------------------
+
+    /** @var Interfaces\Store */
+    static $oStore;
+
     /** @var Engine */
     static $oEngine;
 
     // --------------------------------------------------------------------------
 
+    /**
+     * @throws Exception
+     */
     public static function setUpBeforeClass(): void
     {
-        static::$oEngine = new Engine(new Store\Ephemeral());
+        static::$oStore  = static::getStore();
+        static::$oEngine = new Engine(static::$oStore);
 
         $dt1analyser = new Mocks\Analysers\DataTypeOne();
         $dt1object1  = new Mocks\Objects\DataTypeOne1();
