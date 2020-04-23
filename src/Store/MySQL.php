@@ -301,7 +301,70 @@ class MySQL implements Interfaces\Store
         array $restrict = [],
         int $limit = null
     ): array {
-        //  @todo (Pablo - 2020-04-22) - Implement this
-        return [];
+
+        if (empty($sourceRelations)) {
+            return [];
+        }
+
+        $where = [];
+
+        //  Exclude the source item
+        $where[] = sprintf(
+            'CONCAT(entity, "::", id) != "%s::%s"',
+            str_replace('\\', '\\\\', $sourceType),
+            $sourceId
+        );
+
+        //  Include matching items
+        $overlaps = array_map(
+            function ($relation) {
+                return sprintf(
+                    '(type = "%s" AND value = "%s")',
+                    $relation->getType(),
+                    $relation->getValue()
+                );
+            },
+            $sourceRelations
+        );
+
+        $where[] = '(' . implode(' OR ', $overlaps) . ')';
+
+        //  Restrict to entities if specified
+        if (!empty($restrict)) {
+            $where[] = sprintf(
+                'entity IN ("%s")',
+                implode(
+                    '", "',
+                    array_map(
+                        function ($restrict) {
+                            return str_replace('\\', '\\\\', $restrict);
+                        },
+                        $restrict
+                    )
+                )
+            );
+        }
+
+        //  Compile the query
+        $sql = sprintf(
+            'SELECT entity, id, COUNT(*) score FROM %s WHERE %s GROUP BY entity,id ORDER BY score DESC %s',
+            $this->table,
+            implode(' AND ', $where),
+            !empty($limit) ? 'LIMIT ' . $limit : ''
+        );
+
+        $statement = $this->pdo
+            ->query($sql);
+
+        return array_map(
+            function (\stdClass $hit) {
+                return new Query\Hit(
+                    $hit->entity,
+                    $hit->id,
+                    $hit->score
+                );
+            },
+            $statement->fetchAll(PDO::FETCH_OBJ)
+        );
     }
 }
