@@ -1,0 +1,36 @@
+{
+    "name": "hellopablo/related-content-engine",
+    "description": "A framework for analysing objects in your application and finding related content.",
+    "type": "library",
+    "require": {
+        "php": "^7.2",
+        "ext-pdo": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.5.4",
+        "phpstan/phpstan": "^0.12.19"
+    },
+    "suggest": {
+        "ext-pdo": "Install the PDO extension to sue the MySQL Store"
+    },
+    "autoload": {
+        "psr-4": {
+            "HelloPablo\\RelatedContentEngine\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "license": "MITr",
+    "authors": [
+        {
+            "name": "Pablo de la Peña",
+            "email": "pablo@hellopablo.co.uk"
+        }
+    ],
+    "scripts": {
+        "test": "./vendor/bin/phpunit"
+    }
+}
