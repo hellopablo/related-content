@@ -27,6 +27,10 @@ jobs:
 
             - name: Set up MySQL
               uses: mirromutth/mysql-action@v1.1
+              with:
+                  mysql user: mysql
+                  mysql password: password
+                  mysql database: test
 
             - name: Get composer cache directory
               id: composer-cache
@@ -49,3 +53,7 @@ jobs:
 
             - name: Execute tests
               run: composer test
+              env:
+                  MYSQL_USER: mysql
+                  MYSQL_PASS: password
+                  MYSQL_DATABASE: test
