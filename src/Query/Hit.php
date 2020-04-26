@@ -2,6 +2,8 @@
 
 namespace HelloPablo\RelatedContentEngine\Query;
 
+use HelloPablo\RelatedContentEngine\Interfaces;
+
 /**
  * Class Hit
  *
@@ -10,7 +12,7 @@ namespace HelloPablo\RelatedContentEngine\Query;
 class Hit
 {
     /** @var string */
-    protected $type;
+    protected $analyser;
 
     /** @var int|string */
     protected $id;
@@ -23,27 +25,27 @@ class Hit
     /**
      * Hit constructor.
      *
-     * @param string     $type  The item's type
-     * @param int|string $id    The item's ID
-     * @param int        $score The item's score
+     * @param Interfaces\Analyser $analyser The item's analyser
+     * @param int|string          $id       The item's ID
+     * @param int                 $score    The item's score
      */
-    public function __construct(string $type, $id, int $score)
+    public function __construct(Interfaces\Analyser $analyser, $id, int $score)
     {
-        $this->type  = $type;
-        $this->id    = $id;
-        $this->score = $score;
+        $this->analyser = $analyser;
+        $this->id       = $id;
+        $this->score    = $score;
     }
 
     // --------------------------------------------------------------------------
 
     /**
-     * Returns the item's type
+     * Returns the item's analyser
      *
-     * @return string
+     * @return Interfaces\Analyser
      */
-    public function getType(): string
+    public function getAnalyser(): Interfaces\Analyser
     {
-        return $this->type;
+        return $this->analyser;
     }
 
     // --------------------------------------------------------------------------

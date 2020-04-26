@@ -130,7 +130,7 @@ class QueryTest extends TestCase
         $hit = reset($hits);
 
         static::assertCount(1, $hits);
-        static::assertEquals(Mocks\Analysers\DataTypeTwo::class, $hit->getType());
+        static::assertInstanceOf(Mocks\Analysers\DataTypeTwo::class, $hit->getAnalyser());
         static::assertEquals(2, $hit->getId());
     }
 
