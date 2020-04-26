@@ -23,7 +23,7 @@
             "Tests\\": "tests/"
         }
     },
-    "license": "MITr",
+    "license": "MIT",
     "authors": [
         {
             "name": "Pablo de la Peña",
