@@ -1,4 +1,4 @@
-# Related Content Engine
+# Related Content
 
 This package is simple PHP framework for analysing objects in your application and an API for finding related content. Bring-your-own analysers extract relation nodes from an object which can be used to find other objects which have similar nodes.
 
@@ -29,10 +29,10 @@ For example, you might have  `Article` and `Blog` objects which both have `categ
 Install using Composer:
 
 ```bash
-composer require hellopablo/related-content-engine
+composer require hellopablo/related-content
 ```
 
-All classes within the package are under the namespace `HelloPablo\RelatedContentEngine` and can be autoloaded using PSR-4.
+All classes within the package are under the namespace `HelloPablo\RelatedContent` and can be autoloaded using PSR-4.
 
 
 
@@ -70,8 +70,8 @@ We might want to describe the `categories` and `topics` IDs as relationship node
 ```php
 namespace App\RelatedContent\Analysers;
 
-use HelloPablo\RelatedContentEngine\Interfaces;
-use HelloPablo\RelatedContentEngine\Relation;
+use HelloPablo\RelatedContent\Interfaces;
+use HelloPablo\RelatedContent\Relation;
 
 class Article implements Interfaces\Analsyer
 {
@@ -124,16 +124,16 @@ A new instance of the enigne can be retrieved via the `Factory` class, you must 
 An example using the [MySQL data store](#mysql):
 
 ```php
-use HelloPablo\RelatedContentEngine;
+use HelloPablo\RelatedContent;
 
-$store = new RelatedContentEngine\Store\MySQL([
+$store = new RelatedContent\Store\MySQL([
     'user'     => 'mysql_user',
     'password' => 'mysql_password',
     'database' => 'mysql_database',
 ]);
 
 /** @var Engine $engine */
-$engine = RelatedContentEngine\Factory::build($store);
+$engine = RelatedContent\Factory::build($store);
 ```
 
 

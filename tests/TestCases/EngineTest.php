@@ -4,8 +4,8 @@ namespace Tests\TestCases;
 
 use ArgumentCountError;
 use Exception;
-use HelloPablo\RelatedContentEngine\Engine;
-use HelloPablo\RelatedContentEngine\Store;
+use HelloPablo\RelatedContent\Engine;
+use HelloPablo\RelatedContent\Store;
 use PHPUnit\Framework\TestCase;
 use Tests\Mocks;
 use TypeError;
@@ -18,7 +18,7 @@ use TypeError;
 class EngineTest extends TestCase
 {
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Engine::__construct
+     * @covers \HelloPablo\RelatedContent\Engine::__construct
      */
     public function test_store_is_a_required_argument(): void
     {
@@ -30,7 +30,7 @@ class EngineTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Engine::__construct
+     * @covers \HelloPablo\RelatedContent\Engine::__construct
      */
     public function test_store_must_be_instance_of_store(): void
     {
@@ -42,7 +42,7 @@ class EngineTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Engine::__construct
+     * @covers \HelloPablo\RelatedContent\Engine::__construct
      */
     public function test_store_automatically_connects(): void
     {

@@ -3,9 +3,9 @@
 namespace Tests\TestCases;
 
 use ArgumentCountError;
-use HelloPablo\RelatedContentEngine\Engine;
-use HelloPablo\RelatedContentEngine\Factory;
-use HelloPablo\RelatedContentEngine\Store;
+use HelloPablo\RelatedContent\Engine;
+use HelloPablo\RelatedContent\Factory;
+use HelloPablo\RelatedContent\Store;
 use PHPUnit\Framework\TestCase;
 use TypeError;
 
@@ -17,7 +17,7 @@ use TypeError;
 class FactoryTest extends TestCase
 {
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Factory::build
+     * @covers \HelloPablo\RelatedContent\Factory::build
      */
     public function test_build_returns_instance_of_engine(): void
     {
@@ -28,7 +28,7 @@ class FactoryTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Factory::build
+     * @covers \HelloPablo\RelatedContent\Factory::build
      */
     public function test_store_is_a_required_argument(): void
     {
@@ -40,7 +40,7 @@ class FactoryTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Factory::build
+     * @covers \HelloPablo\RelatedContent\Factory::build
      */
     public function test_store_must_be_instance_of_store(): void
     {

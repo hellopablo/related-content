@@ -3,9 +3,9 @@
 namespace Tests\TestCases\EngineTest;
 
 use ArgumentCountError;
-use HelloPablo\RelatedContentEngine\Engine;
-use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
-use HelloPablo\RelatedContentEngine\Interfaces;
+use HelloPablo\RelatedContent\Engine;
+use HelloPablo\RelatedContent\Exception\NotConnectedException;
+use HelloPablo\RelatedContent\Interfaces;
 use PHPUnit\Framework\TestCase;
 use Tests\Mocks;
 use Tests\Traits;
@@ -43,7 +43,7 @@ class ReadTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Engine::read
+     * @covers \HelloPablo\RelatedContent\Engine::read
      */
     public function test_first_arg_is_required(): void
     {
@@ -55,7 +55,7 @@ class ReadTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Engine::read
+     * @covers \HelloPablo\RelatedContent\Engine::read
      */
     public function test_second_arg_is_required(): void
     {
@@ -67,7 +67,7 @@ class ReadTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Engine::read
+     * @covers \HelloPablo\RelatedContent\Engine::read
      */
     public function test_first_arg_must_be_instance_of_object(): void
     {
@@ -79,7 +79,7 @@ class ReadTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Engine::read
+     * @covers \HelloPablo\RelatedContent\Engine::read
      */
     public function test_second_arg_must_be_instance_of_analyser(): void
     {
@@ -91,7 +91,7 @@ class ReadTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Engine::read
+     * @covers \HelloPablo\RelatedContent\Engine::read
      */
     public function test_read_returns_all_relations_for_item(): void
     {
@@ -109,7 +109,7 @@ class ReadTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Engine::read
+     * @covers \HelloPablo\RelatedContent\Engine::read
      */
     public function test_read_returns_for_specific_item(): void
     {

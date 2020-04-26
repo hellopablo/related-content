@@ -2,7 +2,7 @@
 
 namespace Tests\TestCases\StoreTest\EphemeralTest;
 
-use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
+use HelloPablo\RelatedContent\Exception\NotConnectedException;
 use PHPUnit\Framework\TestCase;
 use Tests\Traits;
 
@@ -18,10 +18,10 @@ class DisconnectTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::connect
-     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::disconnect
-     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::isConnected
-     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::getConnection
+     * @covers \HelloPablo\RelatedContent\Store\Ephemeral::connect
+     * @covers \HelloPablo\RelatedContent\Store\Ephemeral::disconnect
+     * @covers \HelloPablo\RelatedContent\Store\Ephemeral::isConnected
+     * @covers \HelloPablo\RelatedContent\Store\Ephemeral::getConnection
      * @throws NotConnectedException
      */
     public function test_can_disconnect(): void

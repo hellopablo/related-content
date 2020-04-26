@@ -1,17 +1,17 @@
 <?php
 
-namespace HelloPablo\RelatedContentEngine\Store;
+namespace HelloPablo\RelatedContent\Store;
 
-use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
-use HelloPablo\RelatedContentEngine\Interfaces;
-use HelloPablo\RelatedContentEngine\Query;
-use HelloPablo\RelatedContentEngine\Relation;
+use HelloPablo\RelatedContent\Exception\NotConnectedException;
+use HelloPablo\RelatedContent\Interfaces;
+use HelloPablo\RelatedContent\Query;
+use HelloPablo\RelatedContent\Relation;
 use stdClass;
 
 /**
  * Class Ephemeral
  *
- * @package HelloPablo\RelatedContentEngine\Store
+ * @package HelloPablo\RelatedContent\Store
  */
 class Ephemeral implements Interfaces\Store
 {

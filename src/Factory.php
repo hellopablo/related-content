@@ -1,13 +1,13 @@
 <?php
 
-namespace HelloPablo\RelatedContentEngine;
+namespace HelloPablo\RelatedContent;
 
-use HelloPablo\RelatedContentEngine\Interfaces;
+use HelloPablo\RelatedContent\Interfaces;
 
 /**
  * Class Factory
  *
- * @package HelloPablo\RelatedContentEngine
+ * @package HelloPablo\RelatedContent
  */
 class Factory
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace HelloPablo\RelatedContentEngine\Interfaces;
+namespace HelloPablo\RelatedContent\Interfaces;
 
-use HelloPablo\RelatedContentEngine\Query;
+use HelloPablo\RelatedContent\Query;
 
 /**
  * Interface Store
  *
- * @package HelloPablo\RelatedContentEngine\Interfaces
+ * @package HelloPablo\RelatedContent\Interfaces
  */
 interface Store
 {

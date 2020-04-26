@@ -3,7 +3,7 @@
 namespace Tests\TestCases\StoreTest\EphemeralTest;
 
 use Exception;
-use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
+use HelloPablo\RelatedContent\Exception\NotConnectedException;
 use PHPUnit\Framework\TestCase;
 use Tests\Mocks;
 use Tests\Traits;
@@ -21,8 +21,8 @@ class QueryTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::query
-     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::query
+     * @covers \HelloPablo\RelatedContent\Store\Ephemeral::query
+     * @covers \HelloPablo\RelatedContent\Store\MySQL::query
      * @throws NotConnectedException
      */
     public function test_can_query_data(): void
@@ -96,8 +96,8 @@ class QueryTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::query
-     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::query
+     * @covers \HelloPablo\RelatedContent\Store\Ephemeral::query
+     * @covers \HelloPablo\RelatedContent\Store\MySQL::query
      * @throws NotConnectedException
      */
     public function test_returns_related_items_of_type(): void
@@ -137,8 +137,8 @@ class QueryTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::query
-     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::query
+     * @covers \HelloPablo\RelatedContent\Store\Ephemeral::query
+     * @covers \HelloPablo\RelatedContent\Store\MySQL::query
      * @throws NotConnectedException
      */
     public function test_returns_limited_number_of_related_items(): void
@@ -182,8 +182,8 @@ class QueryTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::query
-     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::query
+     * @covers \HelloPablo\RelatedContent\Store\Ephemeral::query
+     * @covers \HelloPablo\RelatedContent\Store\MySQL::query
      * @throws NotConnectedException
      */
     public function test_throws_exception_if_disconnected()

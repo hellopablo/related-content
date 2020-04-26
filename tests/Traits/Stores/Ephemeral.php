@@ -2,9 +2,9 @@
 
 namespace Tests\Traits\Stores;
 
-use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
-use HelloPablo\RelatedContentEngine\Interfaces;
-use HelloPablo\RelatedContentEngine\Store;
+use HelloPablo\RelatedContent\Exception\NotConnectedException;
+use HelloPablo\RelatedContent\Interfaces;
+use HelloPablo\RelatedContent\Store;
 
 /**
  * Class Ephemeral

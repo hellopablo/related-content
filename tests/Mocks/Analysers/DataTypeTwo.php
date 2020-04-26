@@ -2,8 +2,8 @@
 
 namespace Tests\Mocks\Analysers;
 
-use HelloPablo\RelatedContentEngine\Interfaces;
-use HelloPablo\RelatedContentEngine\Relation;
+use HelloPablo\RelatedContent\Interfaces;
+use HelloPablo\RelatedContent\Relation;
 
 /**
  * Class DataTypeTwo
