@@ -29,11 +29,11 @@ class WriteTest extends TestCase
     {
         $store = static::getStore();
 
-        [$analyser, $object, $id, $relations] = $this->getDataTypeOne1();
+        [$entity, $object, $id, $relations] = $this->getDataTypeOne1();
 
         $this->assertGreaterThan(0, count($relations));
 
-        $store->write($analyser, $id, $relations);
+        $store->write($entity, $id, $relations);
 
         $data = $store->dump();
         $this->assertCount(count($relations), $data);
@@ -50,13 +50,13 @@ class WriteTest extends TestCase
     {
         $store = static::getStore();
 
-        [$analyser, $object, $id, $relations] = $this->getDataTypeOne1();
+        [$entity, $object, $id, $relations] = $this->getDataTypeOne1();
 
         $this->assertGreaterThan(0, count($relations));
 
         $this->assertInstanceOf(
             Interfaces\Store::class,
-            $store->write($analyser, $id, $relations)
+            $store->write($entity, $id, $relations)
         );
     }
 }
