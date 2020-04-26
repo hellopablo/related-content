@@ -3,6 +3,7 @@
 namespace Tests\TestCases\StoreTest\EphemeralTest;
 
 use Exception;
+use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
 use PHPUnit\Framework\TestCase;
 use Tests\Mocks;
 use Tests\Traits;
@@ -22,7 +23,7 @@ class QueryTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::query
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::query
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public function test_can_query_data(): void
     {
@@ -97,7 +98,7 @@ class QueryTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::query
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::query
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public function test_returns_related_items_of_type(): void
     {
@@ -138,7 +139,7 @@ class QueryTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::query
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::query
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public function test_returns_limited_number_of_related_items(): void
     {
@@ -176,5 +177,23 @@ class QueryTest extends TestCase
             );
 
         $this->assertCount(2, $hits);
+    }
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::query
+     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::query
+     * @throws NotConnectedException
+     */
+    public function test_throws_exception_if_disconnected()
+    {
+        $store = static::getStore();
+        $store->disconnect();
+
+        [$entity, $object, $id, $relations] = $this->getDataTypeOne1();
+
+        $this->expectException(Exception::class);
+        $store->query($relations, $entity, $id);
     }
 }

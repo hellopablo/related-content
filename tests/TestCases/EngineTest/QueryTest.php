@@ -2,12 +2,14 @@
 
 namespace Tests\TestCases\EngineTest;
 
-use Exception;
+use ArgumentCountError;
 use HelloPablo\RelatedContentEngine\Engine;
+use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
 use HelloPablo\RelatedContentEngine\Interfaces;
 use PHPUnit\Framework\TestCase;
 use Tests\Mocks;
 use Tests\Traits;
+use TypeError;
 
 /**
  * Class QueryTest
@@ -58,7 +60,7 @@ class QueryTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public static function setUpBeforeClass(): void
     {
@@ -91,7 +93,7 @@ class QueryTest extends TestCase
      */
     public function test_first_arg_is_required(): void
     {
-        $this->expectException(\ArgumentCountError::class);
+        $this->expectException(ArgumentCountError::class);
         /** @phpstan-ignore-next-line */
         static::$oEngine->query();
     }
@@ -103,7 +105,7 @@ class QueryTest extends TestCase
      */
     public function test_second_arg_is_required(): void
     {
-        $this->expectException(\ArgumentCountError::class);
+        $this->expectException(ArgumentCountError::class);
         /** @phpstan-ignore-next-line */
         static::$oEngine->query(new Mocks\Objects\DataTypeOne1());
     }
@@ -115,7 +117,7 @@ class QueryTest extends TestCase
      */
     public function test_first_arg_must_be_instance_of_object(): void
     {
-        $this->expectException(\TypeError::class);
+        $this->expectException(TypeError::class);
         /** @phpstan-ignore-next-line */
         static::$oEngine->query(null);
     }
@@ -127,7 +129,7 @@ class QueryTest extends TestCase
      */
     public function test_second_arg_must_be_instance_of_analyser(): void
     {
-        $this->expectException(\TypeError::class);
+        $this->expectException(TypeError::class);
         /** @phpstan-ignore-next-line */
         static::$oEngine->query(new Mocks\Objects\DataTypeOne1(), null);
     }
@@ -139,7 +141,7 @@ class QueryTest extends TestCase
      */
     public function test_third_arg_must_be_array(): void
     {
-        $this->expectException(\TypeError::class);
+        $this->expectException(TypeError::class);
         /** @phpstan-ignore-next-line */
         static::$oEngine
             ->query(
@@ -156,7 +158,7 @@ class QueryTest extends TestCase
      */
     public function test_third_arg_must_be_array_of_analysers(): void
     {
-        $this->expectException(\TypeError::class);
+        $this->expectException(TypeError::class);
         /** @phpstan-ignore-next-line */
         static::$oEngine
             ->query(
@@ -173,7 +175,7 @@ class QueryTest extends TestCase
      */
     public function test_fourth_arg_must_be_an_int(): void
     {
-        $this->expectException(\TypeError::class);
+        $this->expectException(TypeError::class);
         /** @phpstan-ignore-next-line */
         static::$oEngine
             ->query(

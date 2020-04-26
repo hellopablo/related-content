@@ -2,9 +2,7 @@
 
 namespace Tests\TestCases\StoreTest;
 
-use HelloPablo\RelatedContentEngine\Engine;
 use HelloPablo\RelatedContentEngine\Store;
-use PDO;
 use PHPUnit\Framework\TestCase;
 
 /**

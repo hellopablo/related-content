@@ -3,6 +3,7 @@
 namespace Tests\TestCases\StoreTest\EphemeralTest;
 
 use Exception;
+use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
 use PHPUnit\Framework\TestCase;
 use Tests\Mocks;
 use Tests\Traits;
@@ -22,7 +23,7 @@ class DeleteTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::delete
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::delete
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public function test_can_delete_data(): void
     {
@@ -46,7 +47,7 @@ class DeleteTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::delete
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::delete
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public function test_deletes_data_for_item(): void
     {
@@ -68,5 +69,23 @@ class DeleteTest extends TestCase
             ->delete($entity, $id1);
 
         $this->assertCount(count($relations2), $store->dump());
+    }
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::delete
+     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::delete
+     * @throws NotConnectedException
+     */
+    public function test_throws_exception_if_disconnected()
+    {
+        $store = static::getStore();
+        $store->disconnect();
+
+        [$entity, $object, $id, $relations] = $this->getDataTypeOne1();
+
+        $this->expectException(Exception::class);
+        $store->delete($entity, $id);
     }
 }

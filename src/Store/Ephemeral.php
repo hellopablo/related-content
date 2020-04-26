@@ -2,7 +2,6 @@
 
 namespace HelloPablo\RelatedContentEngine\Store;
 
-use Exception;
 use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
 use HelloPablo\RelatedContentEngine\Interfaces;
 use HelloPablo\RelatedContentEngine\Query;

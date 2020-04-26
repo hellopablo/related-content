@@ -2,7 +2,9 @@
 
 namespace Tests\TestCases\StoreTest\MySQLTest;
 
-use Exception;
+use HelloPablo\RelatedContentEngine\Exception\MissingExtension;
+use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
+use PDO;
 use PHPUnit\Framework\TestCase;
 use Tests\Traits;
 
@@ -22,14 +24,15 @@ class DisconnectTest extends TestCase
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::disconnect
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::isConnected
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::getConnection
-     * @throws Exception
+     * @throws NotConnectedException
+     * @throws MissingExtension
      */
     public function test_can_disconnect_from_mysql(): void
     {
         $store = static::getStore();
 
         $this->assertTrue($store->isConnected());
-        $this->assertInstanceOf(\PDO::class, $store->getConnection());
+        $this->assertInstanceOf(PDO::class, $store->getConnection());
 
         $store->disconnect();
 

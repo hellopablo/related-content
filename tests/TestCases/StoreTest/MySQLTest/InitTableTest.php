@@ -2,7 +2,8 @@
 
 namespace Tests\TestCases\StoreTest\MySQLTest;
 
-use Exception;
+use HelloPablo\RelatedContentEngine\Exception\MissingExtension;
+use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
 use HelloPablo\RelatedContentEngine\Store;
 use Tests\Traits;
 use PHPUnit\Framework\TestCase;
@@ -21,7 +22,8 @@ class InitTableTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::test
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::initTable
-     * @throws Exception
+     * @throws NotConnectedException
+     * @throws MissingExtension
      */
     public function test_creates_table_on_connect(): void
     {

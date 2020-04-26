@@ -2,7 +2,7 @@
 
 namespace Tests\Traits\Stores;
 
-use Exception;
+use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
 use HelloPablo\RelatedContentEngine\Interfaces;
 use HelloPablo\RelatedContentEngine\Store;
 
@@ -19,7 +19,7 @@ trait Ephemeral
      * @param mixed[] $config
      *
      * @return Interfaces\Store
-     * @throws Exception
+     * @throws NotConnectedException
      */
     protected static function getStore(array $config = []): Interfaces\Store
     {

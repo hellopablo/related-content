@@ -2,7 +2,7 @@
 
 namespace Tests\TestCases\StoreTest\EphemeralTest;
 
-use Exception;
+use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
 use PHPUnit\Framework\TestCase;
 use Tests\Traits;
 
@@ -19,7 +19,7 @@ class SeedDataTest extends TestCase
 
     /**
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::__construct
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public function test_data_is_empty_if_not_seeded(): void
     {
@@ -34,7 +34,7 @@ class SeedDataTest extends TestCase
 
     /**
      * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::__construct
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public function test_can_seed_data(): void
     {

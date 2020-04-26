@@ -2,8 +2,8 @@
 
 namespace Tests\TestCases\EngineTest;
 
-use Exception;
 use HelloPablo\RelatedContentEngine\Engine;
+use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
 use HelloPablo\RelatedContentEngine\Interfaces;
 use PHPUnit\Framework\TestCase;
 use Tests\Traits;
@@ -28,7 +28,7 @@ class GetStoreTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public static function setUpBeforeClass(): void
     {

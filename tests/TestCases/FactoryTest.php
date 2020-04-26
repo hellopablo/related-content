@@ -2,10 +2,12 @@
 
 namespace Tests\TestCases;
 
+use ArgumentCountError;
 use HelloPablo\RelatedContentEngine\Engine;
 use HelloPablo\RelatedContentEngine\Factory;
 use HelloPablo\RelatedContentEngine\Store;
 use PHPUnit\Framework\TestCase;
+use TypeError;
 
 /**
  * Class FactoryTest
@@ -30,7 +32,7 @@ class FactoryTest extends TestCase
      */
     public function test_store_is_a_required_argument(): void
     {
-        $this->expectException(\ArgumentCountError::class);
+        $this->expectException(ArgumentCountError::class);
         /** @phpstan-ignore-next-line */
         Factory::build();
     }
@@ -42,7 +44,7 @@ class FactoryTest extends TestCase
      */
     public function test_store_must_be_instance_of_store(): void
     {
-        $this->expectException(\TypeError::class);
+        $this->expectException(TypeError::class);
         /** @phpstan-ignore-next-line */
         Factory::build(null);
     }
