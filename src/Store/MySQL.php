@@ -3,10 +3,13 @@
 namespace HelloPablo\RelatedContentEngine\Store;
 
 use Exception;
+use HelloPablo\RelatedContentEngine\Exception\MissingExtension;
+use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
 use HelloPablo\RelatedContentEngine\Interfaces;
 use HelloPablo\RelatedContentEngine\Query;
 use HelloPablo\RelatedContentEngine\Relation;
 use PDO;
+use stdClass;
 
 /**
  * Class MySQL
@@ -64,7 +67,7 @@ class MySQL implements Interfaces\Store
      *
      * @param mixed[] $config Config array as required by the driver
      *
-     * @throws Exception
+     * @throws MissingExtension
      */
     public function __construct(array $config = [])
     {
@@ -78,7 +81,7 @@ class MySQL implements Interfaces\Store
         $this->pdo_options = $config['pdo_options'] ?? static::DEFAULT_PDO_OPTIONS;
 
         if (!extension_loaded('pdo')) {
-            throw new Exception('PDO extension not installed');
+            throw new MissingExtension('PDO extension not installed');
         }
     }
 
@@ -88,19 +91,26 @@ class MySQL implements Interfaces\Store
      * Opens a connection to the store
      *
      * @return $this
+     * @throws NotConnectedException
      */
     public function connect(): Interfaces\Store
     {
-        $dsn = sprintf(
-            'mysql:host=%s;dbname=%s;charset=%s',
-            $this->host,
-            $this->database,
-            $this->charset
-        );
+        try {
 
-        $this->pdo = new PDO($dsn, $this->user, $this->pass, $this->pdo_options);
+            $dsn = sprintf(
+                'mysql:host=%s;dbname=%s;charset=%s',
+                $this->host,
+                $this->database,
+                $this->charset
+            );
 
-        $this->initTable();
+            $this->pdo = new PDO($dsn, $this->user, $this->pass, $this->pdo_options);
+
+            $this->initTable();
+
+        } catch (Exception $e) {
+            throw new NotConnectedException('Failed to connect to MYSQL: ' . $e->getMessage(), $e->getCode(), $e);
+        }
 
         return $this;
     }
@@ -110,12 +120,12 @@ class MySQL implements Interfaces\Store
     /**
      * Creates the data table if it does not exist
      *
-     * @throws Exception
+     * @throws NotConnectedException
      */
     protected function initTable(): void
     {
         if (!$this->isConnected()) {
-            throw new Exception('Store not connected');
+            throw new NotConnectedException('Store not connected');
         }
 
         $this->pdo
@@ -174,12 +184,12 @@ class MySQL implements Interfaces\Store
      * Dumps the entire contents of the data store
      *
      * @return mixed[]
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public function dump(): array
     {
         if (!$this->isConnected()) {
-            throw new Exception('Store not connected');
+            throw new NotConnectedException('Store not connected');
         }
 
         $statement = $this->pdo
@@ -199,12 +209,12 @@ class MySQL implements Interfaces\Store
      * Deletes all data in the store
      *
      * @return $this
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public function empty(): Interfaces\Store
     {
         if (!$this->isConnected()) {
-            throw new Exception('Store not connected');
+            throw new NotConnectedException('Store not connected');
         }
 
         $this->pdo
@@ -227,12 +237,12 @@ class MySQL implements Interfaces\Store
      * @param string|int $id     The item's ID
      *
      * @return Interfaces\Relation[]
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public function read(string $entity, $id): array
     {
         if (!$this->isConnected()) {
-            throw new Exception('Store not connected');
+            throw new NotConnectedException('Store not connected');
         }
 
         $statement = $this->pdo
@@ -270,12 +280,12 @@ class MySQL implements Interfaces\Store
      * @param Interfaces\Relation[] $relations Array of the relations
      *
      * @return $this
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public function write(string $entity, $id, array $relations): Interfaces\Store
     {
         if (!$this->isConnected()) {
-            throw new Exception('Store not connected');
+            throw new NotConnectedException('Store not connected');
         }
 
         $statement = $this->pdo
@@ -309,12 +319,12 @@ class MySQL implements Interfaces\Store
      * @param string|int $id     The ID of the item to delete relations for
      *
      * @return $this
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public function delete(string $entity, $id): Interfaces\Store
     {
         if (!$this->isConnected()) {
-            throw new Exception('Store not connected');
+            throw new NotConnectedException('Store not connected');
         }
 
         $statement = $this->pdo
@@ -346,7 +356,7 @@ class MySQL implements Interfaces\Store
      * @param int|null              $limit           The maximum number of results to return
      *
      * @return Query\Hit[]
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public function query(
         array $sourceRelations,
@@ -357,7 +367,7 @@ class MySQL implements Interfaces\Store
     ): array {
 
         if (!$this->isConnected()) {
-            throw new Exception('Store not connected');
+            throw new NotConnectedException('Store not connected');
         } elseif (empty($sourceRelations)) {
             return [];
         }
@@ -412,7 +422,7 @@ class MySQL implements Interfaces\Store
             ->query($sql);
 
         return array_map(
-            function (\stdClass $hit) {
+            function (stdClass $hit) {
                 return new Query\Hit(
                     $hit->entity,
                     $hit->id,
