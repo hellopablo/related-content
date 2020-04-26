@@ -6,7 +6,6 @@ use HelloPablo\RelatedContentEngine\Exception\MissingExtension;
 use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
 use HelloPablo\RelatedContentEngine\Store;
 use PDO;
-use PDOException;
 use PHPUnit\Framework\TestCase;
 use Tests\Traits;
 
@@ -28,7 +27,7 @@ class ConnectTest extends TestCase
      */
     public function test_fails_to_connect_with_bad_credentials(): void
     {
-        $this->expectException(PDOException::class);
+        $this->expectException(NotConnectedException::class);
 
         $store = new Store\MySQL([]);
         $store->connect();
