@@ -9,8 +9,8 @@ For example, you might have  `Article` and `Blog` objects which both have `categ
 ## Table of contents
 
 - [Installing](#installing)
-- [Analysers](#analyser)
-    - [Nodes](#nodes)
+- [Analysers](#analysers)
+    - [Nodes](#relationship-nodes)
 - [The Engine](#the-engine)
     - [Indexing](#indexing)
     - [Querying](#querying)
@@ -34,13 +34,15 @@ Install using Composer:
 composer require hellopablo/related-content-engine
 ```
 
+All classes within the package are under the namespace `HelloPablo\RelatedContentEngine` and can be autoloaded using PSR-4. Examples below assume a `use HelloPablo\RelatedContentEngine` statement has been used.
+
 
 
 
 
 ## Analysers
 
-A key concept in this framework is that of Analysers. Analysers are classes which implement the `HelloPablo\RelatedContentEngine\Interfaces\Analyser` interface. Their purpose is to examine your objects and extract data points (nodes) which can be used for indexing.
+A key concept in this framework is that of Analysers. Analysers are classes which implement the `Interfaces\Analyser` interface. Their purpose is to examine your objects and extract data points (nodes) which can be used for indexing.
 
 It is expected that each distinct type of data in your application has its own analyser, *even if they share a similar structure*. Internally the enigne uses the analyser as a key to differentiate between data types.
 
@@ -48,11 +50,11 @@ It is expected that each distinct type of data in your application has its own a
 
 
 
-### **Nodes**
+### **Relationship Nodes**
 
-A node is a single data point which describes a part of an object which is being indexed. These are data points which other objects (of the same type or another type) might have. Nodes implement the `HelloPablo\RelatedContentEngine\Interfaces\Relation` interface. Nodes should define a `type` and a `value`. Typically, the `type` is an application supplied string which describes the node (e.g. `CATEGORY`, `TOPIC`, or `AUTHOR`) and the `value` is an ID or other identifier of the `type`.
+A relationship node is a single data point which describes a part of the object which is being indexed. Nodes implement the `Interfaces\Relation` interface and should define a `type` and a `value`. Typically, the `type` is an application supplied string which describes the node (e.g. `CATEGORY`, `TOPIC`, or `AUTHOR`) and the `value` is an ID or other identifier of the `type`.
 
-> 🙋 The framework provides `HelloPablo\RelatedContentEngine\Relation\Node` which you can use in your application.
+> 🙋 The framework provides a `Relation\Node` class which you can use in your application's analysers.
 
 
 
@@ -70,9 +72,7 @@ For an object which looks like this:
 }
 ```
 
-
-
-We might want to extract the `categories` and `topics` IDs as relation nodes. In this example, the analyser would look like this:
+We might want to describe the `categories` and `topics` IDs as relationship nodes. In this example, the analyser would look like this:
 
 ```php
 namespace App\RelatedContent\Analysers;
@@ -118,7 +118,7 @@ class Article implements Interfaces\Analsyer
 }
 ```
 
-Other analysers might also return `CATEGORY` and `TOPIC` nodes, too. It's the overlap of the node types and values which are considered to be relations.
+Other analysers (say, for a blog posts) might also return `CATEGORY` and `TOPIC` nodes, too. It's the overlap of the node types and values which are considered to be relations.
 
 
 
@@ -128,7 +128,7 @@ Other analysers might also return `CATEGORY` and `TOPIC` nodes, too. It's the ov
 
 The `Engine` is how your application will [mostly] interact with the related content store. It facilitates reading and writing from the [data store](#data-stores), as well as providing an interface for indexing your content using [analysers](#analysers).
 
-A new instance of the enigne can be retrieved via the `HelloPablo\RelatedContentEngine\Factory` class, you must pass an instance of the [data store](#data-stores) you wish to use.
+A new instance of the enigne can be retrieved via the `Factory` class, you must pass an instance of the [data store](#data-stores) you wish to use.
 
 An example using the [MySQL data store](#data-stores):
 
@@ -219,7 +219,7 @@ $results = $engine->query(
 
 
 
-The `$results` array will be an array of `HelloPablo\RelatedContentEngine\Query\Hit` objects. These objects provide three methods:
+The `$results` array will be an array of `Query\Hit` objects. These objects provide three methods:
 
 1. `getAnalyser(): Interfaces\Analyser` which will return an instance of the analyser used to index the item.
 2. `getId(): string|int` which will return the indexed item's ID.
@@ -321,7 +321,7 @@ $engine->empty();
 
 ## Data Stores
 
-The data store is where the engine keeps its index data. You are free to sue any data store you like; all adapters must implement the `HelloPablo\RelatedcontentEngine\Interfaces\Store` interface. The package provides two stores by default:
+The data store is where the engine keeps its index data. You are free to sue any data store you like; all adapters must implement the `Interfaces\Store` interface. The package provides two stores by default:
 
 
 
