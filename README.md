@@ -1,6 +1,6 @@
 # Related Content Engine
 
-A simple framework for analysing objects in your application and an API for finding related content. Bring-your-own analysers extract relation nodes from an object which can be used to find other objects which have similar nodes.
+This package is simple PHP framework for analysing objects in your application and an API for finding related content. Bring-your-own analysers extract relation nodes from an object which can be used to find other objects which have similar nodes.
 
 For example, you might have  `Article` and `Blog` objects which both have `categories`, this framework would allow you to easily define an analyser for both data types which extract category nodes, allowing you to find similarly categorised items.
 
@@ -24,8 +24,6 @@ For example, you might have  `Article` and `Blog` objects which both have `categ
 
 
 
-
-
 ## Installing
 
 Install using Composer:
@@ -34,9 +32,7 @@ Install using Composer:
 composer require hellopablo/related-content-engine
 ```
 
-All classes within the package are under the namespace `HelloPablo\RelatedContentEngine` and can be autoloaded using PSR-4. Examples below assume a `use HelloPablo\RelatedContentEngine` statement has been used.
-
-
+All classes within the package are under the namespace `HelloPablo\RelatedContentEngine` and can be autoloaded using PSR-4.
 
 
 
@@ -49,14 +45,11 @@ It is expected that each distinct type of data in your application has its own a
 > 🧑‍💻 It is important to understand that an analyser is something that is provided by your application. The framework has no opinions on what your data looks like, nor does it infer any relationships – it is up to you to extract relationship data.
 
 
-
 ### **Relationship Nodes**
 
 A relationship node is a single data point which describes a part of the object which is being indexed. Nodes implement the `Interfaces\Relation` interface and should define a `type` and a `value`. Typically, the `type` is an application supplied string which describes the node (e.g. `CATEGORY`, `TOPIC`, or `AUTHOR`) and the `value` is an ID or other identifier of the `type`.
 
 > 🙋 The framework provides a `Relation\Node` class which you can use in your application's analysers.
-
-
 
 **Example**
 
@@ -118,9 +111,7 @@ class Article implements Interfaces\Analsyer
 }
 ```
 
-Other analysers (say, for a blog posts) might also return `CATEGORY` and `TOPIC` nodes, too. It's the overlap of the node types and values which are considered to be relations.
-
-
+Other analysers (say, for a blog post) might also return `CATEGORY` and `TOPIC` nodes, too. It's the overlap of the node types and values which are considered to be relations.
 
 
 
@@ -130,7 +121,7 @@ The `Engine` is how your application will [mostly] interact with the related con
 
 A new instance of the enigne can be retrieved via the `Factory` class, you must pass an instance of the [data store](#data-stores) you wish to use.
 
-An example using the [MySQL data store](#data-stores):
+An example using the [MySQL data store](#mysql):
 
 ```php
 use HelloPablo\RelatedContentEngine;
@@ -146,10 +137,9 @@ $engine = RelatedContentEngine\Factory::build($store);
 ```
 
 
-
 ### Indexing
 
-Indexing is the process of analysing an object and saving it's relationship nodes to the data store. This can be achieved using the engine's `index(object $item, Interfaces\Analyser $analyser): self` method.
+Indexing is the process of analysing an object and saving its relationship nodes to the data store. This can be achieved using the engine's `index(object $item, Interfaces\Analyser $analyser): self` method.
 
 ```php
 use App\RelatedContent\Analysers;
@@ -175,19 +165,16 @@ $engine->index($item, $analyser);
 > 💁 Indexing an item will delete all previously held data for that item.
 
 
-
 ### Querying
 
-Querying is the core functionality of this library – by providing a source item (and its analyser) the engine can find matching items and return hits, sorted by score (most related first). Your application can then use these results to then fetch the source items.
+Querying is the core functionality of this library – by providing a source item (and its analyser) the engine can find matching items and return hits, sorted by score (most related first). Your application can use these results to then fetch the source items and do further logic.
 
-Querying is facilitated by the engine's `query` method. This method accepts four arguments:
+Querying is facilitated by the engine's `query(): Query\Hit[]` method. This method accepts four arguments:
 
 1. The source item, i.e the item we want to find related content for.
 2. The source item's analyser, i.e. the analyser used to index the item.
 3. Any data types to restrict results to, passed as an array of analysers, i.e we only want to see related `Blog` results for our source `Article`.
 4. The number of results to return.
-
-
 
 The query method is best explained using an example. Assuming this system stores relational data about two datatypes: `Article` and `Blog`, we might have the following analysers:
 
@@ -197,8 +184,6 @@ use App\RelatedContent\Analysers;
 $articleAnalyser = new Analysers\Article();
 $blogAnalyser    = new Analysers\Blog();
 ```
-
-
 
 Each of these analysers extracts `category` data for their respective data-types. With our source `Article` item to hand, we can find related `Article` and `Blog` content like so:
 
@@ -212,12 +197,10 @@ $articleItem = (object) [
 ];
 
 $results = $engine->query(
-	$articleItem,
+    $articleItem,
     $articleAnalyser
 );
 ```
-
-
 
 The `$results` array will be an array of `Query\Hit` objects. These objects provide three methods:
 
@@ -225,9 +208,7 @@ The `$results` array will be an array of `Query\Hit` objects. These objects prov
 2. `getId(): string|int` which will return the indexed item's ID.
 3. `getScore(): int` which will return the score of the hit.
 
-
-
-If we wanted to restrict the reuslts to contian just a certain data type(s) then we would pass in an array of analyser instances we'd like to restrict to as the third argument, additionally, we can limit the results too by passing an integer as the fourth argument:
+If we wanted to restrict the reuslts to contian just a certain data type(s) then we would pass in an array of analyser instances we'd like to restrict to as the third argument, additionally, we can limit the number of results by passing an integer as the fourth argument:
 
 ```php
 /**
@@ -242,7 +223,7 @@ $articleItem = (object) [
  * Return up to 3 related blog posts for our article.
  */
 $results = $engine->query(
-	$articleItem,
+    $articleItem,
     $articleAnalyser,
     [
         $blogAnalyser
@@ -250,7 +231,6 @@ $results = $engine->query(
     3
 );
 ```
-
 
 
 ### Reading
@@ -274,7 +254,6 @@ $relations = $engine->read($item, $analyser);
 ```
 
 
-
 ### Deleting
 
 To delete all data held about an item, use the engine's `delete(object $item, Interfaces\Analyser $analyser): self` method:
@@ -296,7 +275,6 @@ $relations = $engine->delete($item, $analyser);
 ```
 
 
-
 ### Dump
 
 If you need to dump the entire contents of the [data store](#data-stores), you may use the engine's `dump(): array` method. It will return an array of all relations stored in the [data store](#data-stores).
@@ -306,10 +284,9 @@ $items = $engine->dump();
 ```
 
 
-
 ### Empty
 
-To *destrictively* empty the [data store](#data-stores) you may use the engine's `empty(): self` method. this cannot be undone.
+To *destrictively* empty the [data store](#data-stores) you may use the engine's `empty(): self` method. This cannot be undone.
 
 ```php
 $engine->empty();
@@ -317,21 +294,18 @@ $engine->empty();
 
 
 
-
-
 ## Data Stores
 
-The data store is where the engine keeps its index data. You are free to sue any data store you like; all adapters must implement the `Interfaces\Store` interface. The package provides two stores by default:
-
+The data store is where the engine keeps its index data. You are free to use any data store you like; all adapters must implement the `Interfaces\Store` interface. The package provides two stores by default:
 
 
 ### Ephemeral
 
 #### `Store\Ephemeral(array $config = [])`
 
-The Ephemeral store is an in-memory store. It's storage egine is an array and any data is not intended to be persisted beyond the life-span of the class instance (except, of course, if you manually serialize the object).
+The Ephemeral store is an in-memory store. It uses a class array and any data is not intended to be persisted beyond the life-span of the class instance (except, of course, if you manually serialize the object).
 
-It is primarily used for the test suite, but is available as a first-class citizen should you have a need. An example use case for this store might be for a long-runnig script which builds up a relationship model and caches the results, the actual data store does not need to be persisted.
+It is primarily used for the test suite, but is available as a first-class citizen should you have a need. An example use case for this store might be for a long-running script which builds up a relationship model and caches the results, the actual data store does not need to be persisted.
 
 #### Configuration
 
@@ -341,7 +315,6 @@ This store accepts the following keys in the configuration array:
 | -------------- | ------------------------------------------------------------ | ------- |
 | `data`         | Any data to pre-seed the store with.                         | `[]`    |
 | `will_connect` | Whether the store will "connect"; used to simualte connection faiulures in the test suite. | `true`  |
-
 
 
 ### MySQL
@@ -354,9 +327,7 @@ This MySQL store allows you to use a MySQL table as the persistent data store fo
 
 This store accepts the following keys in the configuration array:
 
-[^]: 
-
-| Key           | Description                                    | Default                                                      |
+| Key           | Description                                    | Default                                                      
 | ------------- | ---------------------------------------------- | ------------------------------------------------------------ |
 | `host`        | The host to connect to.                        | `127.0.0.1`                                                  |
 | `user`        | The username to connect with.                  | `<blank>`                                                    |
@@ -366,6 +337,3 @@ This store accepts the following keys in the configuration array:
 | `port`        | The port to connect to.                        | `3306`                                                       |
 | `charset`     | The character set to use.                      | `utf8mb4`                                                    |
 | `pdo_options` | Any options to pass to the `\PDO` constructor. | [<br />    \PDO::ATTR_ERRMODE            => \PDO::ERRMODE_EXCEPTION,<br />\PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,<br />\PDO::ATTR_EMULATE_PREPARES   => false,<br />] |
-
-
-
