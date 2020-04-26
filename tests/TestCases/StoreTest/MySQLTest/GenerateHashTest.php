@@ -2,7 +2,8 @@
 
 namespace Tests\TestCases\StoreTest\MySQLTest;
 
-use Exception;
+use HelloPablo\RelatedContentEngine\Exception\MissingExtension;
+use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
 use HelloPablo\RelatedContentEngine\Store\MySQL;
 use PHPUnit\Framework\TestCase;
 use Tests\Traits;
@@ -20,13 +21,14 @@ class GenerateHashTest extends TestCase
 
     /**
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::generateHash
-     * @throws Exception
+     * @throws NotConnectedException
+     * @throws MissingExtension
      */
     public function test_generates_Correct_hash(): void
     {
         /** @var MySQL $store */
         $store = static::getStore();
-        $this->assertEquals(
+        static::assertEquals(
             md5('test::1'),
             $store->generateHash('test', 1)
         );

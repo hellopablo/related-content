@@ -2,7 +2,7 @@
 
 namespace HelloPablo\RelatedContentEngine\Store;
 
-use Exception;
+use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
 use HelloPablo\RelatedContentEngine\Interfaces;
 use HelloPablo\RelatedContentEngine\Query;
 use HelloPablo\RelatedContentEngine\Relation;
@@ -55,12 +55,12 @@ class Ephemeral implements Interfaces\Store
      * Opens a connection to the store
      *
      * @return $this
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public function connect(): Interfaces\Store
     {
         if (!$this->will_connect) {
-            throw new Exception('Failed to connect to the store');
+            throw new NotConnectedException('Failed to connect to the store');
         }
 
         $this->is_connected = true;
@@ -110,12 +110,12 @@ class Ephemeral implements Interfaces\Store
      * Dumps the entire contents of the data store
      *
      * @return mixed[]
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public function dump(): array
     {
         if (!$this->isConnected()) {
-            throw new Exception('Store not connected');
+            throw new NotConnectedException('Store not connected');
         }
 
         return $this->data;
@@ -127,12 +127,12 @@ class Ephemeral implements Interfaces\Store
      * Deletes all data in the store
      *
      * @return $this
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public function empty(): Interfaces\Store
     {
         if (!$this->isConnected()) {
-            throw new Exception('Store not connected');
+            throw new NotConnectedException('Store not connected');
         }
 
         $this->data = [];
@@ -148,12 +148,12 @@ class Ephemeral implements Interfaces\Store
      * @param string|int $id     The item's ID
      *
      * @return Interfaces\Relation[]
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public function read(string $entity, $id): array
     {
         if (!$this->isConnected()) {
-            throw new Exception('Store not connected');
+            throw new NotConnectedException('Store not connected');
         }
 
         $results = [];
@@ -179,12 +179,12 @@ class Ephemeral implements Interfaces\Store
      * @param Interfaces\Relation[] $relations Array of the relations
      *
      * @return $this
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public function write(string $entity, $id, array $relations): Interfaces\Store
     {
         if (!$this->isConnected()) {
-            throw new Exception('Store not connected');
+            throw new NotConnectedException('Store not connected');
         }
 
         foreach ($relations as $relation) {
@@ -208,12 +208,12 @@ class Ephemeral implements Interfaces\Store
      * @param string|int $id     The ID of the item to delete relations for
      *
      * @return $this
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public function delete(string $entity, $id): Interfaces\Store
     {
         if (!$this->isConnected()) {
-            throw new Exception('Store not connected');
+            throw new NotConnectedException('Store not connected');
         }
 
         foreach ($this->data as &$datum) {
@@ -239,7 +239,7 @@ class Ephemeral implements Interfaces\Store
      * @param int|null              $limit           The maximum number of results to return
      *
      * @return Query\Hit[]
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public function query(
         array $sourceRelations,
@@ -250,7 +250,7 @@ class Ephemeral implements Interfaces\Store
     ): array {
 
         if (!$this->isConnected()) {
-            throw new Exception('Store not connected');
+            throw new NotConnectedException('Store not connected');
         } elseif (empty($sourceRelations)) {
             return [];
         }

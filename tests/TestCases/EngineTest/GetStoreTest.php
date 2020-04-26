@@ -2,8 +2,8 @@
 
 namespace Tests\TestCases\EngineTest;
 
-use Exception;
 use HelloPablo\RelatedContentEngine\Engine;
+use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
 use HelloPablo\RelatedContentEngine\Interfaces;
 use PHPUnit\Framework\TestCase;
 use Tests\Traits;
@@ -20,18 +20,19 @@ class GetStoreTest extends TestCase
     // --------------------------------------------------------------------------
 
     /** @var Interfaces\Store */
-    static $oStore;
+    protected static $oStore;
 
     /** @var Engine */
-    static $oEngine;
+    protected static $oEngine;
 
     // --------------------------------------------------------------------------
 
     /**
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public static function setUpBeforeClass(): void
     {
+        parent::setUpBeforeClass();
         static::$oStore  = static::getStore();
         static::$oEngine = new Engine(static::$oStore);
     }
@@ -43,7 +44,7 @@ class GetStoreTest extends TestCase
      */
     public function test_returns_instance_of_store(): void
     {
-        $this->assertSame(
+        static::assertSame(
             static::$oStore,
             static::$oEngine->getStore()
         );

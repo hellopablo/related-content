@@ -2,8 +2,8 @@
 
 namespace Tests\TestCases\EngineTest;
 
-use Exception;
 use HelloPablo\RelatedContentEngine\Engine;
+use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
 use HelloPablo\RelatedContentEngine\Interfaces;
 use PHPUnit\Framework\TestCase;
 use Tests\Traits;
@@ -20,18 +20,19 @@ class EmptyTest extends TestCase
     // --------------------------------------------------------------------------
 
     /** @var Interfaces\Store */
-    static $oStore;
+    protected static $oStore;
 
     /** @var Engine */
-    static $oEngine;
+    protected static $oEngine;
 
     // --------------------------------------------------------------------------
 
     /**
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public static function setUpBeforeClass(): void
     {
+        parent::setUpBeforeClass();
         static::$oStore  = static::getStore(['seed' => true]);
         static::$oEngine = new Engine(static::$oStore);
     }
@@ -45,12 +46,12 @@ class EmptyTest extends TestCase
     {
         $data = static::$oEngine->dump();
 
-        $this->assertNotEmpty($data);
-        $this->assertCount(1, $data);
+        static::assertNotEmpty($data);
+        static::assertCount(1, $data);
 
         static::$oEngine->empty();
 
         $data = static::$oEngine->dump();
-        $this->assertEmpty($data);
+        static::assertEmpty($data);
     }
 }

@@ -2,9 +2,7 @@
 
 namespace Tests\TestCases\StoreTest;
 
-use HelloPablo\RelatedContentEngine\Engine;
 use HelloPablo\RelatedContentEngine\Store;
-use PDO;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -16,15 +14,15 @@ class MySQLTest extends TestCase
 {
     public function test_store_exists(): void
     {
-        $this->assertTrue(class_exists(Store\MySQL::class));
+        static::assertTrue(class_exists(Store\MySQL::class));
     }
 
     // --------------------------------------------------------------------------
 
     public function test_mysql_credentials_are_set(): void
     {
-        $this->assertNotEmpty(getenv('MYSQL_USER'));
-        $this->assertNotEmpty(getenv('MYSQL_PASS'));
-        $this->assertNotEmpty(getenv('MYSQL_DATABASE'));
+        static::assertNotEmpty(getenv('MYSQL_USER'));
+        static::assertNotEmpty(getenv('MYSQL_PASS'));
+        static::assertNotEmpty(getenv('MYSQL_DATABASE'));
     }
 }

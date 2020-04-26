@@ -2,7 +2,8 @@
 
 namespace Tests\Traits\Stores;
 
-use Exception;
+use HelloPablo\RelatedContentEngine\Exception\MissingExtension;
+use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
 use HelloPablo\RelatedContentEngine\Interfaces;
 use HelloPablo\RelatedContentEngine\Store;
 use PDO;
@@ -20,7 +21,8 @@ trait MySQL
      * @param mixed[] $config
      *
      * @return Interfaces\Store
-     * @throws Exception
+     * @throws NotConnectedException
+     * @throws MissingExtension
      */
     protected static function getStore(array $config = []): Interfaces\Store
     {

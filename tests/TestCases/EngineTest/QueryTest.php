@@ -2,12 +2,14 @@
 
 namespace Tests\TestCases\EngineTest;
 
-use Exception;
+use ArgumentCountError;
 use HelloPablo\RelatedContentEngine\Engine;
+use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
 use HelloPablo\RelatedContentEngine\Interfaces;
 use PHPUnit\Framework\TestCase;
 use Tests\Mocks;
 use Tests\Traits;
+use TypeError;
 
 /**
  * Class QueryTest
@@ -50,18 +52,19 @@ class QueryTest extends TestCase
     // --------------------------------------------------------------------------
 
     /** @var Interfaces\Store */
-    static $oStore;
+    protected static $oStore;
 
     /** @var Engine */
-    static $oEngine;
+    protected static $oEngine;
 
     // --------------------------------------------------------------------------
 
     /**
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public static function setUpBeforeClass(): void
     {
+        parent::setUpBeforeClass();
         static::$oStore  = static::getStore();
         static::$oEngine = new Engine(static::$oStore);
 
@@ -91,7 +94,7 @@ class QueryTest extends TestCase
      */
     public function test_first_arg_is_required(): void
     {
-        $this->expectException(\ArgumentCountError::class);
+        $this->expectException(ArgumentCountError::class);
         /** @phpstan-ignore-next-line */
         static::$oEngine->query();
     }
@@ -103,7 +106,7 @@ class QueryTest extends TestCase
      */
     public function test_second_arg_is_required(): void
     {
-        $this->expectException(\ArgumentCountError::class);
+        $this->expectException(ArgumentCountError::class);
         /** @phpstan-ignore-next-line */
         static::$oEngine->query(new Mocks\Objects\DataTypeOne1());
     }
@@ -115,7 +118,7 @@ class QueryTest extends TestCase
      */
     public function test_first_arg_must_be_instance_of_object(): void
     {
-        $this->expectException(\TypeError::class);
+        $this->expectException(TypeError::class);
         /** @phpstan-ignore-next-line */
         static::$oEngine->query(null);
     }
@@ -127,7 +130,7 @@ class QueryTest extends TestCase
      */
     public function test_second_arg_must_be_instance_of_analyser(): void
     {
-        $this->expectException(\TypeError::class);
+        $this->expectException(TypeError::class);
         /** @phpstan-ignore-next-line */
         static::$oEngine->query(new Mocks\Objects\DataTypeOne1(), null);
     }
@@ -139,7 +142,7 @@ class QueryTest extends TestCase
      */
     public function test_third_arg_must_be_array(): void
     {
-        $this->expectException(\TypeError::class);
+        $this->expectException(TypeError::class);
         /** @phpstan-ignore-next-line */
         static::$oEngine
             ->query(
@@ -156,7 +159,7 @@ class QueryTest extends TestCase
      */
     public function test_third_arg_must_be_array_of_analysers(): void
     {
-        $this->expectException(\TypeError::class);
+        $this->expectException(TypeError::class);
         /** @phpstan-ignore-next-line */
         static::$oEngine
             ->query(
@@ -173,7 +176,7 @@ class QueryTest extends TestCase
      */
     public function test_fourth_arg_must_be_an_int(): void
     {
-        $this->expectException(\TypeError::class);
+        $this->expectException(TypeError::class);
         /** @phpstan-ignore-next-line */
         static::$oEngine
             ->query(
@@ -198,7 +201,7 @@ class QueryTest extends TestCase
                 new Mocks\Analysers\DataTypeOne()
             );
 
-        $this->assertCount(1, $hits);
+        static::assertCount(1, $hits);
 
         // Testing (2); expecting 3 hits
         $hits = static::$oEngine
@@ -207,7 +210,7 @@ class QueryTest extends TestCase
                 new Mocks\Analysers\DataTypeOne()
             );
 
-        $this->assertCount(3, $hits);
+        static::assertCount(3, $hits);
 
         // Testing (3); expecting 3 hits
         $hits = static::$oEngine
@@ -216,7 +219,7 @@ class QueryTest extends TestCase
                 new Mocks\Analysers\DataTypeTwo()
             );
 
-        $this->assertCount(3, $hits);
+        static::assertCount(3, $hits);
 
         // Testing (4); expecting 2 hits
         $hits = static::$oEngine
@@ -225,7 +228,7 @@ class QueryTest extends TestCase
                 new Mocks\Analysers\DataTypeTwo()
             );
 
-        $this->assertCount(2, $hits);
+        static::assertCount(2, $hits);
 
         // Testing (4); expecting 1 hit1
         $hits = static::$oEngine
@@ -234,7 +237,7 @@ class QueryTest extends TestCase
                 new Mocks\Analysers\DataTypeThree()
             );
 
-        $this->assertCount(1, $hits);
+        static::assertCount(1, $hits);
     }
 
     // --------------------------------------------------------------------------
@@ -254,9 +257,9 @@ class QueryTest extends TestCase
             );
         $hit  = reset($hits);
 
-        $this->assertCount(1, $hits);
-        $this->assertEquals(Mocks\Analysers\DataTypeTwo::class, $hit->getType());
-        $this->assertEquals(2, $hit->getId());
+        static::assertCount(1, $hits);
+        static::assertEquals(Mocks\Analysers\DataTypeTwo::class, $hit->getType());
+        static::assertEquals(2, $hit->getId());
     }
 
     // --------------------------------------------------------------------------
@@ -272,7 +275,7 @@ class QueryTest extends TestCase
                 new Mocks\Analysers\DataTypeTwo()
             );
 
-        $this->assertCount(3, $hits);
+        static::assertCount(3, $hits);
 
         $hits = static::$oEngine
             ->query(
@@ -282,6 +285,6 @@ class QueryTest extends TestCase
                 2
             );
 
-        $this->assertCount(2, $hits);
+        static::assertCount(2, $hits);
     }
 }

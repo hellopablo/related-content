@@ -2,10 +2,13 @@
 
 namespace Tests\TestCases;
 
+use ArgumentCountError;
+use Exception;
 use HelloPablo\RelatedContentEngine\Engine;
 use HelloPablo\RelatedContentEngine\Store;
 use PHPUnit\Framework\TestCase;
 use Tests\Mocks;
+use TypeError;
 
 /**
  * Class EngineTest
@@ -19,7 +22,7 @@ class EngineTest extends TestCase
      */
     public function test_store_is_a_required_argument(): void
     {
-        $this->expectException(\ArgumentCountError::class);
+        $this->expectException(ArgumentCountError::class);
         /** @phpstan-ignore-next-line */
         new Engine();
     }
@@ -31,7 +34,7 @@ class EngineTest extends TestCase
      */
     public function test_store_must_be_instance_of_store(): void
     {
-        $this->expectException(\TypeError::class);
+        $this->expectException(TypeError::class);
         /** @phpstan-ignore-next-line */
         new Engine(null);
     }
@@ -47,7 +50,7 @@ class EngineTest extends TestCase
             'will_connect' => false,
         ]);
 
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
         new Engine($store);
     }
 }

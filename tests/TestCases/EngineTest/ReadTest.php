@@ -2,12 +2,14 @@
 
 namespace Tests\TestCases\EngineTest;
 
-use Exception;
+use ArgumentCountError;
 use HelloPablo\RelatedContentEngine\Engine;
+use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
 use HelloPablo\RelatedContentEngine\Interfaces;
 use PHPUnit\Framework\TestCase;
 use Tests\Mocks;
 use Tests\Traits;
+use TypeError;
 
 /**
  * Class ReadTest
@@ -21,18 +23,19 @@ class ReadTest extends TestCase
     // --------------------------------------------------------------------------
 
     /** @var Interfaces\Store */
-    static $oStore;
+    protected static $oStore;
 
     /** @var Engine */
-    static $oEngine;
+    protected static $oEngine;
 
     // --------------------------------------------------------------------------
 
     /**
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public static function setUpBeforeClass(): void
     {
+        parent::setUpBeforeClass();
         static::$oStore  = static::getStore();
         static::$oEngine = new Engine(static::$oStore);
     }
@@ -44,7 +47,7 @@ class ReadTest extends TestCase
      */
     public function test_first_arg_is_required(): void
     {
-        $this->expectException(\ArgumentCountError::class);
+        $this->expectException(ArgumentCountError::class);
         /** @phpstan-ignore-next-line */
         static::$oEngine->index();
     }
@@ -56,7 +59,7 @@ class ReadTest extends TestCase
      */
     public function test_second_arg_is_required(): void
     {
-        $this->expectException(\ArgumentCountError::class);
+        $this->expectException(ArgumentCountError::class);
         /** @phpstan-ignore-next-line */
         static::$oEngine->index(new Mocks\Objects\DataTypeOne1());
     }
@@ -68,7 +71,7 @@ class ReadTest extends TestCase
      */
     public function test_first_arg_must_be_instance_of_object(): void
     {
-        $this->expectException(\TypeError::class);
+        $this->expectException(TypeError::class);
         /** @phpstan-ignore-next-line */
         static::$oEngine->index(null);
     }
@@ -80,7 +83,7 @@ class ReadTest extends TestCase
      */
     public function test_second_arg_must_be_instance_of_analyser(): void
     {
-        $this->expectException(\TypeError::class);
+        $this->expectException(TypeError::class);
         /** @phpstan-ignore-next-line */
         static::$oEngine->index(new Mocks\Objects\DataTypeOne1(), null);
     }
@@ -99,8 +102,8 @@ class ReadTest extends TestCase
             ->index($object1, $analyser)
             ->read($object1, $analyser);
 
-        $this->assertNotEmpty($relations);
-        $this->assertCount(3, $relations);
+        static::assertNotEmpty($relations);
+        static::assertCount(3, $relations);
     }
 
     // --------------------------------------------------------------------------
@@ -123,8 +126,8 @@ class ReadTest extends TestCase
             ->read($object1, $analyser);
 
         $data = static::$oEngine->dump();
-        $this->assertNotEmpty($relations);
-        $this->assertCount(6, $data);
-        $this->assertCount(3, $relations);
+        static::assertNotEmpty($relations);
+        static::assertCount(6, $data);
+        static::assertCount(3, $relations);
     }
 }

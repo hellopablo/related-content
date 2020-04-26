@@ -2,7 +2,8 @@
 
 namespace Tests\TestCases\StoreTest\MySQLTest;
 
-use Exception;
+use HelloPablo\RelatedContentEngine\Exception\MissingExtension;
+use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
 use HelloPablo\RelatedContentEngine\Store;
 use Tests\Traits;
 use PHPUnit\Framework\TestCase;
@@ -21,7 +22,8 @@ class InitTableTest extends TestCase
     /**
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::test
      * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::initTable
-     * @throws Exception
+     * @throws NotConnectedException
+     * @throws MissingExtension
      */
     public function test_creates_table_on_connect(): void
     {
@@ -30,12 +32,12 @@ class InitTableTest extends TestCase
         $pdo->query('DROP TABLE IF EXISTS `' . Store\MySQL::DEFAULT_TABLE . '`;');
 
         $query = $pdo->query('SHOW TABLES LIKE \'' . Store\MySQL::DEFAULT_TABLE . '\';');
-        $this->assertEquals(0, $query->rowCount());
+        static::assertEquals(0, $query->rowCount());
 
         static::getStore();
 
         $query = $pdo->query('SHOW TABLES LIKE \'' . Store\MySQL::DEFAULT_TABLE . '\';');
-        $this->assertEquals(1, $query->rowCount());
+        static::assertEquals(1, $query->rowCount());
 
         $pdo->query('DROP TABLE IF EXISTS `' . Store\MySQL::DEFAULT_TABLE . '`;');
     }

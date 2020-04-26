@@ -2,8 +2,8 @@
 
 namespace Tests\TestCases\EngineTest;
 
-use Exception;
 use HelloPablo\RelatedContentEngine\Engine;
+use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
 use HelloPablo\RelatedContentEngine\Interfaces;
 use PHPUnit\Framework\TestCase;
 use Tests\Mocks;
@@ -21,18 +21,19 @@ class DumpTest extends TestCase
     // --------------------------------------------------------------------------
 
     /** @var Interfaces\Store */
-    static $oStore;
+    protected static $oStore;
 
     /** @var Engine */
-    static $oEngine;
+    protected static $oEngine;
 
     // --------------------------------------------------------------------------
 
     /**
-     * @throws Exception
+     * @throws NotConnectedException
      */
     public static function setUpBeforeClass(): void
     {
+        parent::setUpBeforeClass();
         static::$oStore  = static::getStore();
         static::$oEngine = new Engine(static::$oStore);
     }
@@ -45,7 +46,7 @@ class DumpTest extends TestCase
     public function test_can_dump_store_contents(): void
     {
         $data = static::$oEngine->dump();
-        $this->assertCount(0, $data);
+        static::assertCount(0, $data);
 
         static::$oEngine->index(
             new Mocks\Objects\DataTypeOne1(),
@@ -53,6 +54,6 @@ class DumpTest extends TestCase
         );
 
         $data = static::$oEngine->dump();
-        $this->assertCount(3, $data);
+        static::assertCount(3, $data);
     }
 }
