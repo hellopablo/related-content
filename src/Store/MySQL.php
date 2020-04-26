@@ -424,7 +424,7 @@ class MySQL implements Interfaces\Store
         return array_map(
             function (stdClass $hit) {
                 return new Query\Hit(
-                    $hit->entity,
+                    new $hit->entity(),
                     $hit->id,
                     $hit->score
                 );

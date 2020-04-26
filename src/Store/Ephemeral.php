@@ -294,7 +294,7 @@ class Ephemeral implements Interfaces\Store
             }
 
             $results[$key] = new Query\Hit(
-                $hit->entity,
+                new $hit->entity(),
                 $hit->id,
                 $resultMap[$key]
             );
