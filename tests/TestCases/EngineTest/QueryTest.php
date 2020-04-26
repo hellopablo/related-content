@@ -3,9 +3,9 @@
 namespace Tests\TestCases\EngineTest;
 
 use ArgumentCountError;
-use HelloPablo\RelatedContentEngine\Engine;
-use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
-use HelloPablo\RelatedContentEngine\Interfaces;
+use HelloPablo\RelatedContent\Engine;
+use HelloPablo\RelatedContent\Exception\NotConnectedException;
+use HelloPablo\RelatedContent\Interfaces;
 use PHPUnit\Framework\TestCase;
 use Tests\Mocks;
 use Tests\Traits;
@@ -90,7 +90,7 @@ class QueryTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Engine::query
+     * @covers \HelloPablo\RelatedContent\Engine::query
      */
     public function test_first_arg_is_required(): void
     {
@@ -102,7 +102,7 @@ class QueryTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Engine::query
+     * @covers \HelloPablo\RelatedContent\Engine::query
      */
     public function test_second_arg_is_required(): void
     {
@@ -114,7 +114,7 @@ class QueryTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Engine::query
+     * @covers \HelloPablo\RelatedContent\Engine::query
      */
     public function test_first_arg_must_be_instance_of_object(): void
     {
@@ -126,7 +126,7 @@ class QueryTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Engine::query
+     * @covers \HelloPablo\RelatedContent\Engine::query
      */
     public function test_second_arg_must_be_instance_of_analyser(): void
     {
@@ -138,7 +138,7 @@ class QueryTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Engine::query
+     * @covers \HelloPablo\RelatedContent\Engine::query
      */
     public function test_third_arg_must_be_array(): void
     {
@@ -155,7 +155,7 @@ class QueryTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Engine::query
+     * @covers \HelloPablo\RelatedContent\Engine::query
      */
     public function test_third_arg_must_be_array_of_analysers(): void
     {
@@ -172,7 +172,7 @@ class QueryTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Engine::query
+     * @covers \HelloPablo\RelatedContent\Engine::query
      */
     public function test_fourth_arg_must_be_an_int(): void
     {
@@ -190,7 +190,7 @@ class QueryTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Engine::query
+     * @covers \HelloPablo\RelatedContent\Engine::query
      */
     public function test_returns_related_items(): void
     {
@@ -243,7 +243,7 @@ class QueryTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Engine::query
+     * @covers \HelloPablo\RelatedContent\Engine::query
      */
     public function test_returns_related_items_of_type(): void
     {
@@ -265,7 +265,7 @@ class QueryTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Engine::query
+     * @covers \HelloPablo\RelatedContent\Engine::query
      */
     public function test_returns_limited_number_of_related_items(): void
     {

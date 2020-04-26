@@ -3,7 +3,7 @@
 namespace Tests\TestCases\StoreTest\EphemeralTest;
 
 use Exception;
-use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
+use HelloPablo\RelatedContent\Exception\NotConnectedException;
 use PHPUnit\Framework\TestCase;
 use Tests\Mocks;
 use Tests\Traits;
@@ -21,8 +21,8 @@ class DeleteTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::delete
-     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::delete
+     * @covers \HelloPablo\RelatedContent\Store\Ephemeral::delete
+     * @covers \HelloPablo\RelatedContent\Store\MySQL::delete
      * @throws NotConnectedException
      */
     public function test_can_delete_data(): void
@@ -45,8 +45,8 @@ class DeleteTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::delete
-     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::delete
+     * @covers \HelloPablo\RelatedContent\Store\Ephemeral::delete
+     * @covers \HelloPablo\RelatedContent\Store\MySQL::delete
      * @throws NotConnectedException
      */
     public function test_deletes_data_for_item(): void
@@ -74,8 +74,8 @@ class DeleteTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::delete
-     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::delete
+     * @covers \HelloPablo\RelatedContent\Store\Ephemeral::delete
+     * @covers \HelloPablo\RelatedContent\Store\MySQL::delete
      * @throws NotConnectedException
      */
     public function test_throws_exception_if_disconnected()

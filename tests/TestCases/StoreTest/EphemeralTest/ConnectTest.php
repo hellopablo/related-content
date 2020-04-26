@@ -2,7 +2,7 @@
 
 namespace Tests\TestCases\StoreTest\EphemeralTest;
 
-use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
+use HelloPablo\RelatedContent\Exception\NotConnectedException;
 use PHPUnit\Framework\TestCase;
 use Tests\Traits;
 
@@ -18,7 +18,7 @@ class ConnectTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::connect
+     * @covers \HelloPablo\RelatedContent\Store\Ephemeral::connect
      * @throws NotConnectedException
      */
     public function test_fails_to_connect_when_will_connect_is_false(): void
@@ -30,9 +30,9 @@ class ConnectTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::connect
-     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::isConnected
-     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::getConnection
+     * @covers \HelloPablo\RelatedContent\Store\Ephemeral::connect
+     * @covers \HelloPablo\RelatedContent\Store\Ephemeral::isConnected
+     * @covers \HelloPablo\RelatedContent\Store\Ephemeral::getConnection
      * @throws NotConnectedException
      */
     public function test_can_connect(): void

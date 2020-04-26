@@ -1,11 +1,11 @@
 <?php
 
-namespace HelloPablo\RelatedContentEngine\Interfaces;
+namespace HelloPablo\RelatedContent\Interfaces;
 
 /**
  * Interface Relation
  *
- * @package HelloPablo\RelatedContentEngine\Interfaces
+ * @package HelloPablo\RelatedContent\Interfaces
  */
 interface Relation
 {

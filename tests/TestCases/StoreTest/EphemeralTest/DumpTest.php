@@ -3,7 +3,7 @@
 namespace Tests\TestCases\StoreTest\EphemeralTest;
 
 use Exception;
-use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
+use HelloPablo\RelatedContent\Exception\NotConnectedException;
 use PHPUnit\Framework\TestCase;
 use Tests\Traits;
 
@@ -19,8 +19,8 @@ class DumpTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::delete
-     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::delete
+     * @covers \HelloPablo\RelatedContent\Store\Ephemeral::delete
+     * @covers \HelloPablo\RelatedContent\Store\MySQL::delete
      * @throws NotConnectedException
      */
     public function test_can_dump_data(): void
@@ -35,8 +35,8 @@ class DumpTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::dump
-     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::dump
+     * @covers \HelloPablo\RelatedContent\Store\Ephemeral::dump
+     * @covers \HelloPablo\RelatedContent\Store\MySQL::dump
      * @throws NotConnectedException
      */
     public function test_throws_exception_if_disconnected()

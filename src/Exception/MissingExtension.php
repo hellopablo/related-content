@@ -1,13 +1,13 @@
 <?php
 
-namespace HelloPablo\RelatedContentEngine\Exception;
+namespace HelloPablo\RelatedContent\Exception;
 
 use Exception;
 
 /**
  * Class MissingExtension
  *
- * @package HelloPablo\RelatedContentEngine\Exception
+ * @package HelloPablo\RelatedContent\Exception
  */
 class MissingExtension extends Exception
 {

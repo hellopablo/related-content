@@ -1,13 +1,13 @@
 <?php
 
-namespace HelloPablo\RelatedContentEngine\Query;
+namespace HelloPablo\RelatedContent\Query;
 
-use HelloPablo\RelatedContentEngine\Interfaces;
+use HelloPablo\RelatedContent\Interfaces;
 
 /**
  * Class Hit
  *
- * @package HelloPablo\RelatedContentEngine\Query
+ * @package HelloPablo\RelatedContent\Query
  */
 class Hit
 {

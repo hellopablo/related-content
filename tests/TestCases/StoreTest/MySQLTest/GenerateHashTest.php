@@ -2,9 +2,9 @@
 
 namespace Tests\TestCases\StoreTest\MySQLTest;
 
-use HelloPablo\RelatedContentEngine\Exception\MissingExtension;
-use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
-use HelloPablo\RelatedContentEngine\Store\MySQL;
+use HelloPablo\RelatedContent\Exception\MissingExtension;
+use HelloPablo\RelatedContent\Exception\NotConnectedException;
+use HelloPablo\RelatedContent\Store\MySQL;
 use PHPUnit\Framework\TestCase;
 use Tests\Traits;
 
@@ -20,7 +20,7 @@ class GenerateHashTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::generateHash
+     * @covers \HelloPablo\RelatedContent\Store\MySQL::generateHash
      * @throws NotConnectedException
      * @throws MissingExtension
      */

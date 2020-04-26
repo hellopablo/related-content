@@ -1,5 +1,5 @@
 {
-    "name": "hellopablo/related-content-engine",
+    "name": "hellopablo/related-content",
     "description": "A framework for analysing objects in your application and finding related content.",
     "type": "library",
     "require": {
@@ -11,11 +11,11 @@
         "phpstan/phpstan": "^0.12.19"
     },
     "suggest": {
-        "ext-pdo": "Install the PDO extension to sue the MySQL Store"
+        "ext-pdo": "Install the PDO extension to use the MySQL Store"
     },
     "autoload": {
         "psr-4": {
-            "HelloPablo\\RelatedContentEngine\\": "src/"
+            "HelloPablo\\RelatedContent\\": "src/"
         }
     },
     "autoload-dev": {

@@ -3,7 +3,7 @@
 namespace Tests\TestCases\StoreTest\EphemeralTest;
 
 use Exception;
-use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
+use HelloPablo\RelatedContent\Exception\NotConnectedException;
 use PHPUnit\Framework\TestCase;
 use Tests\Mocks;
 use Tests\Traits;
@@ -21,8 +21,8 @@ class ReadTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::read
-     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::read
+     * @covers \HelloPablo\RelatedContent\Store\Ephemeral::read
+     * @covers \HelloPablo\RelatedContent\Store\MySQL::read
      * @throws NotConnectedException
      */
     public function test_can_read_data(): void
@@ -43,8 +43,8 @@ class ReadTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::read
-     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::read
+     * @covers \HelloPablo\RelatedContent\Store\Ephemeral::read
+     * @covers \HelloPablo\RelatedContent\Store\MySQL::read
      * @throws NotConnectedException
      */
     public function test_read_returns_data_for_requested_item_only(): void
@@ -70,8 +70,8 @@ class ReadTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::read
-     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::read
+     * @covers \HelloPablo\RelatedContent\Store\Ephemeral::read
+     * @covers \HelloPablo\RelatedContent\Store\MySQL::read
      * @throws NotConnectedException
      */
     public function test_throws_exception_if_disconnected()

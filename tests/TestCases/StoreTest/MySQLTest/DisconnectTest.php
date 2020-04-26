@@ -2,8 +2,8 @@
 
 namespace Tests\TestCases\StoreTest\MySQLTest;
 
-use HelloPablo\RelatedContentEngine\Exception\MissingExtension;
-use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
+use HelloPablo\RelatedContent\Exception\MissingExtension;
+use HelloPablo\RelatedContent\Exception\NotConnectedException;
 use PDO;
 use PHPUnit\Framework\TestCase;
 use Tests\Traits;
@@ -20,10 +20,10 @@ class DisconnectTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::connect
-     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::disconnect
-     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::isConnected
-     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::getConnection
+     * @covers \HelloPablo\RelatedContent\Store\MySQL::connect
+     * @covers \HelloPablo\RelatedContent\Store\MySQL::disconnect
+     * @covers \HelloPablo\RelatedContent\Store\MySQL::isConnected
+     * @covers \HelloPablo\RelatedContent\Store\MySQL::getConnection
      * @throws NotConnectedException
      * @throws MissingExtension
      */

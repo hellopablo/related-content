@@ -1,14 +1,14 @@
 <?php
 
-namespace HelloPablo\RelatedContentEngine;
+namespace HelloPablo\RelatedContent;
 
-use HelloPablo\RelatedContentEngine\Interfaces;
-use HelloPablo\RelatedContentEngine\Query;
+use HelloPablo\RelatedContent\Interfaces;
+use HelloPablo\RelatedContent\Query;
 
 /**
  * Class Engine
  *
- * @package HelloPablo\RelatedContentEngine
+ * @package HelloPablo\RelatedContent
  */
 class Engine
 {

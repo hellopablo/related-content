@@ -2,9 +2,9 @@
 
 namespace Tests\TestCases\EngineTest;
 
-use HelloPablo\RelatedContentEngine\Engine;
-use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
-use HelloPablo\RelatedContentEngine\Interfaces;
+use HelloPablo\RelatedContent\Engine;
+use HelloPablo\RelatedContent\Exception\NotConnectedException;
+use HelloPablo\RelatedContent\Interfaces;
 use PHPUnit\Framework\TestCase;
 use Tests\Traits;
 
@@ -40,7 +40,7 @@ class EmptyTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Engine::empty
+     * @covers \HelloPablo\RelatedContent\Engine::empty
      */
     public function test_can_empty_store(): void
     {

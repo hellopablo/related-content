@@ -1,13 +1,13 @@
 <?php
 
-namespace HelloPablo\RelatedContentEngine\Relation;
+namespace HelloPablo\RelatedContent\Relation;
 
-use HelloPablo\RelatedContentEngine\Interfaces;
+use HelloPablo\RelatedContent\Interfaces;
 
 /**
  * Class Node
  *
- * @package HelloPablo\RelatedContentEngine\Relation
+ * @package HelloPablo\RelatedContent\Relation
  */
 class Node implements Interfaces\Relation
 {

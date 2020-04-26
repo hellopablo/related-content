@@ -2,7 +2,7 @@
 
 namespace Tests\TestCases\StoreTest;
 
-use HelloPablo\RelatedContentEngine\Store;
+use HelloPablo\RelatedContent\Store;
 use PHPUnit\Framework\TestCase;
 use Tests\Mocks;
 

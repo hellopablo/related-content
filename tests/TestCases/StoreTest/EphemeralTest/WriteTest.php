@@ -3,8 +3,8 @@
 namespace Tests\TestCases\StoreTest\EphemeralTest;
 
 use Exception;
-use HelloPablo\RelatedContentEngine\Exception\NotConnectedException;
-use HelloPablo\RelatedContentEngine\Interfaces;
+use HelloPablo\RelatedContent\Exception\NotConnectedException;
+use HelloPablo\RelatedContent\Interfaces;
 use PHPUnit\Framework\TestCase;
 use Tests\Mocks;
 use Tests\Traits;
@@ -22,8 +22,8 @@ class WriteTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::write
-     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::write
+     * @covers \HelloPablo\RelatedContent\Store\Ephemeral::write
+     * @covers \HelloPablo\RelatedContent\Store\MySQL::write
      * @throws NotConnectedException
      */
     public function test_can_write_data(): void
@@ -43,8 +43,8 @@ class WriteTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::write
-     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::write
+     * @covers \HelloPablo\RelatedContent\Store\Ephemeral::write
+     * @covers \HelloPablo\RelatedContent\Store\MySQL::write
      * @throws NotConnectedException
      */
     public function test_method_returns_instance_of_store(): void
@@ -64,8 +64,8 @@ class WriteTest extends TestCase
     // --------------------------------------------------------------------------
 
     /**
-     * @covers \HelloPablo\RelatedContentEngine\Store\Ephemeral::write
-     * @covers \HelloPablo\RelatedContentEngine\Store\MySQL::write
+     * @covers \HelloPablo\RelatedContent\Store\Ephemeral::write
+     * @covers \HelloPablo\RelatedContent\Store\MySQL::write
      * @throws NotConnectedException
      */
     public function test_throws_exception_if_disconnected()
