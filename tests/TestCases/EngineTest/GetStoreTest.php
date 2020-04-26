@@ -20,10 +20,10 @@ class GetStoreTest extends TestCase
     // --------------------------------------------------------------------------
 
     /** @var Interfaces\Store */
-    static $oStore;
+    protected static $oStore;
 
     /** @var Engine */
-    static $oEngine;
+    protected static $oEngine;
 
     // --------------------------------------------------------------------------
 
@@ -32,6 +32,7 @@ class GetStoreTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
+        parent::setUpBeforeClass();
         static::$oStore  = static::getStore();
         static::$oEngine = new Engine(static::$oStore);
     }
@@ -43,7 +44,7 @@ class GetStoreTest extends TestCase
      */
     public function test_returns_instance_of_store(): void
     {
-        $this->assertSame(
+        static::assertSame(
             static::$oStore,
             static::$oEngine->getStore()
         );

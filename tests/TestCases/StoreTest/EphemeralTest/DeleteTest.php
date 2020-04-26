@@ -31,15 +31,15 @@ class DeleteTest extends TestCase
 
         [$entity, $object, $id, $relations] = $this->getDataTypeOne1();
 
-        $this->assertGreaterThan(0, count($relations));
+        static::assertGreaterThan(0, count($relations));
 
         $store->write($entity, $id, $relations);
 
-        $this->assertCount(count($relations), $store->dump());
+        static::assertCount(count($relations), $store->dump());
 
         $store->delete($entity, $id);
 
-        $this->assertCount(0, $store->dump());
+        static::assertCount(0, $store->dump());
     }
 
     // --------------------------------------------------------------------------
@@ -56,19 +56,19 @@ class DeleteTest extends TestCase
         [$entity, $object1, $id1, $relations1] = $this->getDataTypeOne1();
         [$entity, $object2, $id2, $relations2] = $this->getDataTypeOne2();
 
-        $this->assertGreaterThan(0, count($relations1));
-        $this->assertGreaterThan(0, count($relations2));
+        static::assertGreaterThan(0, count($relations1));
+        static::assertGreaterThan(0, count($relations2));
 
         $store
             ->write($entity, $id1, $relations1)
             ->write($entity, $id2, $relations2);
 
-        $this->assertCount(count($relations1) + count($relations2), $store->dump());
+        static::assertCount(count($relations1) + count($relations2), $store->dump());
 
         $store
             ->delete($entity, $id1);
 
-        $this->assertCount(count($relations2), $store->dump());
+        static::assertCount(count($relations2), $store->dump());
     }
 
     // --------------------------------------------------------------------------

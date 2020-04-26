@@ -31,12 +31,12 @@ class DisconnectTest extends TestCase
     {
         $store = static::getStore();
 
-        $this->assertTrue($store->isConnected());
-        $this->assertInstanceOf(PDO::class, $store->getConnection());
+        static::assertTrue($store->isConnected());
+        static::assertInstanceOf(PDO::class, $store->getConnection());
 
         $store->disconnect();
 
-        $this->assertFalse($store->isConnected());
-        $this->assertNull($store->getConnection());
+        static::assertFalse($store->isConnected());
+        static::assertNull($store->getConnection());
     }
 }

@@ -31,13 +31,13 @@ class ReadTest extends TestCase
 
         [$entity, $object, $id, $relations] = $this->getDataTypeOne1();
 
-        $this->assertGreaterThan(0, count($relations));
+        static::assertGreaterThan(0, count($relations));
 
         $store->write($entity, $id, $relations);
 
         $data = $store->read($entity, $id);
 
-        $this->assertCount(count($relations), $data);
+        static::assertCount(count($relations), $data);
     }
 
     // --------------------------------------------------------------------------
@@ -54,8 +54,8 @@ class ReadTest extends TestCase
         [$entity, $object1, $id1, $relations1] = $this->getDataTypeOne1();
         [$entity, $object2, $id2, $relations2] = $this->getDataTypeOne2();
 
-        $this->assertGreaterThan(0, count($relations1));
-        $this->assertGreaterThan(0, count($relations2));
+        static::assertGreaterThan(0, count($relations1));
+        static::assertGreaterThan(0, count($relations2));
 
         $store
             ->write($entity, $id1, $relations1)
@@ -63,8 +63,8 @@ class ReadTest extends TestCase
 
         $data = $store->read($entity, $id1);
 
-        $this->assertCount(count($relations1) + count($relations2), $store->dump());
-        $this->assertCount(count($relations1), $data);
+        static::assertCount(count($relations1) + count($relations2), $store->dump());
+        static::assertCount(count($relations1), $data);
     }
 
     // --------------------------------------------------------------------------

@@ -20,10 +20,10 @@ class EmptyTest extends TestCase
     // --------------------------------------------------------------------------
 
     /** @var Interfaces\Store */
-    static $oStore;
+    protected static $oStore;
 
     /** @var Engine */
-    static $oEngine;
+    protected static $oEngine;
 
     // --------------------------------------------------------------------------
 
@@ -32,6 +32,7 @@ class EmptyTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
+        parent::setUpBeforeClass();
         static::$oStore  = static::getStore(['seed' => true]);
         static::$oEngine = new Engine(static::$oStore);
     }
@@ -45,12 +46,12 @@ class EmptyTest extends TestCase
     {
         $data = static::$oEngine->dump();
 
-        $this->assertNotEmpty($data);
-        $this->assertCount(1, $data);
+        static::assertNotEmpty($data);
+        static::assertCount(1, $data);
 
         static::$oEngine->empty();
 
         $data = static::$oEngine->dump();
-        $this->assertEmpty($data);
+        static::assertEmpty($data);
     }
 }

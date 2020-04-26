@@ -23,10 +23,10 @@ class DeleteTest extends TestCase
     // --------------------------------------------------------------------------
 
     /** @var Interfaces\Store */
-    static $oStore;
+    protected static $oStore;
 
     /** @var Engine */
-    static $oEngine;
+    protected static $oEngine;
 
     // --------------------------------------------------------------------------
 
@@ -35,6 +35,7 @@ class DeleteTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
+        parent::setUpBeforeClass();
         static::$oStore  = static::getStore();
         static::$oEngine = new Engine(static::$oStore);
     }
@@ -104,8 +105,8 @@ class DeleteTest extends TestCase
 
         $data = static::$oEngine->dump();
 
-        $this->assertNotEmpty($data);
-        $this->assertCount(3, $data);
+        static::assertNotEmpty($data);
+        static::assertCount(3, $data);
 
         static::$oEngine->delete(
             $object,
@@ -113,7 +114,7 @@ class DeleteTest extends TestCase
         );
 
         $data = static::$oEngine->dump();
-        $this->assertEmpty($data);
+        static::assertEmpty($data);
     }
 
     // --------------------------------------------------------------------------
@@ -138,8 +139,8 @@ class DeleteTest extends TestCase
             );
 
         $data = static::$oEngine->dump();
-        $this->assertNotEmpty($data);
-        $this->assertCount(6, $data);
+        static::assertNotEmpty($data);
+        static::assertCount(6, $data);
 
         static::$oEngine->delete(
             $object1,
@@ -147,7 +148,7 @@ class DeleteTest extends TestCase
         );
 
         $data = static::$oEngine->dump();
-        $this->assertCount(3, $data);
+        static::assertCount(3, $data);
     }
 
     // --------------------------------------------------------------------------
@@ -157,7 +158,7 @@ class DeleteTest extends TestCase
      */
     public function test_delete_returns_instance_of_engine(): void
     {
-        $this->assertInstanceOf(
+        static::assertInstanceOf(
             Engine::class,
             static::$oEngine->delete(
                 new Mocks\Objects\DataTypeOne1(),

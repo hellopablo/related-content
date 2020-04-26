@@ -32,12 +32,12 @@ class InitTableTest extends TestCase
         $pdo->query('DROP TABLE IF EXISTS `' . Store\MySQL::DEFAULT_TABLE . '`;');
 
         $query = $pdo->query('SHOW TABLES LIKE \'' . Store\MySQL::DEFAULT_TABLE . '\';');
-        $this->assertEquals(0, $query->rowCount());
+        static::assertEquals(0, $query->rowCount());
 
         static::getStore();
 
         $query = $pdo->query('SHOW TABLES LIKE \'' . Store\MySQL::DEFAULT_TABLE . '\';');
-        $this->assertEquals(1, $query->rowCount());
+        static::assertEquals(1, $query->rowCount());
 
         $pdo->query('DROP TABLE IF EXISTS `' . Store\MySQL::DEFAULT_TABLE . '`;');
     }

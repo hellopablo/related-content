@@ -28,12 +28,12 @@ class DisconnectTest extends TestCase
     {
         $store = static::getStore();
 
-        $this->assertTrue($store->isConnected());
-        $this->assertIsArray($store->getConnection());
+        static::assertTrue($store->isConnected());
+        static::assertIsArray($store->getConnection());
 
         $store->disconnect();
 
-        $this->assertFalse($store->isConnected());
-        $this->assertNull($store->getConnection());
+        static::assertFalse($store->isConnected());
+        static::assertNull($store->getConnection());
     }
 }

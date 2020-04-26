@@ -52,10 +52,10 @@ class QueryTest extends TestCase
     // --------------------------------------------------------------------------
 
     /** @var Interfaces\Store */
-    static $oStore;
+    protected static $oStore;
 
     /** @var Engine */
-    static $oEngine;
+    protected static $oEngine;
 
     // --------------------------------------------------------------------------
 
@@ -64,6 +64,7 @@ class QueryTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
+        parent::setUpBeforeClass();
         static::$oStore  = static::getStore();
         static::$oEngine = new Engine(static::$oStore);
 
@@ -200,7 +201,7 @@ class QueryTest extends TestCase
                 new Mocks\Analysers\DataTypeOne()
             );
 
-        $this->assertCount(1, $hits);
+        static::assertCount(1, $hits);
 
         // Testing (2); expecting 3 hits
         $hits = static::$oEngine
@@ -209,7 +210,7 @@ class QueryTest extends TestCase
                 new Mocks\Analysers\DataTypeOne()
             );
 
-        $this->assertCount(3, $hits);
+        static::assertCount(3, $hits);
 
         // Testing (3); expecting 3 hits
         $hits = static::$oEngine
@@ -218,7 +219,7 @@ class QueryTest extends TestCase
                 new Mocks\Analysers\DataTypeTwo()
             );
 
-        $this->assertCount(3, $hits);
+        static::assertCount(3, $hits);
 
         // Testing (4); expecting 2 hits
         $hits = static::$oEngine
@@ -227,7 +228,7 @@ class QueryTest extends TestCase
                 new Mocks\Analysers\DataTypeTwo()
             );
 
-        $this->assertCount(2, $hits);
+        static::assertCount(2, $hits);
 
         // Testing (4); expecting 1 hit1
         $hits = static::$oEngine
@@ -236,7 +237,7 @@ class QueryTest extends TestCase
                 new Mocks\Analysers\DataTypeThree()
             );
 
-        $this->assertCount(1, $hits);
+        static::assertCount(1, $hits);
     }
 
     // --------------------------------------------------------------------------
@@ -256,9 +257,9 @@ class QueryTest extends TestCase
             );
         $hit  = reset($hits);
 
-        $this->assertCount(1, $hits);
-        $this->assertEquals(Mocks\Analysers\DataTypeTwo::class, $hit->getType());
-        $this->assertEquals(2, $hit->getId());
+        static::assertCount(1, $hits);
+        static::assertEquals(Mocks\Analysers\DataTypeTwo::class, $hit->getType());
+        static::assertEquals(2, $hit->getId());
     }
 
     // --------------------------------------------------------------------------
@@ -274,7 +275,7 @@ class QueryTest extends TestCase
                 new Mocks\Analysers\DataTypeTwo()
             );
 
-        $this->assertCount(3, $hits);
+        static::assertCount(3, $hits);
 
         $hits = static::$oEngine
             ->query(
@@ -284,6 +285,6 @@ class QueryTest extends TestCase
                 2
             );
 
-        $this->assertCount(2, $hits);
+        static::assertCount(2, $hits);
     }
 }

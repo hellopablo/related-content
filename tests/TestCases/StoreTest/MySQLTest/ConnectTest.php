@@ -47,7 +47,7 @@ class ConnectTest extends TestCase
     {
         $store = static::getStore();
 
-        $this->assertTrue($store->isConnected());
-        $this->assertInstanceOf(PDO::class, $store->getConnection());
+        static::assertTrue($store->isConnected());
+        static::assertInstanceOf(PDO::class, $store->getConnection());
     }
 }

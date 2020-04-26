@@ -22,7 +22,7 @@ class FactoryTest extends TestCase
     public function test_build_returns_instance_of_engine(): void
     {
         $engine = Factory::build(new Store\Ephemeral());
-        $this->assertInstanceOf(Engine::class, $engine);
+        static::assertInstanceOf(Engine::class, $engine);
     }
 
     // --------------------------------------------------------------------------

@@ -26,8 +26,8 @@ class SeedDataTest extends TestCase
         $store = static::getStore();
         $data  = $store->dump();
 
-        $this->assertIsArray($data);
-        $this->assertCount(0, $data);
+        static::assertIsArray($data);
+        static::assertCount(0, $data);
     }
 
     // --------------------------------------------------------------------------
@@ -43,8 +43,8 @@ class SeedDataTest extends TestCase
         $data  = $store->dump();
         $datum = reset($data);
 
-        $this->assertIsArray($data);
-        $this->assertCount(1, $data);
-        $this->assertEquals('test', $datum);
+        static::assertIsArray($data);
+        static::assertCount(1, $data);
+        static::assertEquals('test', $datum);
     }
 }

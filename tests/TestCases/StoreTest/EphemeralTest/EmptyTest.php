@@ -28,13 +28,13 @@ class EmptyTest extends TestCase
         $store = static::getStore(['seed' => true]);
 
         $data = $store->dump();
-        $this->assertNotEmpty($data);
-        $this->assertCount(1, $data);
+        static::assertNotEmpty($data);
+        static::assertCount(1, $data);
 
         $store->empty();
 
         $data = $store->dump();
-        $this->assertEmpty($data);
+        static::assertEmpty($data);
     }
 
     // --------------------------------------------------------------------------

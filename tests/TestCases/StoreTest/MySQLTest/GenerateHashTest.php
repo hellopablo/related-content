@@ -28,7 +28,7 @@ class GenerateHashTest extends TestCase
     {
         /** @var MySQL $store */
         $store = static::getStore();
-        $this->assertEquals(
+        static::assertEquals(
             md5('test::1'),
             $store->generateHash('test', 1)
         );

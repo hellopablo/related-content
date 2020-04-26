@@ -39,7 +39,7 @@ class ConnectTest extends TestCase
     {
         $store = static::getStore();
 
-        $this->assertTrue($store->isConnected());
-        $this->assertIsArray($store->getConnection());
+        static::assertTrue($store->isConnected());
+        static::assertIsArray($store->getConnection());
     }
 }

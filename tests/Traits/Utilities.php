@@ -16,7 +16,7 @@ trait Utilities
      *
      * @return mixed[]
      */
-    function getDataTypeOne1(): array
+    public function getDataTypeOne1(): array
     {
         $analyser  = new Mocks\Analysers\DataTypeOne();
         $object    = new Mocks\Objects\DataTypeOne1();
@@ -33,7 +33,7 @@ trait Utilities
      *
      * @return mixed[]
      */
-    function getDataTypeOne2(): array
+    public function getDataTypeOne2(): array
     {
         $analyser  = new Mocks\Analysers\DataTypeOne();
         $object    = new Mocks\Objects\DataTypeOne2();
@@ -50,7 +50,7 @@ trait Utilities
      *
      * @return mixed[]
      */
-    function getDataTypeTwo1(): array
+    public function getDataTypeTwo1(): array
     {
         $analyser  = new Mocks\Analysers\DataTypeTwo();
         $object    = new Mocks\Objects\DataTypeTwo1();
@@ -67,7 +67,7 @@ trait Utilities
      *
      * @return mixed[]
      */
-    function getDataTypeTwo2(): array
+    public function getDataTypeTwo2(): array
     {
         $analyser  = new Mocks\Analysers\DataTypeTwo();
         $object    = new Mocks\Objects\DataTypeTwo2();
@@ -84,7 +84,7 @@ trait Utilities
      *
      * @return mixed[]
      */
-    function getDataTypeThree1(): array
+    public function getDataTypeThree1(): array
     {
         $analyser  = new Mocks\Analysers\DataTypeThree();
         $object    = new Mocks\Objects\DataTypeThree1();

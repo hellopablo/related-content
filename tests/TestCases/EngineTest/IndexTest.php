@@ -23,10 +23,10 @@ class IndexTest extends TestCase
     // --------------------------------------------------------------------------
 
     /** @var Interfaces\Store */
-    static $oStore;
+    protected static $oStore;
 
     /** @var Engine */
-    static $oEngine;
+    protected static $oEngine;
 
     // --------------------------------------------------------------------------
 
@@ -35,6 +35,7 @@ class IndexTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
+        parent::setUpBeforeClass();
         static::$oStore  = static::getStore();
         static::$oEngine = new Engine(static::$oStore);
     }
@@ -102,8 +103,8 @@ class IndexTest extends TestCase
         );
 
         $data = static::$oEngine->dump();
-        $this->assertNotEmpty($data);
-        $this->assertCount(3, $data);
+        static::assertNotEmpty($data);
+        static::assertCount(3, $data);
     }
 
     // --------------------------------------------------------------------------
@@ -128,8 +129,8 @@ class IndexTest extends TestCase
             );
 
         $data = static::$oEngine->dump();
-        $this->assertNotEmpty($data);
-        $this->assertCount(3, $data);
+        static::assertNotEmpty($data);
+        static::assertCount(3, $data);
     }
 
     // --------------------------------------------------------------------------
@@ -139,7 +140,7 @@ class IndexTest extends TestCase
      */
     public function test_index_returns_instance_of_engine(): void
     {
-        $this->assertInstanceOf(
+        static::assertInstanceOf(
             Engine::class,
             static::$oEngine->index(
                 new Mocks\Objects\DataTypeOne1(),

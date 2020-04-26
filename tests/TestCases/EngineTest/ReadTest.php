@@ -23,10 +23,10 @@ class ReadTest extends TestCase
     // --------------------------------------------------------------------------
 
     /** @var Interfaces\Store */
-    static $oStore;
+    protected static $oStore;
 
     /** @var Engine */
-    static $oEngine;
+    protected static $oEngine;
 
     // --------------------------------------------------------------------------
 
@@ -35,6 +35,7 @@ class ReadTest extends TestCase
      */
     public static function setUpBeforeClass(): void
     {
+        parent::setUpBeforeClass();
         static::$oStore  = static::getStore();
         static::$oEngine = new Engine(static::$oStore);
     }
@@ -101,8 +102,8 @@ class ReadTest extends TestCase
             ->index($object1, $analyser)
             ->read($object1, $analyser);
 
-        $this->assertNotEmpty($relations);
-        $this->assertCount(3, $relations);
+        static::assertNotEmpty($relations);
+        static::assertCount(3, $relations);
     }
 
     // --------------------------------------------------------------------------
@@ -125,8 +126,8 @@ class ReadTest extends TestCase
             ->read($object1, $analyser);
 
         $data = static::$oEngine->dump();
-        $this->assertNotEmpty($relations);
-        $this->assertCount(6, $data);
-        $this->assertCount(3, $relations);
+        static::assertNotEmpty($relations);
+        static::assertCount(6, $data);
+        static::assertCount(3, $relations);
     }
 }

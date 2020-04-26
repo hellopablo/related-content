@@ -18,14 +18,14 @@ use stdClass;
  */
 class MySQL implements Interfaces\Store
 {
-    const DEFAULT_HOST        = '127.0.0.1';
-    const DEFAULT_USER        = '';
-    const DEFAULT_PASS        = '';
-    const DEFAULT_DATABASE    = '';
-    const DEFAULT_TABLE       = 'related_content_data';
-    const DEFAULT_PORT        = '3306';
-    const DEFAULT_CHARSET     = 'utf8mb4';
-    const DEFAULT_PDO_OPTIONS = [
+    public const DEFAULT_HOST        = '127.0.0.1';
+    public const DEFAULT_USER        = '';
+    public const DEFAULT_PASS        = '';
+    public const DEFAULT_DATABASE    = '';
+    public const DEFAULT_TABLE       = 'related_content_data';
+    public const DEFAULT_PORT        = '3306';
+    public const DEFAULT_CHARSET     = 'utf8mb4';
+    public const DEFAULT_PDO_OPTIONS = [
         PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES   => false,
