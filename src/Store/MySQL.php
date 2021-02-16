@@ -98,10 +98,11 @@ class MySQL implements Interfaces\Store
         try {
 
             $dsn = sprintf(
-                'mysql:host=%s;dbname=%s;charset=%s',
+                'mysql:host=%s;dbname=%s;charset=%s;port=%s',
                 $this->host,
                 $this->database,
-                $this->charset
+                $this->charset,
+                $this->port
             );
 
             $this->pdo = new PDO($dsn, $this->user, $this->pass, $this->pdo_options);
