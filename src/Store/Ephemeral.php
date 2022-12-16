@@ -237,6 +237,7 @@ class Ephemeral implements Interfaces\Store
      * @param string|int            $sourceId        The source's ID
      * @param string[]              $restrict        An array of entity types to restrict to
      * @param int|null              $limit           The maximum number of results to return
+     * @param int                   $offset          The query offset
      *
      * @return Query\Hit[]
      * @throws NotConnectedException
@@ -246,7 +247,8 @@ class Ephemeral implements Interfaces\Store
         string $sourceEntity,
         $sourceId,
         array $restrict = [],
-        int $limit = null
+        int $limit = null,
+        int $offset = 0
     ): array {
 
         if (!$this->isConnected()) {
@@ -300,6 +302,6 @@ class Ephemeral implements Interfaces\Store
             );
         }
 
-        return array_slice(array_values($results), 0, $limit);
+        return array_slice(array_values($results), $offset, $limit);
     }
 }

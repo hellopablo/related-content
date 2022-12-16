@@ -119,6 +119,7 @@ interface Store
      * @param string|int $sourceId        The source's ID
      * @param string[]   $restrict        An array of entity types to restrict to
      * @param int|null   $limit           The maximum number of results to return
+     * @param int        $offset          The query offset
      *
      * @return Query\Hit[]
      */
@@ -127,6 +128,7 @@ interface Store
         string $sourceEntity,
         $sourceId,
         array $restrict = [],
-        int $limit = null
+        int $limit = null,
+        int $offset = 0
     ): array;
 }

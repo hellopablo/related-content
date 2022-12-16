@@ -87,7 +87,7 @@ class Article implements Interfaces\Analsyer
         $nodes = [];
 
         foreach ($item->categories as $categoryId) {
-            $nodes[] = new Relation\Node('CATEGORY', $categoryIdid);
+            $nodes[] = new Relation\Node('CATEGORY', $categoryId);
         }
 
         foreach ($item->topics as $topicId) {
@@ -119,7 +119,7 @@ Other analysers (say, for a blog post) might also return `CATEGORY` and `TOPIC` 
 
 The `Engine` is how your application will [mostly] interact with the related content store. It facilitates reading and writing from the [data store](#data-stores), as well as providing an interface for indexing your content using [analysers](#analysers).
 
-A new instance of the enigne can be retrieved via the `Factory` class, you must pass an instance of the [data store](#data-stores) you wish to use.
+A new instance of the engine can be retrieved via the `Factory` class, you must pass an instance of the [data store](#data-stores) you wish to use.
 
 An example using the [MySQL data store](#mysql):
 
@@ -146,7 +146,7 @@ use App\RelatedContent\Analysers;
 
 /**
  * The item we wish to index. This would typically be retrieved using a
- * model, an ORM or some other app-orientated struct.
+ * model, an ORM, or some other app-orientated struct.
  */
 $item = (object) [
     'id'         => 1,
