@@ -115,7 +115,8 @@ class Engine
      * @param object                $source   The source object
      * @param Interfaces\Analyser   $analyser The source's analyser
      * @param Interfaces\Analyser[] $restrict An array of analysers to limit the result set to
-     * @param int                   $limit    The maximum number of results to return
+     * @param int|null              $limit    The maximum number of results to return
+     * @param int                   $offset   The query offset
      *
      * @return Query\Hit[];
      */
@@ -123,7 +124,8 @@ class Engine
         object $source,
         Interfaces\Analyser $analyser,
         array $restrict = [],
-        int $limit = null
+        int $limit = null,
+        int $offset = 0
     ): array {
 
         return $this->store
@@ -137,7 +139,8 @@ class Engine
                     },
                     $restrict
                 ),
-                $limit
+                $limit,
+                $offset
             );
     }
 

@@ -355,6 +355,7 @@ class MySQL implements Interfaces\Store
      * @param string|int            $sourceId        The source's ID
      * @param string[]              $restrict        An array of entity types to restrict to
      * @param int|null              $limit           The maximum number of results to return
+     * @param int                   $offset          The query offset
      *
      * @return Query\Hit[]
      * @throws NotConnectedException
@@ -364,7 +365,8 @@ class MySQL implements Interfaces\Store
         string $sourceEntity,
         $sourceId,
         array $restrict = [],
-        int $limit = null
+        int $limit = null,
+        int $offset = 0
     ): array {
 
         if (!$this->isConnected()) {
@@ -416,7 +418,7 @@ class MySQL implements Interfaces\Store
             'SELECT entity, id, COUNT(*) score FROM %s WHERE %s GROUP BY entity,id ORDER BY score DESC %s',
             $this->table,
             implode(' AND ', $where),
-            !empty($limit) ? 'LIMIT ' . $limit : ''
+            !empty($limit) ? 'LIMIT ' . $offset . ', ' . $limit : ''
         );
 
         $statement = $this->pdo
