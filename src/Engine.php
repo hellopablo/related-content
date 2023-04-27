@@ -17,7 +17,7 @@ class Engine
      *
      * @var Interfaces\Store
      */
-    protected $store;
+    protected Interfaces\Store $store;
 
     // --------------------------------------------------------------------------
 

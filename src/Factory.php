@@ -20,7 +20,7 @@ class Factory
      */
     public static function build(
         Interfaces\Store $store
-    ) {
+    ): Engine {
         return new Engine($store);
     }
 }

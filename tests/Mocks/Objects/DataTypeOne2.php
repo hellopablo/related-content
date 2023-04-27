@@ -10,12 +10,12 @@ namespace Tests\Mocks\Objects;
 class DataTypeOne2
 {
     /** @var int */
-    public $id = 2;
+    public int $id = 2;
 
     /** @var int[] */
-    public $categories = [3, 4];
+    public array $categories = [3, 4];
 
     /** @var int[] */
-    public $topics = [2];
+    public array $topics = [2];
 
 }

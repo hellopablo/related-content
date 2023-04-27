@@ -3,7 +3,7 @@
     "description": "A framework for analysing objects in your application and finding related content.",
     "type": "library",
     "require": {
-        "php": "^7.2"
+        "php": ">8.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^8.5.4",

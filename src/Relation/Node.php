@@ -12,10 +12,10 @@ use HelloPablo\RelatedContent\Interfaces;
 class Node implements Interfaces\Relation
 {
     /** @var string */
-    protected $type;
+    protected string $type;
 
     /** @var mixed */
-    protected $value;
+    protected mixed $value;
 
     // --------------------------------------------------------------------------
 
@@ -25,7 +25,7 @@ class Node implements Interfaces\Relation
      * @param string $type  The type of node
      * @param mixed  $value The node's value
      */
-    public function __construct(string $type, $value)
+    public function __construct(string $type, mixed $value)
     {
         $this->type  = $type;
         $this->value = $value;
@@ -48,9 +48,9 @@ class Node implements Interfaces\Relation
     /**
      * Returns the node's value
      *
-     * @return mixed|null
+     * @return mixed
      */
-    public function getValue()
+    public function getValue(): mixed
     {
         return $this->value;
     }

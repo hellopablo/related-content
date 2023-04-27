@@ -15,7 +15,7 @@ interface Relation
      * @param string $type  The type of item analysed
      * @param mixed  $value The relationship's value
      */
-    public function __construct(string $type, $value);
+    public function __construct(string $type, mixed $value);
 
     // --------------------------------------------------------------------------
 
@@ -33,5 +33,5 @@ interface Relation
      *
      * @return mixed
      */
-    public function getValue();
+    public function getValue(): mixed;
 }

@@ -52,10 +52,10 @@ class QueryTest extends TestCase
     // --------------------------------------------------------------------------
 
     /** @var Interfaces\Store */
-    protected static $oStore;
+    protected static Interfaces\Store $oStore;
 
     /** @var Engine */
-    protected static $oEngine;
+    protected static Engine $oEngine;
 
     // --------------------------------------------------------------------------
 
