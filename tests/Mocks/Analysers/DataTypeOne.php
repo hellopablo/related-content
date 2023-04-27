@@ -43,7 +43,7 @@ class DataTypeOne implements Interfaces\Analyser
      *
      * @return mixed
      */
-    public function getId(object $item)
+    public function getId(object $item): mixed
     {
         return $item->id;
     }

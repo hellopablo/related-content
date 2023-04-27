@@ -52,7 +52,7 @@ interface Store
      *
      * @return mixed
      */
-    public function getConnection();
+    public function getConnection(): mixed;
 
     // --------------------------------------------------------------------------
 
@@ -82,7 +82,7 @@ interface Store
      *
      * @return Relation[]
      */
-    public function read(string $entity, $id): array;
+    public function read(string $entity, string|int $id): array;
 
     // --------------------------------------------------------------------------
 
@@ -95,7 +95,7 @@ interface Store
      *
      * @return $this
      */
-    public function write(string $entity, $id, array $relations): self;
+    public function write(string $entity, string|int $id, array $relations): self;
 
     // --------------------------------------------------------------------------
 
@@ -107,7 +107,7 @@ interface Store
      *
      * @return $this
      */
-    public function delete(string $entity, $id): self;
+    public function delete(string $entity, string|int $id): self;
 
     // --------------------------------------------------------------------------
 
@@ -126,7 +126,7 @@ interface Store
     public function query(
         array $sourceRelations,
         string $sourceEntity,
-        $sourceId,
+        string|int $sourceId,
         array $restrict = [],
         int $limit = null,
         int $offset = 0

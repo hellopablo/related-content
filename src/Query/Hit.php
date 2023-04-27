@@ -11,14 +11,14 @@ use HelloPablo\RelatedContent\Interfaces;
  */
 class Hit
 {
-    /** @var string */
-    protected $analyser;
+    /** @var Interfaces\Analyser */
+    protected Interfaces\Analyser $analyser;
 
-    /** @var int|string */
-    protected $id;
+    /** @var string|int */
+    protected string|int $id;
 
     /** @var int */
-    protected $score;
+    protected int $score;
 
     // --------------------------------------------------------------------------
 
@@ -26,10 +26,10 @@ class Hit
      * Hit constructor.
      *
      * @param Interfaces\Analyser $analyser The item's analyser
-     * @param int|string          $id       The item's ID
+     * @param string|int          $id       The item's ID
      * @param int                 $score    The item's score
      */
-    public function __construct(Interfaces\Analyser $analyser, $id, int $score)
+    public function __construct(Interfaces\Analyser $analyser, string|int $id, int $score)
     {
         $this->analyser = $analyser;
         $this->id       = $id;
@@ -53,9 +53,9 @@ class Hit
     /**
      * Returns the item's ID
      *
-     * @return int|string
+     * @return string|int
      */
-    public function getId()
+    public function getId(): string|int
     {
         return $this->id;
     }

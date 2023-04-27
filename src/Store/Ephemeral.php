@@ -20,21 +20,21 @@ class Ephemeral implements Interfaces\Store
      *
      * @var stdClass[]
      */
-    public $data;
+    public array $data;
 
     /**
      * Whether the store will succeed in connecting
      *
      * @var bool
      */
-    protected $will_connect = true;
+    protected bool $willConnect = true;
 
     /**
      * Whether the store is connected (mainly used for testing)
      *
      * @var bool
      */
-    protected $is_connected = false;
+    protected bool $isConnected = false;
 
     // --------------------------------------------------------------------------
 
@@ -45,8 +45,8 @@ class Ephemeral implements Interfaces\Store
      */
     public function __construct(array $config = [])
     {
-        $this->data         = $config['data'] ?? [];
-        $this->will_connect = $config['will_connect'] ?? true;
+        $this->data        = $config['data'] ?? [];
+        $this->willConnect = $config['will_connect'] ?? true;
     }
 
     // --------------------------------------------------------------------------
@@ -59,11 +59,11 @@ class Ephemeral implements Interfaces\Store
      */
     public function connect(): Interfaces\Store
     {
-        if (!$this->will_connect) {
+        if (!$this->willConnect) {
             throw new NotConnectedException('Failed to connect to the store');
         }
 
-        $this->is_connected = true;
+        $this->isConnected = true;
         return $this;
     }
 
@@ -76,7 +76,7 @@ class Ephemeral implements Interfaces\Store
      */
     public function isConnected(): bool
     {
-        return $this->is_connected;
+        return $this->isConnected;
     }
 
     // --------------------------------------------------------------------------
@@ -88,7 +88,7 @@ class Ephemeral implements Interfaces\Store
      */
     public function disconnect(): Interfaces\Store
     {
-        $this->is_connected = false;
+        $this->isConnected = false;
         return $this;
     }
 
@@ -99,9 +99,9 @@ class Ephemeral implements Interfaces\Store
      *
      * @return mixed
      */
-    public function getConnection()
+    public function getConnection(): mixed
     {
-        return $this->is_connected ? $this->data : null;
+        return $this->isConnected ? $this->data : null;
     }
 
     // --------------------------------------------------------------------------
@@ -150,7 +150,7 @@ class Ephemeral implements Interfaces\Store
      * @return Interfaces\Relation[]
      * @throws NotConnectedException
      */
-    public function read(string $entity, $id): array
+    public function read(string $entity, string|int $id): array
     {
         if (!$this->isConnected()) {
             throw new NotConnectedException('Store not connected');
@@ -181,7 +181,7 @@ class Ephemeral implements Interfaces\Store
      * @return $this
      * @throws NotConnectedException
      */
-    public function write(string $entity, $id, array $relations): Interfaces\Store
+    public function write(string $entity, string|int $id, array $relations): Interfaces\Store
     {
         if (!$this->isConnected()) {
             throw new NotConnectedException('Store not connected');
@@ -210,7 +210,7 @@ class Ephemeral implements Interfaces\Store
      * @return $this
      * @throws NotConnectedException
      */
-    public function delete(string $entity, $id): Interfaces\Store
+    public function delete(string $entity, string|int $id): Interfaces\Store
     {
         if (!$this->isConnected()) {
             throw new NotConnectedException('Store not connected');
@@ -245,7 +245,7 @@ class Ephemeral implements Interfaces\Store
     public function query(
         array $sourceRelations,
         string $sourceEntity,
-        $sourceId,
+        string|int $sourceId,
         array $restrict = [],
         int $limit = null,
         int $offset = 0

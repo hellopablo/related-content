@@ -34,31 +34,31 @@ class MySQL implements Interfaces\Store
     // --------------------------------------------------------------------------
 
     /** @var string */
-    protected $host;
+    protected string $host;
 
     /** @var string */
-    protected $user;
+    protected string $user;
 
     /** @var string */
-    protected $pass;
+    protected string $pass;
 
     /** @var string */
-    protected $database;
+    protected string $database;
 
     /** @var string */
-    protected $table;
+    protected string $table;
 
     /** @var string */
-    protected $port;
+    protected string $port;
 
     /** @var string */
-    protected $charset;
+    protected string $charset;
 
     /** @var PDO|null */
-    protected $pdo;
+    protected ?PDO $pdo;
 
     /** @var mixed[] */
-    protected $pdo_options;
+    protected array $pdoOptions;
 
     // --------------------------------------------------------------------------
 
@@ -71,14 +71,14 @@ class MySQL implements Interfaces\Store
      */
     public function __construct(array $config = [])
     {
-        $this->host        = $config['host'] ?? static::DEFAULT_HOST;
-        $this->user        = $config['user'] ?? static::DEFAULT_USER;
-        $this->pass        = $config['pass'] ?? static::DEFAULT_PASS;
-        $this->database    = $config['database'] ?? static::DEFAULT_DATABASE;
-        $this->table       = $config['table'] ?? static::DEFAULT_TABLE;
-        $this->port        = $config['port'] ?? static::DEFAULT_PORT;
-        $this->charset     = $config['charset'] ?? static::DEFAULT_CHARSET;
-        $this->pdo_options = $config['pdo_options'] ?? static::DEFAULT_PDO_OPTIONS;
+        $this->host       = $config['host'] ?? static::DEFAULT_HOST;
+        $this->user       = $config['user'] ?? static::DEFAULT_USER;
+        $this->pass       = $config['pass'] ?? static::DEFAULT_PASS;
+        $this->database   = $config['database'] ?? static::DEFAULT_DATABASE;
+        $this->table      = $config['table'] ?? static::DEFAULT_TABLE;
+        $this->port       = $config['port'] ?? static::DEFAULT_PORT;
+        $this->charset    = $config['charset'] ?? static::DEFAULT_CHARSET;
+        $this->pdoOptions = $config['pdo_options'] ?? static::DEFAULT_PDO_OPTIONS;
 
         if (!extension_loaded('pdo')) {
             throw new MissingExtension('PDO extension not installed');
@@ -105,7 +105,7 @@ class MySQL implements Interfaces\Store
                 $this->port
             );
 
-            $this->pdo = new PDO($dsn, $this->user, $this->pass, $this->pdo_options);
+            $this->pdo = new PDO($dsn, $this->user, $this->pass, $this->pdoOptions);
 
             $this->initTable();
 
@@ -172,9 +172,9 @@ class MySQL implements Interfaces\Store
     /**
      * Returns the store connection
      *
-     * @return mixed
+     * @return PDO|null
      */
-    public function getConnection()
+    public function getConnection(): ?PDO
     {
         return $this->pdo;
     }
@@ -240,7 +240,7 @@ class MySQL implements Interfaces\Store
      * @return Interfaces\Relation[]
      * @throws NotConnectedException
      */
-    public function read(string $entity, $id): array
+    public function read(string $entity, string|int $id): array
     {
         if (!$this->isConnected()) {
             throw new NotConnectedException('Store not connected');
@@ -283,7 +283,7 @@ class MySQL implements Interfaces\Store
      * @return $this
      * @throws NotConnectedException
      */
-    public function write(string $entity, $id, array $relations): Interfaces\Store
+    public function write(string $entity, string|int $id, array $relations): Interfaces\Store
     {
         if (!$this->isConnected()) {
             throw new NotConnectedException('Store not connected');
@@ -322,7 +322,7 @@ class MySQL implements Interfaces\Store
      * @return $this
      * @throws NotConnectedException
      */
-    public function delete(string $entity, $id): Interfaces\Store
+    public function delete(string $entity, string|int $id): Interfaces\Store
     {
         if (!$this->isConnected()) {
             throw new NotConnectedException('Store not connected');
@@ -363,7 +363,7 @@ class MySQL implements Interfaces\Store
     public function query(
         array $sourceRelations,
         string $sourceEntity,
-        $sourceId,
+        string|int $sourceId,
         array $restrict = [],
         int $limit = null,
         int $offset = 0
@@ -441,12 +441,12 @@ class MySQL implements Interfaces\Store
     /**
      * Generates the item's hash
      *
-     * @param string $entity The item'sentity string
-     * @param mixed  $id     The item's ID
+     * @param string     $entity The item'sentity string
+     * @param string|int $id     The item's ID
      *
      * @return string
      */
-    public function generateHash(string $entity, $id): string
+    public function generateHash(string $entity, string|int $id): string
     {
         return md5(
             sprintf(
