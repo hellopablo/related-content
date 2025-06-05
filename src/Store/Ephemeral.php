@@ -247,7 +247,7 @@ class Ephemeral implements Interfaces\Store
         string $sourceEntity,
         string|int $sourceId,
         array $restrict = [],
-        int $limit = null,
+        ?int $limit = null,
         int $offset = 0
     ): array {
 
