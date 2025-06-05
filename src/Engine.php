@@ -124,7 +124,7 @@ class Engine
         object $source,
         Interfaces\Analyser $analyser,
         array $restrict = [],
-        int $limit = null,
+        ?int $limit = null,
         int $offset = 0
     ): array {
 
